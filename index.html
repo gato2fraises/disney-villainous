@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Disney Villainous - Jeu de Plateau Digital</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 1rem 0;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .cta-button { font-size: 1.1rem; padding: 12px 30px; }
+            .hero { margin: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🎭 Disney Villainous</h1>
+        <p class="subtitle">
+            Incarnez des méchants Disney emblématiques dans cette version digitale du célèbre jeu de plateau !
+        </p>
+        
+        <a href="web/villainous-ultimate.html" class="cta-button">
+            🎮 Jouer Maintenant
+        </a>
+        
+        <a href="https://github.com/gato2fraises/disney-villainous" class="cta-button">
+            📋 Code Source
+        </a>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🧙‍♀️</div>
+                <h3>3 Méchants</h3>
+                <p>Maleficent, Captain Hook, Jafar</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚔️</div>
+                <h3>Règles Officielles</h3>
+                <p>Gameplay authentique du jeu de plateau</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Interface Moderne</h3>
+                <p>Responsive design avec animations</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🃏</div>
+                <h3>Système de Cartes</h3>
+                <p>Decks Méchant et Fatalité complets</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made with ❤️ for Disney fans | Open Source Project
+    </div>
+
+    <script>
+        // Redirection automatique après 10 secondes si pas d'interaction
+        let redirectTimer = setTimeout(() => {
+            window.location.href = 'web/villainous-ultimate.html';
+        }, 10000);
+
+        // Annuler la redirection si l'utilisateur interagit
+        document.addEventListener('click', () => {
+            clearTimeout(redirectTimer);
+        });
+
+        document.addEventListener('scroll', () => {
+            clearTimeout(redirectTimer);
+        });
+    </script>
+</body>
+</html>
