@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnostic Simple</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #2c3e50; 
+            color: white; 
+        }
+        .step { 
+            margin: 10px 0; 
+            padding: 10px; 
+            background: #34495e; 
+            border-radius: 5px; 
+        }
+        .ok { background: #27ae60; }
+        .error { background: #e74c3c; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Diagnostic Disney Villainous</h1>
+    <div id="results"></div>
+
+    <script>
+        function log(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = `step ${isError ? 'error' : 'ok'}`;
+            div.textContent = message;
+            document.getElementById('results').appendChild(div);
+            console.log(message);
+        }
+
+        try {
+            log("✅ 1. HTML chargé");
+            
+            // Test 1: Chargement du script game-data
+            const script1 = document.createElement('script');
+            script1.src = 'js/game-data.js';
+            script1.onload = function() {
+                log("✅ 2. game-data.js chargé");
+                
+                // Test des données
+                if (typeof VILLAINS !== 'undefined') {
+                    log(`✅ 3. VILLAINS trouvé (${Object.keys(VILLAINS).length} méchants)`);
+                } else {
+                    log("❌ 3. VILLAINS manquant", true);
+                }
+                
+                if (typeof VILLAIN_CARDS !== 'undefined') {
+                    log("✅ 4. VILLAIN_CARDS trouvé");
+                } else {
+                    log("❌ 4. VILLAIN_CARDS manquant", true);
+                }
+                
+                // Test 2: Chargement du script animations
+                const script2 = document.createElement('script');
+                script2.src = 'js/animations.js';
+                script2.onload = function() {
+                    log("✅ 5. animations.js chargé");
+                    
+                    if (typeof AnimationManager !== 'undefined') {
+                        log("✅ 6. AnimationManager disponible");
+                        try {
+                            const anim = new AnimationManager();
+                            log("✅ 7. AnimationManager créé avec succès");
+                        } catch (e) {
+                            log(`❌ 7. Erreur création AnimationManager: ${e.message}`, true);
+                        }
+                    } else {
+                        log("❌ 6. AnimationManager introuvable", true);
+                    }
+                    
+                    // Test 3: Continuer avec les autres scripts
+                    testNextScripts();
+                };
+                script2.onerror = function() {
+                    log("❌ 5. Erreur chargement animations.js", true);
+                };
+                document.head.appendChild(script2);
+            };
+            script1.onerror = function() {
+                log("❌ 2. Erreur chargement game-data.js", true);
+            };
+            document.head.appendChild(script1);
+            
+        } catch (error) {
+            log(`❌ Erreur générale: ${error.message}`, true);
+        }
+
+        function testNextScripts() {
+            // Test du card-manager
+            const script3 = document.createElement('script');
+            script3.src = 'js/card-manager.js';
+            script3.onload = function() {
+                log("✅ 8. card-manager.js chargé");
+                
+                if (typeof CardManager !== 'undefined') {
+                    log("✅ 9. CardManager disponible");
+                    try {
+                        const cardMgr = new CardManager();
+                        log("✅ 10. CardManager créé avec succès");
+                    } catch (e) {
+                        log(`❌ 10. Erreur création CardManager: ${e.message}`, true);
+                    }
+                } else {
+                    log("❌ 9. CardManager introuvable", true);
+                }
+                
+                // Test final
+                testFinalScripts();
+            };
+            script3.onerror = function() {
+                log("❌ 8. Erreur chargement card-manager.js", true);
+            };
+            document.head.appendChild(script3);
+        }
+
+        function testFinalScripts() {
+            log("🎯 Tests de base terminés");
+            log("💡 Si vous voyez ce message, les scripts de base fonctionnent");
+            
+            // Test de la fonction showNotification
+            if (typeof showNotification === 'function') {
+                log("✅ showNotification disponible");
+            } else {
+                log("❌ showNotification manquante", true);
+            }
+        }
+    </script>
+</body>
+</html>

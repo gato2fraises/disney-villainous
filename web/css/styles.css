@@ -1,0 +1,397 @@
+/* Styles principaux pour Disney Villainous Web */
+
+:root {
+    /* Couleurs thématiques */
+    --primary-purple: #4a1a5c;
+    --secondary-purple: #6b2d7d;
+    --accent-gold: #ffd700;
+    --dark-bg: #1a0d1f;
+    --light-purple: #8a4ba8;
+    --text-light: #ffffff;
+    --text-dark: #2c1810;
+    --card-bg: #2a1835;
+    --border-gold: #ffcc00;
+    --shadow-dark: rgba(0, 0, 0, 0.6);
+    --gradient-main: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+    --gradient-card: linear-gradient(145deg, #2a1835, #3d2047);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-light);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* === ÉCRAN DE CHARGEMENT === */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease;
+}
+
+.loading-content {
+    text-align: center;
+    animation: fadeInUp 1s ease;
+}
+
+.loading-title {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px var(--shadow-dark);
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(255, 215, 0, 0.3);
+    border-top: 4px solid var(--accent-gold);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+.loading-text {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* === MENU PRINCIPAL === */
+.main-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.menu-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="castle" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><text x="10" y="15" text-anchor="middle" font-size="16" fill="rgba(255,215,0,0.1)">🏰</text></pattern></defs><rect width="100" height="100" fill="url(%23castle)"/></svg>');
+    opacity: 0.1;
+}
+
+.menu-content {
+    text-align: center;
+    z-index: 2;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+.game-title {
+    font-family: 'Cinzel', serif;
+    margin-bottom: 1rem;
+}
+
+.title-disney {
+    display: block;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    text-shadow: 3px 3px 6px var(--shadow-dark);
+}
+
+.title-villainous {
+    display: block;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-shadow: 3px 3px 6px var(--shadow-dark);
+    margin-top: -0.5rem;
+}
+
+.game-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* === BOUTONS === */
+.menu-btn {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 250px;
+    font-family: inherit;
+}
+
+.menu-btn.primary {
+    background: var(--accent-gold);
+    color: var(--text-dark);
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.menu-btn.primary:hover {
+    background: #ffdd33;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.menu-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.menu-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+.menu-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* === UTILITAIRES === */
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease;
+}
+
+/* === CONFIGURATION DE PARTIE === */
+.game-setup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 2rem;
+}
+
+.setup-content {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.setup-content h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--accent-gold);
+}
+
+.setup-section {
+    margin-bottom: 2rem;
+}
+
+.setup-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--accent-gold);
+}
+
+/* === SÉLECTEUR DE JOUEURS === */
+.player-count-selector {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.count-btn {
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.count-btn:hover {
+    border-color: var(--accent-gold);
+    background: rgba(255, 215, 0, 0.2);
+}
+
+.count-btn.active {
+    background: var(--accent-gold);
+    color: var(--text-dark);
+    border-color: var(--accent-gold);
+}
+
+/* === SÉLECTION DES MÉCHANTS === */
+.villain-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.villain-card {
+    background: var(--gradient-card);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.villain-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px var(--shadow-dark);
+}
+
+.villain-card.selected {
+    border-color: var(--accent-gold);
+    background: var(--gradient-main);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.villain-card.taken {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(70%);
+}
+
+.villain-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.villain-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-gold);
+}
+
+.villain-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.3;
+}
+
+.player-assignment {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--accent-gold);
+    color: var(--text-dark);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* === ACTIONS DE CONFIGURATION === */
+.setup-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+/* === RESPONSIVITÉ === */
+@media (max-width: 768px) {
+    .title-disney {
+        font-size: 2rem;
+    }
+    
+    .title-villainous {
+        font-size: 2.5rem;
+    }
+    
+    .menu-btn {
+        min-width: 200px;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .setup-content {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    .villain-selection {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .setup-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .loading-title {
+        font-size: 2rem;
+    }
+    
+    .title-disney {
+        font-size: 1.5rem;
+    }
+    
+    .title-villainous {
+        font-size: 2rem;
+    }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>🏰 Disney Villainous - Version Sans Scripts</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c1810, #1a0e08);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c1810, #1a0e08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .loading-content {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .loading-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .main-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c1810, #1a0e08);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        
+        .menu-content {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .game-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .title-disney {
+            color: #4169E1;
+        }
+        
+        .title-villainous {
+            background: linear-gradient(45deg, #8B0000, #DC143C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .menu-btn {
+            display: block;
+            margin: 1rem auto;
+            padding: 1rem 2rem;
+            background: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 250px;
+        }
+        
+        .menu-btn:hover {
+            background: #A00000;
+            transform: translateY(-2px);
+        }
+        
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Écran de chargement -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-title">🏰 Disney Villainous</h1>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Préparation de votre destinée maléfique...</p>
+            <div id="loading-status" style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                Test sans scripts externes...
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu principal -->
+    <div id="main-menu" class="main-menu">
+        <div class="menu-content">
+            <h1 class="game-title">
+                <span class="title-disney">Disney</span>
+                <span class="title-villainous">Villainous</span>
+            </h1>
+            <p style="margin-bottom: 2rem; font-size: 1.2rem;">Incarnez les plus grands méchants Disney</p>
+            
+            <button class="menu-btn" onclick="alert('🎮 Interface de jeu en développement...')">
+                🎮 Nouvelle Partie
+            </button>
+            <button class="menu-btn" onclick="alert('📖 Règles du jeu en développement...')">
+                📖 Règles du Jeu
+            </button>
+            <button class="menu-btn" onclick="alert('🏆 Crédits en développement...')">
+                🏆 Crédits
+            </button>
+            <button class="menu-btn" onclick="location.reload()" style="background: #006400;">
+                🔄 Recommencer le Test
+            </button>
+        </div>
+    </div>
+
+    <script>
+        console.log('🚀 Script principal démarré');
+        
+        let countdown = 3;
+        const statusDiv = document.getElementById('loading-status');
+        
+        function updateCountdown() {
+            if (countdown > 0) {
+                console.log(`⏱️ Compte à rebours: ${countdown}`);
+                statusDiv.textContent = `Chargement terminé dans ${countdown} seconde${countdown > 1 ? 's' : ''}...`;
+                countdown--;
+                setTimeout(updateCountdown, 1000);
+            } else {
+                showMainMenu();
+            }
+        }
+        
+        function showMainMenu() {
+            console.log('🎉 Affichage du menu principal');
+            statusDiv.textContent = 'Chargement terminé !';
+            
+            const loadingScreen = document.getElementById('loading-screen');
+            const mainMenu = document.getElementById('main-menu');
+            
+            // Animation de transition
+            setTimeout(() => {
+                loadingScreen.style.transition = 'opacity 0.5s ease';
+                loadingScreen.style.opacity = '0';
+                
+                setTimeout(() => {
+                    loadingScreen.classList.add('hidden');
+                    mainMenu.style.display = 'flex';
+                    console.log('✅ Menu principal affiché');
+                }, 500);
+            }, 500);
+        }
+        
+        // Démarrer le test quand le DOM est prêt
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 DOM chargé');
+            statusDiv.textContent = 'DOM chargé, démarrage du test...';
+            setTimeout(updateCountdown, 1000);
+        });
+        
+        // Gestion des erreurs
+        window.addEventListener('error', (e) => {
+            console.error('❌ Erreur:', e.message);
+            statusDiv.textContent = `ERREUR: ${e.message}`;
+            statusDiv.style.color = '#ff6b6b';
+        });
+        
+        console.log('✅ Configuration terminée');
+    </script>
+</body>
+</html>

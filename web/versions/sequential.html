@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Disney Villainous - Chargement Séquentiel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Écran de chargement avec statut -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-title">🏰 Disney Villainous</h1>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Préparation de votre destinée maléfique...</p>
+            <div id="loading-status" style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                Initialisation...
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu principal -->
+    <div id="main-menu" class="main-menu hidden">
+        <div class="menu-background"></div>
+        <div class="menu-content">
+            <h1 class="game-title">
+                <span class="title-disney">Disney</span>
+                <span class="title-villainous">Villainous</span>
+            </h1>
+            <p class="game-subtitle">Incarnez les plus grands méchants Disney</p>
+            
+            <div class="menu-buttons">
+                <button class="menu-btn primary" onclick="showGameSetup()">
+                    🎮 Nouvelle Partie
+                </button>
+                <button class="menu-btn secondary" onclick="showRules()">
+                    📖 Règles du Jeu
+                </button>
+                <button class="menu-btn secondary" onclick="showCredits()">
+                    🏆 Crédits
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration de partie (version minimale) -->
+    <div id="game-setup" class="game-setup hidden">
+        <div class="setup-content">
+            <h2>🎭 Configuration de la Partie</h2>
+            <p>Interface de configuration en cours de développement...</p>
+            <button onclick="showMainMenu()" class="btn secondary">Retour</button>
+        </div>
+    </div>
+
+    <!-- Interface de jeu (version minimale) -->
+    <div id="game-interface" class="game-interface hidden">
+        <div class="game-content">
+            <h2>🎮 Interface de Jeu</h2>
+            <p>Interface de jeu en cours de développement...</p>
+            <button onclick="showMainMenu()" class="btn secondary">Menu Principal</button>
+        </div>
+    </div>
+
+    <!-- Overlay pour les notifications -->
+    <div id="notification-overlay" class="notification-overlay hidden">
+        <div class="notification" id="notification">
+            <span class="notification-icon">ℹ️</span>
+            <span class="notification-text" id="notification-text">Message</span>
+        </div>
+    </div>
+
+    <script>
+        // Fonction de notification immédiate
+        function showNotification(message, type = 'info') {
+            console.log(`[${type.toUpperCase()}] ${message}`);
+            updateLoadingStatus(message);
+        }
+
+        function updateLoadingStatus(status) {
+            const statusDiv = document.getElementById('loading-status');
+            if (statusDiv) {
+                statusDiv.textContent = status;
+            }
+        }
+
+        // Variables globales
+        let scriptsLoaded = 0;
+        const scripts = [
+            { name: 'game-data.js', path: 'js/game-data.js' },
+            { name: 'animations-safe.js', path: 'js/animations-safe.js' },
+            { name: 'card-manager.js', path: 'js/card-manager.js' },
+            { name: 'drag-drop.js', path: 'js/drag-drop.js' },
+            { name: 'ui-manager.js', path: 'js/ui-manager.js' },
+            { name: 'game-logic.js', path: 'js/game-logic.js' }
+        ];
+
+        // Chargement séquentiel des scripts
+        function loadScripts() {
+            updateLoadingStatus('Chargement des scripts...');
+            loadNextScript(0);
+        }
+
+        function loadNextScript(index) {
+            if (index >= scripts.length) {
+                // Tous les scripts chargés
+                updateLoadingStatus('Scripts chargés, initialisation...');
+                setTimeout(initializeApp, 500);
+                return;
+            }
+
+            const script = scripts[index];
+            updateLoadingStatus(`Chargement ${script.name}...`);
+
+            const scriptElement = document.createElement('script');
+            scriptElement.src = script.path;
+            
+            scriptElement.onload = function() {
+                console.log(`✅ ${script.name} chargé`);
+                scriptsLoaded++;
+                
+                // Test spécifique pour chaque script
+                testScriptLoaded(script.name);
+                
+                // Charger le script suivant
+                setTimeout(() => loadNextScript(index + 1), 100);
+            };
+            
+            scriptElement.onerror = function() {
+                console.error(`❌ Erreur chargement ${script.name}`);
+                updateLoadingStatus(`Erreur: ${script.name}`);
+                
+                // Continuer malgré l'erreur
+                setTimeout(() => loadNextScript(index + 1), 500);
+            };
+            
+            document.head.appendChild(scriptElement);
+        }
+
+        function testScriptLoaded(scriptName) {
+            switch(scriptName) {
+                case 'game-data.js':
+                    if (typeof VILLAINS !== 'undefined') {
+                        console.log(`✅ VILLAINS disponible (${Object.keys(VILLAINS).length} méchants)`);
+                    } else {
+                        console.warn('⚠️ VILLAINS non défini');
+                    }
+                    break;
+                    
+                case 'animations-safe.js':
+                    if (typeof AnimationManager !== 'undefined') {
+                        console.log('✅ AnimationManager disponible');
+                        try {
+                            window.animationManager = new AnimationManager();
+                            console.log('✅ AnimationManager créé');
+                        } catch (e) {
+                            console.warn('⚠️ Erreur création AnimationManager:', e.message);
+                        }
+                    } else {
+                        console.warn('⚠️ AnimationManager non défini');
+                    }
+                    break;
+                    
+                case 'card-manager.js':
+                    if (typeof CardManager !== 'undefined') {
+                        console.log('✅ CardManager disponible');
+                        try {
+                            window.cardManager = new CardManager();
+                            console.log('✅ CardManager créé');
+                        } catch (e) {
+                            console.warn('⚠️ Erreur création CardManager:', e.message);
+                        }
+                    }
+                    break;
+                    
+                case 'ui-manager.js':
+                    if (typeof UIManager !== 'undefined') {
+                        console.log('✅ UIManager disponible');
+                        try {
+                            window.uiManager = new UIManager();
+                            console.log('✅ UIManager créé');
+                        } catch (e) {
+                            console.warn('⚠️ Erreur création UIManager:', e.message);
+                        }
+                    }
+                    break;
+            }
+        }
+
+        function initializeApp() {
+            try {
+                updateLoadingStatus('Finalisation...');
+                
+                // Masquer l'écran de chargement
+                setTimeout(() => {
+                    const loadingScreen = document.getElementById('loading-screen');
+                    const mainMenu = document.getElementById('main-menu');
+                    
+                    if (loadingScreen) {
+                        loadingScreen.style.transition = 'opacity 0.5s ease';
+                        loadingScreen.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            loadingScreen.classList.add('hidden');
+                        }, 500);
+                    }
+                    
+                    if (mainMenu) {
+                        mainMenu.classList.remove('hidden');
+                    }
+                    
+                    console.log('🎉 Application initialisée avec succès');
+                    
+                }, 1000);
+                
+            } catch (error) {
+                console.error('❌ Erreur initialisation:', error);
+                updateLoadingStatus('Erreur d\'initialisation');
+            }
+        }
+
+        // Fonctions utilitaires
+        function showGameSetup() {
+            console.log('Configuration du jeu');
+            const mainMenu = document.getElementById('main-menu');
+            const gameSetup = document.getElementById('game-setup');
+            
+            if (mainMenu) mainMenu.classList.add('hidden');
+            if (gameSetup) gameSetup.classList.remove('hidden');
+        }
+
+        function showMainMenu() {
+            console.log('Menu principal');
+            const screens = ['game-setup', 'game-interface'];
+            const mainMenu = document.getElementById('main-menu');
+            
+            screens.forEach(screenId => {
+                const screen = document.getElementById(screenId);
+                if (screen) screen.classList.add('hidden');
+            });
+            
+            if (mainMenu) mainMenu.classList.remove('hidden');
+        }
+
+        function showRules() {
+            showNotification('Règles du jeu en développement...', 'info');
+        }
+
+        function showCredits() {
+            showNotification('Crédits en développement...', 'info');
+        }
+
+        // Démarrer le chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 DOM chargé, début du chargement des scripts');
+            setTimeout(loadScripts, 500);
+        });
+
+        // Gestion des erreurs
+        window.addEventListener('error', (e) => {
+            console.error('❌ Erreur globale:', e.message);
+            updateLoadingStatus(`Erreur: ${e.message}`);
+        });
+    </script>
+</body>
+</html>

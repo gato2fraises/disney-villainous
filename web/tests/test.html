@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Disney Villainous</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a2e;
+            color: white;
+        }
+        .test-panel {
+            background: #16213e;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        .error {
+            background: #d32f2f;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        .success {
+            background: #388e3c;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #357abd;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Disney Villainous Web</h1>
+    
+    <div class="test-panel">
+        <h2>État des scripts</h2>
+        <div id="script-status"></div>
+    </div>
+    
+    <div class="test-panel">
+        <h2>Test d'initialisation</h2>
+        <button onclick="testInitialization()">Tester l'initialisation</button>
+        <div id="init-results"></div>
+    </div>
+    
+    <div class="test-panel">
+        <h2>Données de jeu</h2>
+        <button onclick="testGameData()">Vérifier les données</button>
+        <div id="data-results"></div>
+    </div>
+    
+    <div class="test-panel">
+        <h2>Gestionnaires</h2>
+        <button onclick="testManagers()">Tester les gestionnaires</button>
+        <div id="managers-results"></div>
+    </div>
+
+    <!-- Scripts dans le bon ordre -->
+    <script src="js/game-data.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/card-manager.js"></script>
+    <script src="js/drag-drop.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/game-logic.js"></script>
+
+    <script>
+        // Tests de diagnostic
+        function updateStatus(elementId, message, isError = false) {
+            const element = document.getElementById(elementId);
+            element.innerHTML += `<div class="${isError ? 'error' : 'success'}">${message}</div>`;
+        }
+
+        function testScripts() {
+            const statusDiv = document.getElementById('script-status');
+            
+            // Test des données globales
+            if (typeof VILLAINS !== 'undefined') {
+                updateStatus('script-status', '✅ VILLAINS chargé - ' + Object.keys(VILLAINS).length + ' méchants');
+            } else {
+                updateStatus('script-status', '❌ VILLAINS non défini', true);
+            }
+            
+            if (typeof VILLAIN_CARDS !== 'undefined') {
+                updateStatus('script-status', '✅ VILLAIN_CARDS chargé');
+            } else {
+                updateStatus('script-status', '❌ VILLAIN_CARDS non défini', true);
+            }
+            
+            // Test des classes
+            const classes = [
+                'AnimationManager',
+                'CardManager',
+                'DragDropManager',
+                'UIManager',
+                'GameManager'
+            ];
+            
+            classes.forEach(className => {
+                if (typeof window[className] !== 'undefined') {
+                    updateStatus('script-status', `✅ Classe ${className} disponible`);
+                } else {
+                    updateStatus('script-status', `❌ Classe ${className} manquante`, true);
+                }
+            });
+        }
+
+        function testInitialization() {
+            const resultsDiv = document.getElementById('init-results');
+            resultsDiv.innerHTML = '';
+            
+            try {
+                // Test création des gestionnaires
+                window.animationManager = new AnimationManager();
+                updateStatus('init-results', '✅ AnimationManager créé');
+                
+                window.cardManager = new CardManager();
+                updateStatus('init-results', '✅ CardManager créé');
+                
+                window.dragDropManager = new DragDropManager();
+                updateStatus('init-results', '✅ DragDropManager créé');
+                
+                window.uiManager = new UIManager();
+                updateStatus('init-results', '✅ UIManager créé');
+                
+                window.gameManager = new GameManager();
+                updateStatus('init-results', '✅ GameManager créé');
+                
+                updateStatus('init-results', '🎉 Tous les gestionnaires créés avec succès !');
+                
+            } catch (error) {
+                updateStatus('init-results', '❌ Erreur: ' + error.message, true);
+                console.error('Erreur d\'initialisation:', error);
+            }
+        }
+
+        function testGameData() {
+            const resultsDiv = document.getElementById('data-results');
+            resultsDiv.innerHTML = '';
+            
+            try {
+                // Test des méchants
+                const villainCount = Object.keys(VILLAINS).length;
+                updateStatus('data-results', `✅ ${villainCount} méchants disponibles`);
+                
+                Object.entries(VILLAINS).forEach(([id, villain]) => {
+                    updateStatus('data-results', `  - ${villain.name}: ${villain.board.length} lieux`);
+                });
+                
+                // Test des cartes
+                let totalCards = 0;
+                Object.entries(VILLAIN_CARDS).forEach(([villain, cards]) => {
+                    totalCards += cards.length;
+                    updateStatus('data-results', `✅ ${cards.length} cartes pour ${villain}`);
+                });
+                
+                updateStatus('data-results', `📊 Total: ${totalCards} cartes`);
+                
+            } catch (error) {
+                updateStatus('data-results', '❌ Erreur: ' + error.message, true);
+            }
+        }
+
+        function testManagers() {
+            const resultsDiv = document.getElementById('managers-results');
+            resultsDiv.innerHTML = '';
+            
+            try {
+                if (window.gameManager) {
+                    updateStatus('managers-results', '✅ GameManager disponible');
+                    updateStatus('managers-results', `  - État: ${gameManager.gameState}`);
+                    updateStatus('managers-results', `  - Joueurs: ${gameManager.players.length}`);
+                }
+                
+                if (window.uiManager) {
+                    updateStatus('managers-results', '✅ UIManager disponible');
+                    updateStatus('managers-results', `  - Écran: ${uiManager.currentScreen}`);
+                }
+                
+                if (window.cardManager) {
+                    updateStatus('managers-results', '✅ CardManager disponible');
+                    const jafar = cardManager.createInitialDeck('jafar');
+                    updateStatus('managers-results', `  - Test deck Jafar: ${jafar.length} cartes`);
+                }
+                
+                if (window.animationManager) {
+                    updateStatus('managers-results', '✅ AnimationManager disponible');
+                    updateStatus('managers-results', `  - Canvas créé: ${!!animationManager.canvas}`);
+                }
+                
+                if (window.dragDropManager) {
+                    updateStatus('managers-results', '✅ DragDropManager disponible');
+                }
+                
+            } catch (error) {
+                updateStatus('managers-results', '❌ Erreur: ' + error.message, true);
+                console.error('Erreur test managers:', error);
+            }
+        }
+
+        // Notification simplifiée pour les tests
+        function showNotification(message, type = 'info') {
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        // Test automatique au chargement
+        window.addEventListener('load', () => {
+            testScripts();
+        });
+    </script>
+</body>
+</html>

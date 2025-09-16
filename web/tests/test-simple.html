@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Test Ultra-Simple</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2c1810, #1a0e08);
+            color: white;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .loading {
+            text-align: center;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .main-menu {
+            text-align: center;
+            display: none;
+        }
+        
+        button {
+            background: #8b0000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #a00000;
+        }
+        
+        .status {
+            margin-top: 20px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div id="loading" class="loading">
+        <h1>🏰 Disney Villainous</h1>
+        <div class="spinner"></div>
+        <p>Chargement...</p>
+        <div id="status" class="status">Début du test...</div>
+    </div>
+    
+    <div id="menu" class="main-menu">
+        <h1>🏰 Disney Villainous</h1>
+        <p>Test réussi ! L'application fonctionne.</p>
+        <button onclick="alert('Menu principal actif !')">Nouvelle Partie</button>
+        <button onclick="location.reload()">Recommencer le test</button>
+    </div>
+
+    <script>
+        let step = 0;
+        const steps = [
+            'JavaScript actif...',
+            'DOM prêt...',
+            'Test des timers...',
+            'Test des animations...',
+            'Finalisation...'
+        ];
+        
+        function updateStatus(message) {
+            console.log(`[TEST] ${message}`);
+            const statusDiv = document.getElementById('status');
+            if (statusDiv) {
+                statusDiv.textContent = message;
+            }
+        }
+        
+        function nextStep() {
+            if (step < steps.length) {
+                updateStatus(steps[step]);
+                step++;
+                setTimeout(nextStep, 800);
+            } else {
+                showMenu();
+            }
+        }
+        
+        function showMenu() {
+            updateStatus('Test terminé avec succès !');
+            
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                const menu = document.getElementById('menu');
+                
+                if (loading) {
+                    loading.style.transition = 'opacity 0.5s ease';
+                    loading.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        if (menu) {
+                            menu.style.display = 'block';
+                        }
+                    }, 500);
+                }
+            }, 1000);
+        }
+        
+        // Test principal
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🟢 DOM chargé');
+            updateStatus('DOM chargé...');
+            setTimeout(nextStep, 1000);
+        });
+        
+        // Test d'erreur
+        window.addEventListener('error', (e) => {
+            console.error('🔴 Erreur:', e.message);
+            updateStatus(`ERREUR: ${e.message}`);
+        });
+        
+        console.log('🟢 Script principal chargé');
+    </script>
+</body>
+</html>

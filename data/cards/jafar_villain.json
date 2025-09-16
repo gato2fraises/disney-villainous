@@ -36,6 +36,54 @@
       "expansion": "base"
     },
     {
+      "id": "jafar_ally_3",
+      "name": "Gardes du Palais",
+      "type": "ally",
+      "cost": 1,
+      "description": "Les gardes loyaux au Vizir",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Force +1 pour chaque autre garde",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_ally_4",
+      "name": "Voleurs d'Agrabah",
+      "type": "ally",
+      "cost": 2,
+      "description": "Bandits des rues d'Agrabah",
+      "strength": 2,
+      "effects": [
+        {
+          "description": "Gagne 1 pouvoir en entrant en jeu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_ally_5",
+      "name": "Cobra Géant",
+      "type": "ally",
+      "cost": 4,
+      "description": "Serpent transformé par la magie de Jafar",
+      "strength": 4,
+      "effects": [
+        {
+          "description": "Peut vaincre n'importe quel héros de force 3 ou moins",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
       "id": "jafar_item_1",
       "name": "Lampe Magique",
       "type": "item",
@@ -45,6 +93,10 @@
         {
           "description": "Permet de vaincre n'importe quel héros",
           "trigger": "activate"
+        },
+        {
+          "description": "Gagne 2 pouvoirs par tour",
+          "trigger": "passive"
         }
       ],
       "villain_set": "jafar",
@@ -60,6 +112,36 @@
         {
           "description": "Les héros ont -1 force",
           "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_item_3",
+      "name": "Anneau de Contrôle",
+      "type": "item",
+      "cost": 3,
+      "description": "Anneau magique pour contrôler les esprits",
+      "effects": [
+        {
+          "description": "Peut hypnotiser un héros au lieu de le vaincre",
+          "trigger": "activate"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_item_4",
+      "name": "Tapis Volant",
+      "type": "item",
+      "cost": 2,
+      "description": "Permet de se déplacer rapidement",
+      "effects": [
+        {
+          "description": "Peut se déplacer vers n'importe quel lieu",
+          "trigger": "activate"
         }
       ],
       "villain_set": "jafar",
@@ -96,16 +178,45 @@
       "expansion": "base"
     },
     {
-      "id": "jafar_ally_3",
-      "name": "Gardes du Palais",
-      "type": "ally",
-      "cost": 1,
-      "description": "Les gardes loyaux au Vizir",
-      "strength": 1,
+      "id": "jafar_effect_3",
+      "name": "Tempête de Sable",
+      "type": "effect",
+      "cost": 3,
+      "description": "Une tempête bloque tous les héros",
       "effects": [
         {
-          "description": "Force +1 pour chaque autre garde",
-          "trigger": "passive"
+          "description": "Tous les héros sont bloqués ce tour",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_effect_4",
+      "name": "Richesses du Palais",
+      "type": "effect",
+      "cost": 1,
+      "description": "Puise dans les richesses royales",
+      "effects": [
+        {
+          "description": "Gagne 3 pouvoirs",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_effect_5",
+      "name": "Illusion Magique",
+      "type": "effect",
+      "cost": 2,
+      "description": "Crée des illusions pour tromper les héros",
+      "effects": [
+        {
+          "description": "Pioche 2 cartes et gagne 1 pouvoir",
+          "trigger": "play"
         }
       ],
       "villain_set": "jafar",
@@ -120,6 +231,21 @@
       "effects": [
         {
           "description": "Gagne 1 pouvoir par tour",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_condition_2",
+      "name": "Contrôle du Palais",
+      "type": "condition",
+      "cost": 4,
+      "description": "Jafar règne sur Agrabah",
+      "effects": [
+        {
+          "description": "Les actions au Palais coûtent -1 pouvoir",
           "trigger": "passive"
         }
       ],

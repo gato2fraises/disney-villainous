@@ -22,14 +22,22 @@ Disney Villainous Digital est une version numérique fidèle du jeu de plateau a
 
 ## 🚀 Installation et Lancement
 
-### 🎮 Méthode Rapide (Recommandée)
+### � Version Web (Interface Graphique)
+```bash
+# Ouvrez simplement le fichier dans un navigateur
+web/index.html
+# Ou lancez le jeu complet directement
+web/complete-game.html
+```
+
+### �🎮 Méthode Rapide Console (Recommandée)
 ```bash
 # 1. Clonez le repository
 git clone https://github.com/VOTRE_USERNAME/disney-villainous.git
 cd disney-villainous
 
 # 2. Lancez le jeu (Windows)
-./JOUER.bat
+./lancer_jeu.bat
 ```
 
 ### 🔧 Installation Manuelle
@@ -59,18 +67,33 @@ python main.py
 - **Système de cartes complet** (Méchant + Destin)
 - **Plateaux personnalisés** avec 4 lieux par méchant
 - **Interface console interactive** avec couleurs
+- **Interface graphique web** avec drag-and-drop
 - **Multijoueur local** (1-6 joueurs)
 - **Conditions de victoire asymétriques**
 - **Gestion des tours et actions**
 - **Distribution standalone** (.exe)
 
 ### 🔄 En Développement
-- Interface graphique (GUI)
 - Méchants supplémentaires
 - Mode en ligne
 - IA pour joueurs automatiques
 
 ## 🎮 Comment Jouer
+
+### 🎯 Deux Interfaces Disponibles
+
+#### 🌐 Interface Graphique Web (Recommandée)
+- **Cartes visuelles** avec drag-and-drop
+- **Plateau interactif** avec 4 lieux par méchant
+- **Animations fluides** et thème Disney
+- **Navigation intuitive** et aide contextuelle
+- **Lancement :** Ouvrez `web/complete-game.html`
+
+#### 🖥️ Interface Console (Classique)
+- **Interface texte** avec couleurs
+- **Commandes clavier** pour toutes les actions
+- **Compatible** avec tous les systèmes
+- **Lancement :** Exécutez `lancer_jeu.bat`
 
 ### 🎯 Objectif
 Chaque méchant a un objectif unique à accomplir avant ses adversaires.
@@ -92,7 +115,12 @@ Chaque méchant a un objectif unique à accomplir avant ses adversaires.
 
 ```
 disney-villainous/
-├── 🎮 JOUER.bat                 # Point d'entrée principal
+├── 🎮 lancer_jeu.bat           # Point d'entrée principal
+├── 🌐 web/                     # Interface graphique web
+│   ├── index.html             # Navigation organisée
+│   ├── complete-game.html     # Jeu complet (recommandé)
+│   ├── tests/                 # Tests et diagnostics
+│   └── versions/              # Versions alternatives
 ├── 🔧 creer_exe.bat            # Créateur d'exécutable
 ├── 📦 INSTALLER.bat            # Installation guidée
 ├── 🎯 main.py                  # Lanceur Python
@@ -111,11 +139,22 @@ disney-villainous/
 
 ## 🛠️ Technologies Utilisées
 
+### 🐍 Version Console
 - **Python 3.7+** - Langage principal
 - **JSON** - Stockage des données
 - **Colorama** - Interface console colorée (optionnel)
 - **PyInstaller** - Création d'exécutables
+
+### 🌐 Version Web (Interface Graphique)
+- **HTML5** - Structure de la page
+- **CSS3** - Styles et animations (Grid, Flexbox)
+- **JavaScript ES6+** - Logique de jeu interactive
+- **Drag & Drop API** - Interaction avec les cartes
+- **LocalStorage** - Sauvegarde des parties
+
+### 🔧 Outils de Développement
 - **Git** - Contrôle de version
+- **VS Code** - Environnement de développement
 
 ## 🎭 Détails des Méchants
 
@@ -142,7 +181,9 @@ disney-villainous/
 3. **Package portable** - Utilisez `INSTALLER.bat`
 
 ### 📋 Fichiers de Lancement
-- `JOUER.bat` - Lance le jeu immédiatement
+- `lancer_jeu.bat` - Lance le jeu console immédiatement
+- `web/index.html` - Interface graphique organisée
+- `web/complete-game.html` - Jeu complet avec interface graphique
 - `diagnostic.bat` - Vérifie l'installation
 - `AIDE.txt` - Manuel complet du jeu
 
@@ -165,7 +206,7 @@ Les contributions sont les bienvenues ! Voici comment participer :
 
 ## 📋 TODO
 
-- [ ] Interface graphique
+- [x] Interface graphique (✅ Version web complète disponible)
 - [ ] 3 méchants supplémentaires
 - [ ] Mode en ligne
 - [ ] IA pour solo

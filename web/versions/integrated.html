@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Disney Villainous - Version Intégrée</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Écran de chargement -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <h1 class="loading-title">🏰 Disney Villainous</h1>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Préparation de votre destinée maléfique...</p>
+            <div id="loading-status" style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+                Chargement des données...
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu principal -->
+    <div id="main-menu" class="main-menu hidden">
+        <div class="menu-background"></div>
+        <div class="menu-content">
+            <h1 class="game-title">
+                <span class="title-disney">Disney</span>
+                <span class="title-villainous">Villainous</span>
+            </h1>
+            <p class="game-subtitle">Incarnez les plus grands méchants Disney</p>
+            
+            <div class="menu-buttons">
+                <button class="menu-btn primary" onclick="showGameSetup()">
+                    🎮 Nouvelle Partie
+                </button>
+                <button class="menu-btn secondary" onclick="showRules()">
+                    📖 Règles du Jeu
+                </button>
+                <button class="menu-btn secondary" onclick="showCredits()">
+                    🏆 Crédits
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration de partie -->
+    <div id="game-setup" class="game-setup hidden">
+        <div class="setup-content">
+            <h2>🎭 Configuration de la Partie</h2>
+            
+            <div class="villain-selection">
+                <h3>Choisissez vos méchants :</h3>
+                <div id="villain-cards" class="villain-cards"></div>
+            </div>
+            
+            <div class="setup-actions">
+                <button onclick="startGame()" class="btn primary">Commencer la Partie</button>
+                <button onclick="showMainMenu()" class="btn secondary">Retour</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface de jeu -->
+    <div id="game-interface" class="game-interface hidden">
+        <div class="game-header">
+            <div class="current-player">
+                <span id="current-player-name">Jafar</span>
+                <span id="current-player-icon">🧙‍♂️</span>
+            </div>
+            <div class="game-actions">
+                <button onclick="showMainMenu()" class="btn secondary">Menu Principal</button>
+            </div>
+        </div>
+        
+        <div class="game-board" id="game-board">
+            <!-- Le plateau sera généré dynamiquement -->
+        </div>
+    </div>
+
+    <!-- Scripts intégrés -->
+    <script>
+        console.log('🚀 Démarrage Disney Villainous');
+        
+        // ====== DONNÉES DE JEU (game-data.js intégré) ======
+        const VILLAINS = {
+            jafar: {
+                id: 'jafar',
+                name: 'Jafar',
+                icon: '🧙‍♂️',
+                description: 'Le vizir maléfique d\'Agrabah qui cherche à devenir le génie le plus puissant',
+                startingPower: 4,
+                victoryCondition: 'Avoir la Lampe Magique à la Caverne aux Merveilles et avoir vaincu Aladdin',
+                color: '#8B4513'
+            },
+            ursula: {
+                id: 'ursula',
+                name: 'Ursula',
+                icon: '🐙',
+                description: 'La sorcière des mers qui veut régner sur tous les océans',
+                startingPower: 3,
+                victoryCondition: 'Commencer votre tour avec le Trident et la Couronne',
+                color: '#4B0082'
+            },
+            maleficent: {
+                id: 'maleficent',
+                name: 'Maléfique',
+                icon: '🧚‍♀️',
+                description: 'La maîtresse du mal qui veut maudire le royaume',
+                startingPower: 4,
+                victoryCondition: 'Avoir une malédiction sur chaque lieu de votre royaume',
+                color: '#8B008B'
+            }
+        };
+
+        // ====== GESTIONNAIRE D'ANIMATIONS ======
+        class AnimationManager {
+            constructor() {
+                this.animations = new Map();
+                console.log('✅ AnimationManager initialisé');
+            }
+            
+            fadeIn(element, duration = 500) {
+                if (!element) return Promise.resolve();
+                
+                element.style.opacity = '0';
+                element.style.transition = `opacity ${duration}ms ease`;
+                
+                return new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        element.style.opacity = '1';
+                        setTimeout(resolve, duration);
+                    });
+                });
+            }
+            
+            fadeOut(element, duration = 500) {
+                if (!element) return Promise.resolve();
+                
+                element.style.transition = `opacity ${duration}ms ease`;
+                element.style.opacity = '0';
+                
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        element.style.display = 'none';
+                        resolve();
+                    }, duration);
+                });
+            }
+        }
+
+        // ====== GESTIONNAIRE D'INTERFACE ======
+        class UIManager {
+            constructor() {
+                this.currentScreen = 'loading';
+                this.animationManager = new AnimationManager();
+                console.log('✅ UIManager initialisé');
+            }
+            
+            showScreen(screenId) {
+                console.log(`Affichage écran: ${screenId}`);
+                
+                // Masquer tous les écrans
+                const screens = ['loading-screen', 'main-menu', 'game-setup', 'game-interface'];
+                screens.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element && id !== screenId) {
+                        element.classList.add('hidden');
+                    }
+                });
+                
+                // Afficher l'écran demandé
+                const targetScreen = document.getElementById(screenId);
+                if (targetScreen) {
+                    targetScreen.classList.remove('hidden');
+                    this.currentScreen = screenId;
+                }
+            }
+            
+            updateLoadingStatus(message) {
+                const statusElement = document.getElementById('loading-status');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                }
+                console.log(`[LOADING] ${message}`);
+            }
+            
+            generateVillainCards() {
+                const container = document.getElementById('villain-cards');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                Object.values(VILLAINS).forEach(villain => {
+                    const card = document.createElement('div');
+                    card.className = 'villain-card';
+                    card.innerHTML = `
+                        <div class="villain-icon">${villain.icon}</div>
+                        <div class="villain-name">${villain.name}</div>
+                        <div class="villain-description">${villain.description}</div>
+                        <div class="villain-power">Pouvoir: ${villain.startingPower}</div>
+                    `;
+                    card.style.backgroundColor = villain.color + '20';
+                    card.style.border = `2px solid ${villain.color}`;
+                    card.style.borderRadius = '8px';
+                    card.style.padding = '1rem';
+                    card.style.margin = '0.5rem';
+                    card.style.cursor = 'pointer';
+                    
+                    card.onclick = () => this.selectVillain(villain.id);
+                    container.appendChild(card);
+                });
+            }
+            
+            selectVillain(villainId) {
+                console.log(`Méchant sélectionné: ${villainId}`);
+                
+                // Marquer le méchant comme sélectionné
+                const cards = document.querySelectorAll('.villain-card');
+                cards.forEach(card => {
+                    card.classList.remove('selected');
+                });
+                
+                const selectedCard = Array.from(cards).find(card => 
+                    card.textContent.includes(VILLAINS[villainId].name)
+                );
+                
+                if (selectedCard) {
+                    selectedCard.classList.add('selected');
+                    selectedCard.style.backgroundColor = VILLAINS[villainId].color + '40';
+                }
+            }
+        }
+
+        // ====== VARIABLES GLOBALES ======
+        let uiManager;
+        let gameData = { selectedVillains: [], currentPlayer: 0 };
+
+        // ====== FONCTIONS PRINCIPALES ======
+        function initializeApp() {
+            try {
+                uiManager.updateLoadingStatus('Initialisation de l\'interface...');
+                
+                // Générer les cartes de méchants
+                uiManager.generateVillainCards();
+                
+                uiManager.updateLoadingStatus('Finalisation...');
+                
+                // Transition vers le menu principal
+                setTimeout(() => {
+                    uiManager.showScreen('main-menu');
+                    console.log('🎉 Application initialisée avec succès');
+                }, 1000);
+                
+            } catch (error) {
+                console.error('❌ Erreur d\'initialisation:', error);
+                uiManager.updateLoadingStatus('Erreur d\'initialisation');
+            }
+        }
+
+        function showGameSetup() {
+            console.log('Configuration du jeu');
+            uiManager.showScreen('game-setup');
+        }
+
+        function showMainMenu() {
+            console.log('Menu principal');
+            uiManager.showScreen('main-menu');
+        }
+
+        function startGame() {
+            const selectedCards = document.querySelectorAll('.villain-card.selected');
+            if (selectedCards.length === 0) {
+                alert('Veuillez sélectionner au moins un méchant !');
+                return;
+            }
+            
+            console.log('Démarrage de la partie');
+            uiManager.showScreen('game-interface');
+            
+            // Initialiser le plateau de jeu
+            initializeGameBoard();
+        }
+
+        function initializeGameBoard() {
+            const gameBoard = document.getElementById('game-board');
+            if (gameBoard) {
+                gameBoard.innerHTML = `
+                    <div class="board-message">
+                        <h2>🎮 Plateau de Jeu</h2>
+                        <p>Interface de jeu en cours de développement...</p>
+                        <p>Méchants sélectionnés prêts à jouer !</p>
+                        <div class="villain-display">
+                            ${Object.values(VILLAINS).map(v => 
+                                `<span style="font-size: 2rem; margin: 0 10px;">${v.icon}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showRules() {
+            alert('📖 Règles du jeu en développement...');
+        }
+
+        function showCredits() {
+            alert('🏆 Crédits en développement...');
+        }
+
+        // ====== INITIALISATION ======
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📄 DOM chargé');
+            
+            // Initialiser les gestionnaires
+            uiManager = new UIManager();
+            
+            uiManager.updateLoadingStatus('Chargement des données...');
+            
+            // Vérifier que les données sont disponibles
+            console.log(`✅ ${Object.keys(VILLAINS).length} méchants chargés`);
+            
+            // Démarrer l'initialisation
+            setTimeout(initializeApp, 1500);
+        });
+
+        // Gestion des erreurs
+        window.addEventListener('error', (e) => {
+            console.error('❌ Erreur globale:', e.message);
+            if (uiManager) {
+                uiManager.updateLoadingStatus(`Erreur: ${e.message}`);
+            }
+        });
+
+        console.log('✅ Scripts intégrés chargés');
+    </script>
+
+    <style>
+        /* Styles additionnels pour la version intégrée */
+        .villain-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .villain-card {
+            transition: all 0.3s ease;
+        }
+        
+        .villain-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .villain-card.selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+        
+        .board-message {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin: 2rem;
+        }
+        
+        .villain-display {
+            margin-top: 1rem;
+        }
+    </style>
+</body>
+</html>

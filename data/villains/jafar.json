@@ -1,0 +1,39 @@
+{
+  "villain": {
+    "id": "jafar",
+    "name": "Jafar",
+    "description": "Le vizir maléfique d'Agrabah qui cherche à devenir le génie le plus puissant du monde",
+    "starting_power": 4,
+    "starting_location": 0,
+    "victory_condition": {
+      "type": "custom",
+      "description": "Avoir la Lampe Magique à la Caverne aux Merveilles et avoir vaincu Aladdin",
+      "requirements": [
+        {
+          "type": "item_at_location",
+          "item": "magic_lamp",
+          "location": "cave_of_wonders"
+        },
+        {
+          "type": "hero_defeated",
+          "hero": "aladdin"
+        }
+      ]
+    },
+    "special_abilities": [
+      {
+        "name": "Hypnose",
+        "description": "Peut prendre le contrôle des héros au lieu de les vaincre"
+      },
+      {
+        "name": "Pouvoir du Génie",
+        "description": "Gagne des bonus quand il possède la Lampe Magique"
+      }
+    ]
+  },
+  "statistics": {
+    "difficulty": "Moyen",
+    "victory_time": "25-35 tours",
+    "key_strategy": "Rechercher rapidement la Lampe Magique tout en gérant les héros"
+  }
+}

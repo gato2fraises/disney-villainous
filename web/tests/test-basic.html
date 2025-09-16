@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Basique</title>
+</head>
+<body>
+    <h1 id="title">Test JavaScript</h1>
+    <div id="status">Chargement...</div>
+    
+    <script>
+        console.log("Script démarré");
+        document.getElementById('status').textContent = 'JavaScript fonctionne !';
+        
+        setTimeout(() => {
+            document.getElementById('status').textContent = 'Timer fonctionne !';
+            document.getElementById('title').style.color = 'green';
+        }, 2000);
+    </script>
+</body>
+</html>

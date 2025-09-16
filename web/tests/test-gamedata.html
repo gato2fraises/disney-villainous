@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Game Data</title>
+</head>
+<body>
+    <h1>Test Chargement game-data.js</h1>
+    <div id="status">Chargement...</div>
+    <div id="result"></div>
+    
+    <script>
+        console.log("1. Script principal démarré");
+        document.getElementById('status').textContent = 'Chargement game-data.js...';
+        
+        // Créer et charger le script
+        const script = document.createElement('script');
+        script.src = 'js/game-data.js';
+        
+        script.onload = function() {
+            console.log("2. game-data.js chargé avec succès");
+            document.getElementById('status').textContent = 'game-data.js chargé !';
+            
+            // Tester si VILLAINS existe
+            if (typeof VILLAINS !== 'undefined') {
+                console.log("3. VILLAINS disponible:", Object.keys(VILLAINS));
+                document.getElementById('result').innerHTML = 
+                    '<h2>✅ Succès !</h2>' +
+                    '<p>VILLAINS trouvé avec ' + Object.keys(VILLAINS).length + ' méchants</p>' +
+                    '<ul>' + Object.keys(VILLAINS).map(v => '<li>' + VILLAINS[v].name + ' ' + VILLAINS[v].icon + '</li>').join('') + '</ul>';
+            } else {
+                console.error("3. VILLAINS non défini");
+                document.getElementById('result').innerHTML = '<h2>❌ Erreur : VILLAINS non défini</h2>';
+            }
+        };
+        
+        script.onerror = function() {
+            console.error("2. Erreur chargement game-data.js");
+            document.getElementById('status').textContent = 'ERREUR chargement game-data.js';
+            document.getElementById('result').innerHTML = '<h2>❌ Erreur de chargement</h2>';
+        };
+        
+        document.head.appendChild(script);
+        console.log("1. Script game-data.js ajouté au DOM");
+    </script>
+</body>
+</html>

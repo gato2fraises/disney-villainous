@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Disney Villainous - Jeu Complet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Écran de chargement -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="disney-castle">🏰</div>
+        <h1 class="loading-title">
+            <span class="disney-text">Disney</span>
+            <span class="villainous-text">Villainous</span>
+        </h1>
+        <div class="magic-stars">
+            <span class="star">✨</span>
+            <span class="star">⭐</span>
+            <span class="star">🌟</span>
+            <span class="star">💫</span>
+            <span class="star">⭐</span>
+        </div>
+        <p class="loading-text">Préparation de l'aventure magique...</p>
+        <div id="loading-status" class="loading-status">
+            Chargement de la magie Disney...
+        </div>
+    </div>
+
+    <!-- Menu principal -->
+    <div id="main-menu" class="main-menu hidden">
+        <div class="menu-content">
+            <div class="main-castle">🏰</div>
+            <h1 class="game-title">
+                <span class="disney-logo">Disney</span>
+                <span class="villainous-logo">Villainous</span>
+            </h1>
+            <p class="game-subtitle">✨ Une aventure magique avec les méchants Disney ✨</p>
+            
+            <div class="menu-buttons">
+                <button class="disney-btn primary" onclick="showGameSetup()">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">Nouvelle Aventure</span>
+                </button>
+                <button class="disney-btn secondary" onclick="showRules()">
+                    <span class="btn-icon">📚</span>
+                    <span class="btn-text">Règles du Jeu</span>
+                </button>
+                <button class="disney-btn secondary" onclick="showCredits()">
+                    <span class="btn-icon">🏆</span>
+                    <span class="btn-text">Crédits</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sélection des personnages -->
+    <div id="game-setup" class="game-setup hidden">
+        <div class="setup-header">
+            <h2 class="setup-title">🎭 Choisissez votre Méchant 🎭</h2>
+            <p class="setup-subtitle">Sélectionnez votre personnage pour cette aventure</p>
+        </div>
+        
+        <div class="character-selection">
+            <div id="villain-cards" class="character-grid"></div>
+        </div>
+        
+        <div class="setup-actions">
+            <button onclick="startGame()" class="disney-btn primary large">
+                <span>🌟 Commencer l'Aventure 🌟</span>
+            </button>
+            <button onclick="showMainMenu()" class="disney-btn secondary">
+                <span>↩️ Retour au Menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Interface de jeu complète -->
+    <div id="game-interface" class="game-interface hidden">
+        <!-- En-tête du jeu -->
+        <div class="game-header">
+            <div class="current-villain">
+                <div class="villain-avatar">
+                    <span id="current-villain-icon">🧙‍♂️</span>
+                </div>
+                <div class="villain-info">
+                    <span id="current-villain-name">Jafar</span>
+                    <span class="villain-realm">Agrabah</span>
+                </div>
+            </div>
+            
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Pouvoir</span>
+                    <span id="power-count" class="stat-value">4</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tour</span>
+                    <span id="turn-count" class="stat-value">1</span>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="control-btn" onclick="endTurn()">
+                    <span>⏭️ Fin du Tour</span>
+                </button>
+                <button class="control-btn" onclick="showMainMenu()">
+                    <span>🏠 Menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Zone de jeu principale -->
+        <div class="game-area">
+            <!-- Plateau du joueur -->
+            <div class="player-board">
+                <h3 class="board-title">🏰 Votre Royaume</h3>
+                <div id="location-cards" class="location-row">
+                    <!-- Cartes de lieux générées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- Zone des cartes -->
+            <div class="cards-area">
+                <!-- Main du joueur -->
+                <div class="player-hand">
+                    <h4 class="hand-title">🃏 Votre Main</h4>
+                    <div id="hand-cards" class="hand-cards">
+                        <!-- Cartes en main -->
+                    </div>
+                </div>
+
+                <!-- Pile de cartes -->
+                <div class="card-piles">
+                    <div class="pile">
+                        <div class="pile-card villain-deck" onclick="drawVillainCard()">
+                            <div class="pile-content">
+                                <div class="pile-icon">🎭</div>
+                                <div class="pile-name">Deck Méchant</div>
+                                <div class="pile-count" id="villain-deck-count">30</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pile">
+                        <div class="pile-card fate-deck" onclick="drawFateCard()">
+                            <div class="pile-content">
+                                <div class="pile-icon">⭐</div>
+                                <div class="pile-name">Deck Destin</div>
+                                <div class="pile-count" id="fate-deck-count">15</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Défausse -->
+                <div class="discard-area">
+                    <h4 class="discard-title">🗑️ Défausse</h4>
+                    <div id="discard-pile" class="discard-pile">
+                        <div class="empty-pile">Défausse vide</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zone d'actions -->
+        <div class="action-panel">
+            <div class="actions-available">
+                <h4>⚡ Actions Disponibles</h4>
+                <div id="available-actions" class="action-buttons">
+                    <!-- Actions générées dynamiquement -->
+                </div>
+            </div>
+            
+            <div class="victory-condition">
+                <h4>🏆 Condition de Victoire</h4>
+                <p id="victory-text">Objectif du méchant</p>
+                <div class="progress-bar">
+                    <div id="victory-progress" class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour les cartes -->
+    <div id="card-modal" class="card-modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-card-name">Nom de la Carte</h3>
+                <button class="close-btn" onclick="closeCardModal()">✖️</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-card-details" class="card-details">
+                    <!-- Détails de la carte -->
+                </div>
+                <div class="modal-actions">
+                    <button id="play-card-btn" class="disney-btn primary" onclick="playSelectedCard()">
+                        <span>▶️ Jouer cette Carte</span>
+                    </button>
+                    <button class="disney-btn secondary" onclick="closeCardModal()">
+                        <span>❌ Annuler</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('🏰 Disney Villainous - Jeu Complet');
+        
+        // ====== DONNÉES COMPLÈTES DU JEU ======
+        const VILLAINS = {
+            jafar: {
+                id: 'jafar',
+                name: 'Jafar',
+                realm: 'Agrabah',
+                icon: '🧙‍♂️',
+                startingPower: 4,
+                victoryCondition: 'Avoir la Lampe Magique à la Caverne aux Merveilles',
+                colors: {
+                    primary: '#FF6B35',
+                    secondary: '#F7931E',
+                    accent: '#FFD700'
+                },
+                locations: [
+                    {
+                        id: 'palace_gates',
+                        name: 'Portes du Palais',
+                        icon: '🏰',
+                        actions: [
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'vanquish', icon: '⚔️' }
+                        ]
+                    },
+                    {
+                        id: 'streets_of_agrabah',
+                        name: 'Rues d\'Agrabah',
+                        icon: '🏘️',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'activate', icon: '⚡' },
+                            { type: 'discard_cards', icon: '🗑️' }
+                        ]
+                    },
+                    {
+                        id: 'cave_of_wonders',
+                        name: 'Caverne aux Merveilles',
+                        icon: '🏺',
+                        actions: [
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'activate', icon: '⚡', blockedByHeroes: true },
+                            { type: 'fate', icon: '⭐', blockedByHeroes: true }
+                        ]
+                    },
+                    {
+                        id: 'sultans_palace',
+                        name: 'Palais du Sultan',
+                        icon: '👑',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'hypnotize_guards', icon: '👁️' }
+                        ]
+                    }
+                ]
+            }
+            // Autres méchants simplifiés pour l'exemple
+        };
+
+        const CARD_TYPES = {
+            ally: { name: 'Allié', color: '#4CAF50', icon: '🤝' },
+            item: { name: 'Objet', color: '#2196F3', icon: '🔮' },
+            effect: { name: 'Effet', color: '#9C27B0', icon: '✨' },
+            condition: { name: 'Condition', color: '#FF9800', icon: '📋' },
+            hero: { name: 'Héros', color: '#F44336', icon: '🦸' }
+        };
+
+        // ====== ÉTAT DU JEU ======
+        let gameState = {
+            currentVillain: null,
+            power: 4,
+            turn: 1,
+            hand: [],
+            locations: [],
+            selectedLocation: null,
+            selectedCard: null,
+            actionsRemaining: 0,
+            gamePhase: 'menu' // menu, setup, playing
+        };
+
+        // ====== GESTIONNAIRE DE JEU ======
+        class GameManager {
+            constructor() {
+                this.ui = new DisneyUIManager();
+                console.log('🎮 Gestionnaire de jeu initialisé');
+            }
+
+            initializeGame(villainId) {
+                const villain = VILLAINS[villainId];
+                gameState.currentVillain = villain;
+                gameState.power = villain.startingPower;
+                gameState.locations = [...villain.locations];
+                
+                // Générer la main de départ
+                this.generateStartingHand();
+                
+                // Initialiser l'interface
+                this.updateGameInterface();
+                
+                console.log(`🎭 Jeu initialisé avec ${villain.name}`);
+            }
+
+            generateStartingHand() {
+                // Générer 4 cartes aléatoirement pour commencer
+                const cardTypes = Object.keys(CARD_TYPES);
+                gameState.hand = [];
+                
+                for (let i = 0; i < 4; i++) {
+                    const randomType = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+                    const card = this.generateRandomCard(randomType);
+                    gameState.hand.push(card);
+                }
+            }
+
+            generateRandomCard(type) {
+                const typeInfo = CARD_TYPES[type];
+                const cardNames = {
+                    ally: ['Garde du Palais', 'Marchand', 'Voleur des Rues'],
+                    item: ['Lampe Magique', 'Tapis Volant', 'Anneau du Génie'],
+                    effect: ['Hypnose', 'Illusion', 'Sortilège'],
+                    condition: ['Contrôle du Palais', 'Influence', 'Autorité'],
+                    hero: ['Aladdin', 'Jasmine', 'Génie']
+                };
+                
+                const names = cardNames[type] || ['Carte Mystère'];
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                
+                return {
+                    id: `${type}_${Date.now()}_${Math.random()}`,
+                    name: randomName,
+                    type: type,
+                    cost: Math.floor(Math.random() * 4) + 1,
+                    description: `Une ${typeInfo.name.toLowerCase()} puissante pour votre stratégie`,
+                    icon: typeInfo.icon
+                };
+            }
+
+            updateGameInterface() {
+                // Mettre à jour les informations du méchant
+                document.getElementById('current-villain-icon').textContent = gameState.currentVillain.icon;
+                document.getElementById('current-villain-name').textContent = gameState.currentVillain.name;
+                document.querySelector('.villain-realm').textContent = gameState.currentVillain.realm;
+                
+                // Mettre à jour les statistiques
+                document.getElementById('power-count').textContent = gameState.power;
+                document.getElementById('turn-count').textContent = gameState.turn;
+                
+                // Mettre à jour la condition de victoire
+                document.getElementById('victory-text').textContent = gameState.currentVillain.victoryCondition;
+                
+                // Générer les lieux
+                this.renderLocations();
+                
+                // Générer la main
+                this.renderHand();
+                
+                // Mettre à jour les actions disponibles
+                this.updateAvailableActions();
+            }
+
+            renderLocations() {
+                const container = document.getElementById('location-cards');
+                container.innerHTML = '';
+                
+                gameState.locations.forEach(location => {
+                    const locationCard = document.createElement('div');
+                    locationCard.className = 'location-card';
+                    locationCard.innerHTML = `
+                        <div class="location-header">
+                            <div class="location-icon">${location.icon}</div>
+                            <h4 class="location-name">${location.name}</h4>
+                        </div>
+                        <div class="location-actions">
+                            ${location.actions.map(action => `
+                                <div class="action-slot ${action.blockedByHeroes ? 'blocked' : ''}" 
+                                     onclick="selectAction('${location.id}', '${action.type}')">
+                                    <span class="action-icon">${action.icon}</span>
+                                    ${action.value ? `<span class="action-value">+${action.value}</span>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="heroes-area" id="heroes-${location.id}">
+                            <!-- Zone pour les héros -->
+                        </div>
+                    `;
+                    
+                    container.appendChild(locationCard);
+                });
+            }
+
+            renderHand() {
+                const container = document.getElementById('hand-cards');
+                container.innerHTML = '';
+                
+                gameState.hand.forEach(card => {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = 'hand-card';
+                    cardElement.style.borderColor = CARD_TYPES[card.type].color;
+                    cardElement.innerHTML = `
+                        <div class="card-header">
+                            <span class="card-icon">${card.icon}</span>
+                            <span class="card-cost">${card.cost}</span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-name">${card.name}</h5>
+                            <p class="card-type">${CARD_TYPES[card.type].name}</p>
+                            <p class="card-description">${card.description}</p>
+                        </div>
+                    `;
+                    
+                    cardElement.onclick = () => this.selectCard(card);
+                    container.appendChild(cardElement);
+                });
+            }
+
+            selectCard(card) {
+                // Retirer la sélection précédente
+                document.querySelectorAll('.hand-card.selected').forEach(el => {
+                    el.classList.remove('selected');
+                });
+                
+                // Sélectionner la nouvelle carte
+                event.currentTarget.classList.add('selected');
+                gameState.selectedCard = card;
+                
+                console.log(`🃏 Carte sélectionnée: ${card.name}`);
+                
+                // Ouvrir le modal de la carte
+                this.showCardModal(card);
+            }
+
+            showCardModal(card) {
+                const modal = document.getElementById('card-modal');
+                const typeInfo = CARD_TYPES[card.type];
+                
+                document.getElementById('modal-card-name').textContent = card.name;
+                document.getElementById('modal-card-details').innerHTML = `
+                    <div class="modal-card-display" style="border-color: ${typeInfo.color}">
+                        <div class="modal-card-header">
+                            <span class="modal-card-icon">${card.icon}</span>
+                            <span class="modal-card-cost">Coût: ${card.cost}</span>
+                        </div>
+                        <div class="modal-card-info">
+                            <p><strong>Type:</strong> ${typeInfo.name}</p>
+                            <p><strong>Description:</strong> ${card.description}</p>
+                            ${card.power ? `<p><strong>Pouvoir:</strong> ${card.power}</p>` : ''}
+                            ${card.abilities ? `<p><strong>Capacités:</strong> ${card.abilities}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                modal.classList.remove('hidden');
+            }
+
+            updateAvailableActions() {
+                const container = document.getElementById('available-actions');
+                const actions = [
+                    { id: 'draw_card', name: 'Piocher une Carte', icon: '🃏', cost: 0 },
+                    { id: 'gain_power', name: 'Gagner du Pouvoir', icon: '💰', cost: 0 },
+                    { id: 'move_item', name: 'Déplacer un Objet', icon: '🔄', cost: 1 },
+                    { id: 'activate_ally', name: 'Activer un Allié', icon: '⚡', cost: 2 }
+                ];
+                
+                container.innerHTML = actions.map(action => `
+                    <button class="action-btn ${gameState.power >= action.cost ? 'available' : 'disabled'}" 
+                            onclick="performAction('${action.id}')" 
+                            ${gameState.power < action.cost ? 'disabled' : ''}>
+                        <span class="action-icon">${action.icon}</span>
+                        <span class="action-name">${action.name}</span>
+                        ${action.cost > 0 ? `<span class="action-cost">${action.cost}</span>` : ''}
+                    </button>
+                `).join('');
+            }
+        }
+
+        // ====== GESTIONNAIRE D'INTERFACE ======
+        class DisneyUIManager {
+            constructor() {
+                this.currentScreen = 'loading';
+                this.selectedCharacters = new Set();
+                console.log('🏰 Interface Disney initialisée');
+            }
+            
+            showScreen(screenId) {
+                console.log(`🎭 Changement d'écran: ${screenId}`);
+                
+                const screens = ['loading-screen', 'main-menu', 'game-setup', 'game-interface'];
+                screens.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (id === screenId) {
+                            element.classList.remove('hidden');
+                        } else {
+                            element.classList.add('hidden');
+                        }
+                    }
+                });
+                
+                this.currentScreen = screenId;
+                
+                if (screenId === 'game-setup') {
+                    this.generateCharacterCards();
+                }
+            }
+            
+            updateLoadingStatus(message) {
+                const statusElement = document.getElementById('loading-status');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                }
+                console.log(`[DISNEY LOADING] ${message}`);
+            }
+            
+            generateCharacterCards() {
+                const container = document.getElementById('villain-cards');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                // Pour l'instant, seul Jafar est disponible
+                const jafar = VILLAINS.jafar;
+                const card = document.createElement('div');
+                card.className = 'character-card';
+                card.innerHTML = `
+                    <div class="character-header">
+                        <div class="character-icon">${jafar.icon}</div>
+                        <div class="character-story">Aladdin</div>
+                    </div>
+                    <div class="character-body">
+                        <h3 class="character-name">${jafar.name}</h3>
+                        <p class="character-description">Le Grand Vizier d'Agrabah rêve de pouvoir suprême</p>
+                        <div class="character-element">🔥 Magie du Désert</div>
+                        <div class="character-quote">"Le pouvoir cosmique infini dans un espace tout petit !"</div>
+                    </div>
+                `;
+                
+                card.style.background = `linear-gradient(135deg, ${jafar.colors.primary}, ${jafar.colors.secondary})`;
+                card.onclick = () => this.selectCharacter('jafar', card);
+                container.appendChild(card);
+            }
+            
+            selectCharacter(characterId, cardElement) {
+                document.querySelectorAll('.character-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                cardElement.classList.add('selected');
+                this.selectedCharacters = new Set([characterId]);
+                console.log(`✨ ${VILLAINS[characterId].name} sélectionné !`);
+            }
+        }
+
+        // ====== VARIABLES GLOBALES ======
+        let gameManager;
+
+        // ====== FONCTIONS PRINCIPALES ======
+        function initializeDisneyApp() {
+            try {
+                gameManager.ui.updateLoadingStatus('✨ Préparation de la magie Disney...');
+                
+                setTimeout(() => {
+                    gameManager.ui.updateLoadingStatus('🏰 Ouverture du château...');
+                    
+                    setTimeout(() => {
+                        gameManager.ui.showScreen('main-menu');
+                        console.log('🎉 Disney Villainous prêt !');
+                    }, 1000);
+                }, 1500);
+                
+            } catch (error) {
+                console.error('❌ Erreur Disney:', error);
+                gameManager.ui.updateLoadingStatus('❌ Erreur de chargement...');
+            }
+        }
+
+        function showGameSetup() {
+            gameManager.ui.showScreen('game-setup');
+        }
+
+        function showMainMenu() {
+            gameManager.ui.showScreen('main-menu');
+        }
+
+        function startGame() {
+            if (gameManager.ui.selectedCharacters.size === 0) {
+                alert('🎭 Choisissez un personnage pour commencer l\'aventure !');
+                return;
+            }
+            
+            const selectedVillain = Array.from(gameManager.ui.selectedCharacters)[0];
+            console.log('🌟 L\'aventure commence avec', selectedVillain);
+            
+            gameManager.initializeGame(selectedVillain);
+            gameManager.ui.showScreen('game-interface');
+            gameState.gamePhase = 'playing';
+        }
+
+        function selectAction(locationId, actionType) {
+            console.log(`⚡ Action sélectionnée: ${actionType} à ${locationId}`);
+            
+            switch(actionType) {
+                case 'gain_power':
+                    const location = gameState.locations.find(l => l.id === locationId);
+                    const action = location.actions.find(a => a.type === 'gain_power');
+                    gameState.power += action.value || 1;
+                    break;
+                case 'play_card':
+                    if (gameState.selectedCard) {
+                        playSelectedCard();
+                    } else {
+                        alert('🃏 Sélectionnez d\'abord une carte à jouer !');
+                    }
+                    break;
+                case 'vanquish':
+                    alert('⚔️ Fonction de combat en développement...');
+                    break;
+                default:
+                    alert(`⚡ Action ${actionType} en développement...`);
+            }
+            
+            gameManager.updateGameInterface();
+        }
+
+        function performAction(actionId) {
+            console.log(`🎯 Action demandée: ${actionId}`);
+            
+            switch(actionId) {
+                case 'draw_card':
+                    drawVillainCard();
+                    break;
+                case 'gain_power':
+                    gameState.power += 1;
+                    break;
+                default:
+                    alert(`⚡ Action ${actionId} en développement...`);
+            }
+            
+            gameManager.updateGameInterface();
+        }
+
+        function drawVillainCard() {
+            const newCard = gameManager.generateRandomCard('ally');
+            gameState.hand.push(newCard);
+            console.log(`🃏 Carte piochée: ${newCard.name}`);
+            gameManager.renderHand();
+        }
+
+        function drawFateCard() {
+            alert('⭐ Les cartes Destin arrivent bientôt...');
+        }
+
+        function playSelectedCard() {
+            if (!gameState.selectedCard) {
+                alert('🃏 Aucune carte sélectionnée !');
+                return;
+            }
+            
+            if (gameState.power < gameState.selectedCard.cost) {
+                alert('💰 Pas assez de pouvoir pour jouer cette carte !');
+                return;
+            }
+            
+            // Jouer la carte
+            gameState.power -= gameState.selectedCard.cost;
+            
+            // Retirer de la main
+            gameState.hand = gameState.hand.filter(card => card.id !== gameState.selectedCard.id);
+            
+            console.log(`✨ Carte jouée: ${gameState.selectedCard.name}`);
+            alert(`✨ ${gameState.selectedCard.name} a été joué avec succès !`);
+            
+            gameState.selectedCard = null;
+            closeCardModal();
+            gameManager.updateGameInterface();
+        }
+
+        function closeCardModal() {
+            document.getElementById('card-modal').classList.add('hidden');
+            document.querySelectorAll('.hand-card.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            gameState.selectedCard = null;
+        }
+
+        function endTurn() {
+            gameState.turn += 1;
+            gameState.power += 1; // Bonus de tour
+            console.log(`🔄 Tour ${gameState.turn} commencé`);
+            gameManager.updateGameInterface();
+        }
+
+        function showRules() {
+            alert('📚 Règles Disney Villainous\n\n🎭 Incarnez votre méchant favori\n🏰 Explorez votre royaume\n🃏 Jouez des cartes stratégiques\n⚡ Utilisez vos actions\n🏆 Accomplissez votre objectif\n\n✨ Guide détaillé à venir !');
+        }
+
+        function showCredits() {
+            alert('🏆 Disney Villainous\n\n✨ Basé sur le jeu de plateau Disney\n🎭 Personnages propriété de Disney\n🏰 Version web créée avec passion\n\n🌟 Amusez-vous bien !');
+        }
+
+        // ====== INITIALISATION ======
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🏰 Chargement de Disney Villainous');
+            
+            gameManager = new GameManager();
+            
+            setTimeout(initializeDisneyApp, 2000);
+        });
+
+        window.addEventListener('error', (e) => {
+            console.error('❌ Erreur:', e.message);
+        });
+
+        console.log('🎉 Disney Villainous - Jeu complet chargé !');
+    </script>
+
+    <style>
+        /* ===== STYLES DISNEY VILLAINOUS COMPLET ===== */
+        
+        :root {
+            --disney-blue: #0074D9;
+            --disney-yellow: #FFD700;
+            --disney-red: #FF4136;
+            --disney-purple: #B10DC9;
+            --disney-green: #2ECC40;
+            --disney-orange: #FF851B;
+            
+            --background-gradient: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #87CEFA 100%);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --magic-glow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', 'Arial', sans-serif;
+            background: var(--background-gradient);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ÉCRAN DE CHARGEMENT ===== */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .disney-castle {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: castleBounce 2s ease-in-out infinite;
+        }
+
+        .loading-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .disney-text { color: var(--disney-blue); }
+        .villainous-text { color: var(--disney-purple); }
+
+        .magic-stars {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .star {
+            font-size: 2rem;
+            animation: starTwinkle 1.5s ease-in-out infinite;
+        }
+
+        /* ===== MENU PRINCIPAL ===== */
+        .main-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .menu-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .main-castle {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: castleBounce 3s ease-in-out infinite;
+        }
+
+        .game-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .disney-logo { color: var(--disney-blue); }
+        .villainous-logo { color: var(--disney-purple); }
+
+        .game-subtitle {
+            font-size: 1.3rem;
+            color: var(--disney-blue);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        /* ===== BOUTONS DISNEY ===== */
+        .disney-btn {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            margin: 0.5rem;
+            border: 3px solid transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 250px;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .disney-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--magic-glow);
+        }
+
+        .disney-btn.primary {
+            background: linear-gradient(135deg, var(--disney-orange), var(--disney-yellow));
+            color: white;
+        }
+
+        .disney-btn.secondary {
+            background: linear-gradient(135deg, var(--disney-blue), var(--disney-purple));
+            color: white;
+        }
+
+        .disney-btn.large {
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+        }
+
+        /* ===== SÉLECTION DES PERSONNAGES ===== */
+        .game-setup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .setup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .setup-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .character-card {
+            background: white;
+            border: 3px solid var(--disney-yellow);
+            border-radius: 20px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--card-shadow);
+        }
+
+        .character-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--magic-glow);
+        }
+
+        .character-card.selected {
+            border-color: var(--disney-green);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(46, 204, 64, 0.5);
+        }
+
+        .character-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .character-icon {
+            font-size: 4rem;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        .character-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--disney-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== INTERFACE DE JEU ===== */
+        .game-interface {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .game-header {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--card-shadow);
+            z-index: 10;
+        }
+
+        .current-villain {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .villain-avatar {
+            font-size: 3rem;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        .villain-info span {
+            display: block;
+        }
+
+        .villain-info #current-villain-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: var(--disney-purple);
+        }
+
+        .villain-realm {
+            color: var(--disney-blue);
+            font-weight: 600;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0.8rem 1.2rem;
+            border-radius: 15px;
+            border: 2px solid var(--disney-blue);
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--disney-blue);
+            font-weight: 600;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--disney-purple);
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .control-btn {
+            background: var(--disney-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 0 0.3rem;
+        }
+
+        .control-btn:hover {
+            background: var(--disney-purple);
+            transform: translateY(-2px);
+        }
+
+        /* ===== ZONE DE JEU ===== */
+        .game-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .player-board {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .board-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .location-row {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .location-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid var(--disney-blue);
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .location-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--magic-glow);
+        }
+
+        .location-header {
+            margin-bottom: 1rem;
+        }
+
+        .location-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-name {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            font-size: 1rem;
+        }
+
+        .location-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .action-slot {
+            background: var(--disney-yellow);
+            border: 2px solid var(--disney-orange);
+            border-radius: 10px;
+            padding: 0.8rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .action-slot:hover {
+            background: var(--disney-orange);
+            transform: scale(1.05);
+        }
+
+        .action-slot.blocked {
+            background: #ccc;
+            border-color: #999;
+            cursor: not-allowed;
+        }
+
+        .action-value {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--disney-green);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* ===== ZONE DES CARTES ===== */
+        .cards-area {
+            display: flex;
+            gap: 1rem;
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 1rem;
+        }
+
+        .player-hand {
+            flex: 2;
+        }
+
+        .hand-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .hand-cards {
+            display: flex;
+            gap: 0.8rem;
+            overflow-x: auto;
+            padding: 0.5rem;
+        }
+
+        .hand-card {
+            background: white;
+            border: 3px solid var(--disney-blue);
+            border-radius: 12px;
+            padding: 0.8rem;
+            min-width: 150px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hand-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--magic-glow);
+        }
+
+        .hand-card.selected {
+            border-color: var(--disney-green);
+            transform: translateY(-8px) scale(1.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-cost {
+            background: var(--disney-orange);
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .card-name {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-type {
+            color: var(--disney-blue);
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-description {
+            color: #555;
+            font-size: 0.7rem;
+            line-height: 1.3;
+        }
+
+        /* ===== PILES DE CARTES ===== */
+        .card-piles {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pile-card {
+            width: 120px;
+            height: 150px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .villain-deck {
+            background: linear-gradient(135deg, var(--disney-purple), var(--disney-blue));
+            color: white;
+        }
+
+        .fate-deck {
+            background: linear-gradient(135deg, var(--disney-orange), var(--disney-yellow));
+            color: white;
+        }
+
+        .pile-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--magic-glow);
+        }
+
+        .pile-content {
+            text-align: center;
+        }
+
+        .pile-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pile-name {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .pile-count {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* ===== DÉFAUSSE ===== */
+        .discard-area {
+            flex: 1;
+        }
+
+        .discard-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .discard-pile {
+            background: #f5f5f5;
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        /* ===== PANNEAU D'ACTIONS ===== */
+        .action-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            gap: 2rem;
+        }
+
+        .actions-available {
+            flex: 2;
+        }
+
+        .actions-available h4 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: var(--disney-blue);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover:not(.disabled) {
+            background: var(--disney-purple);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .action-cost {
+            background: var(--disney-orange);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        /* ===== CONDITION DE VICTOIRE ===== */
+        .victory-condition {
+            flex: 1;
+        }
+
+        .victory-condition h4 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            border-radius: 10px;
+            height: 20px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, var(--disney-green), var(--disney-yellow));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* ===== MODAL DE CARTE ===== */
+        .card-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--card-shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-family: 'Fredoka One', cursive;
+            color: var(--disney-purple);
+            font-size: 1.5rem;
+        }
+
+        .close-btn {
+            background: var(--disney-red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .modal-card-display {
+            border: 3px solid var(--disney-blue);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .modal-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-card-icon {
+            font-size: 2.5rem;
+        }
+
+        .modal-card-cost {
+            background: var(--disney-orange);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes castleBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* ===== UTILITAIRES ===== */
+        .hidden { display: none !important; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .game-header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .game-stats {
+                gap: 1rem;
+            }
+            
+            .location-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cards-area {
+                flex-direction: column;
+            }
+            
+            .action-panel {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hand-cards {
+                justify-content: center;
+            }
+            
+            .character-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

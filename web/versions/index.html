@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📁 Versions - Disney Villainous</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            margin: 0;
+            padding: 2rem;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #b10dc9;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .version-link {
+            display: block;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, #b10dc9, #ff85cb);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(177, 13, 201, 0.3);
+        }
+        .version-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(177, 13, 201, 0.4);
+        }
+        .version-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .version-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .current {
+            background: linear-gradient(135deg, #ff851b, #ffd700);
+        }
+        .theme {
+            background: linear-gradient(135deg, #2ecc40, #01ff70);
+        }
+        .back-link {
+            background: linear-gradient(135deg, #666, #999);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 Versions du Jeu</h1>
+        <p>Différentes versions de Disney Villainous développées :</p>
+        
+        <a href="../complete-game.html" class="version-link current">
+            <div class="version-title">🏆 Version Complète (Actuelle)</div>
+            <div class="version-desc">Jeu complet avec toutes les fonctionnalités, plateau interactif, système de cartes avancé</div>
+        </a>
+        
+        <a href="disney-magic.html" class="version-link theme">
+            <div class="version-title">✨ Disney Magic</div>
+            <div class="version-desc">Version avec thème coloré Disney authentique, polices Fredoka, animations magiques</div>
+        </a>
+        
+        <a href="integrated.html" class="version-link">
+            <div class="version-title">🔧 Version Intégrée</div>
+            <div class="version-desc">Version avec scripts intégrés pour éviter les problèmes CORS</div>
+        </a>
+        
+        <a href="villainous-web.html" class="version-link">
+            <div class="version-title">📱 Version Originale Web</div>
+            <div class="version-desc">Première version web basique du jeu</div>
+        </a>
+        
+        <a href="../index.html" class="version-link back-link">
+            <div class="version-title">← Retour à l'index principal</div>
+        </a>
+    </div>
+</body>
+</html>

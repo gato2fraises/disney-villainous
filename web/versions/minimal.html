@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Minimal</title>
+    <style>
+        body { 
+            background: #2c3e50; 
+            color: white; 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+        }
+        .status { 
+            margin: 10px 0; 
+            padding: 10px; 
+            border-radius: 5px; 
+        }
+        .ok { background: #27ae60; }
+        .error { background: #e74c3c; }
+    </style>
+</head>
+<body>
+    <h1>🔬 Test Minimal Disney Villainous</h1>
+    <div id="log"></div>
+
+    <script>
+        function log(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = `status ${isError ? 'error' : 'ok'}`;
+            div.textContent = message;
+            document.getElementById('log').appendChild(div);
+            console.log(message);
+        }
+
+        log("1. HTML de base chargé");
+
+        // Test immédiat du premier script
+        try {
+            log("2. Tentative de chargement de game-data.js...");
+            
+            const gameDataScript = document.createElement('script');
+            gameDataScript.src = 'js/game-data.js';
+            
+            gameDataScript.onload = function() {
+                log("3. ✅ game-data.js chargé avec succès");
+                
+                // Test des variables globales
+                if (typeof VILLAINS !== 'undefined') {
+                    log(`4. ✅ VILLAINS trouvé: ${Object.keys(VILLAINS).length} méchants`);
+                } else {
+                    log("4. ❌ VILLAINS introuvable", true);
+                }
+                
+                if (typeof VILLAIN_CARDS !== 'undefined') {
+                    log("5. ✅ VILLAIN_CARDS trouvé");
+                } else {
+                    log("5. ❌ VILLAIN_CARDS introuvable", true);
+                }
+                
+                // Test du deuxième script
+                testAnimationsScript();
+            };
+            
+            gameDataScript.onerror = function(e) {
+                log("3. ❌ Erreur chargement game-data.js", true);
+                log(`Erreur: ${e.message || 'Fichier introuvable'}`, true);
+            };
+            
+            document.head.appendChild(gameDataScript);
+            
+        } catch (error) {
+            log(`Erreur dans le script principal: ${error.message}`, true);
+        }
+
+        function testAnimationsScript() {
+            log("6. Tentative de chargement de animations.js...");
+            
+            const animScript = document.createElement('script');
+            animScript.src = 'js/animations.js';
+            
+            animScript.onload = function() {
+                log("7. ✅ animations.js chargé");
+                
+                if (typeof AnimationManager !== 'undefined') {
+                    log("8. ✅ AnimationManager disponible");
+                    
+                    try {
+                        const anim = new AnimationManager();
+                        log("9. ✅ AnimationManager créé avec succès");
+                    } catch (e) {
+                        log(`9. ❌ Erreur création AnimationManager: ${e.message}`, true);
+                    }
+                } else {
+                    log("8. ❌ AnimationManager introuvable", true);
+                }
+                
+                log("🎯 Test minimal terminé - Scripts de base fonctionnels");
+            };
+            
+            animScript.onerror = function() {
+                log("7. ❌ Erreur chargement animations.js", true);
+            };
+            
+            document.head.appendChild(animScript);
+        }
+
+        // Capturer toutes les erreurs
+        window.addEventListener('error', function(e) {
+            log(`❌ Erreur globale: ${e.message} (ligne ${e.lineno})`, true);
+        });
+    </script>
+</body>
+</html>

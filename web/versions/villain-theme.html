@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Disney Villainous - Thème Méchants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/villain-theme.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Écran de chargement maléfique -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="villain-crown">👑</div>
+            <h1 class="loading-title">
+                <span class="title-disney">Disney</span>
+                <span class="title-villainous">Villainous</span>
+            </h1>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Les ténèbres se réveillent...</p>
+            <div class="loading-evil-icons">
+                <span class="evil-icon">🧙‍♂️</span>
+                <span class="evil-icon">🐙</span>
+                <span class="evil-icon">🧚‍♀️</span>
+                <span class="evil-icon">🦁</span>
+                <span class="evil-icon">👸</span>
+            </div>
+            <div id="loading-status" class="loading-status">
+                Invocation des forces du mal...
+            </div>
+        </div>
+        
+        <!-- Particules maléfiques -->
+        <div class="evil-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+    </div>
+
+    <!-- Menu principal des méchants -->
+    <div id="main-menu" class="main-menu hidden">
+        <div class="villain-background"></div>
+        <div class="menu-content">
+            <div class="crown-decoration">👑</div>
+            <h1 class="game-title">
+                <span class="title-disney">Disney</span>
+                <span class="title-villainous">Villainous</span>
+            </h1>
+            <p class="game-subtitle">🌟 Incarnez les plus grands méchants Disney 🌟</p>
+            <div class="evil-quote">"Il est temps de montrer qui commande vraiment..."</div>
+            
+            <div class="menu-buttons">
+                <button class="menu-btn primary villain-btn" onclick="showGameSetup()">
+                    <span class="btn-icon">⚔️</span>
+                    <span class="btn-text">Nouvelle Conquête</span>
+                    <span class="btn-subtitle">Dominez le royaume</span>
+                </button>
+                
+                <button class="menu-btn secondary villain-btn" onclick="showRules()">
+                    <span class="btn-icon">📜</span>
+                    <span class="btn-text">Grimoire des Règles</span>
+                    <span class="btn-subtitle">Apprenez l'art du mal</span>
+                </button>
+                
+                <button class="menu-btn secondary villain-btn" onclick="showVillainGallery()">
+                    <span class="btn-icon">🖼️</span>
+                    <span class="btn-text">Galerie des Méchants</span>
+                    <span class="btn-subtitle">Découvrez vos alliés</span>
+                </button>
+                
+                <button class="menu-btn secondary villain-btn" onclick="showCredits()">
+                    <span class="btn-icon">🏆</span>
+                    <span class="btn-text">Hall de la Renommée</span>
+                    <span class="btn-subtitle">Les créateurs du mal</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration de partie maléfique -->
+    <div id="game-setup" class="game-setup hidden">
+        <div class="setup-header">
+            <h2 class="setup-title">🎭 Assemblée des Méchants 🎭</h2>
+            <p class="setup-subtitle">Choisissez vos alliés pour conquérir les royaumes Disney</p>
+        </div>
+        
+        <div class="villain-selection">
+            <h3 class="selection-title">Invoquez vos champions :</h3>
+            <div id="villain-cards" class="villain-cards-grid"></div>
+        </div>
+        
+        <div class="setup-actions">
+            <button onclick="startGame()" class="btn primary evil-start">
+                <span>🔥 Commencer la Domination 🔥</span>
+            </button>
+            <button onclick="showMainMenu()" class="btn secondary">
+                <span>↩️ Retour au Repaire</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Interface de jeu -->
+    <div id="game-interface" class="game-interface hidden">
+        <div class="game-header">
+            <div class="current-villain">
+                <div class="villain-avatar">
+                    <span id="current-player-icon">🧙‍♂️</span>
+                </div>
+                <div class="villain-info">
+                    <span id="current-player-name">Jafar</span>
+                    <span class="villain-title">Maître du Désert</span>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="control-btn" onclick="showMainMenu()">
+                    <span>🏠 Retour au Repaire</span>
+                </button>
+                <button class="control-btn" onclick="pauseGame()">
+                    <span>⏸️ Pause</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="game-board" id="game-board">
+            <!-- Le plateau sera généré dynamiquement -->
+        </div>
+    </div>
+
+    <!-- Galerie des méchants -->
+    <div id="villain-gallery" class="villain-gallery hidden">
+        <div class="gallery-header">
+            <h2>🖼️ Galerie des Légendes Maléfiques 🖼️</h2>
+            <p>Découvrez l'histoire et les pouvoirs de chaque méchant</p>
+        </div>
+        
+        <div id="gallery-content" class="gallery-grid">
+            <!-- Contenu généré dynamiquement -->
+        </div>
+        
+        <div class="gallery-actions">
+            <button onclick="showMainMenu()" class="btn secondary">
+                <span>↩️ Retour au Menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts intégrés avec thème villain -->
+    <script>
+        console.log('👑 Réveil des Méchants Disney - Version Thématique');
+        
+        // ====== DONNÉES DES MÉCHANTS AVEC STYLE ======
+        const VILLAINS = {
+            jafar: {
+                id: 'jafar',
+                name: 'Jafar',
+                title: 'Maître du Désert',
+                icon: '🧙‍♂️',
+                description: 'Le vizir maléfique d\'Agrabah qui manipule les flammes du pouvoir',
+                quote: '"Enfin, le pouvoir absolu sera mien !"',
+                startingPower: 4,
+                victoryCondition: 'Dominer la Caverne aux Merveilles avec la Lampe Magique',
+                color: '#8b4513',
+                gradient: 'linear-gradient(135deg, #8b4513, #cd853f)',
+                element: 'Feu et Sable',
+                realm: 'Agrabah'
+            },
+            ursula: {
+                id: 'ursula',
+                name: 'Ursula',
+                title: 'Sorcière des Mers',
+                icon: '🐙',
+                description: 'La pieuvre maléfique qui règne sur les profondeurs océaniques',
+                quote: '"Les pauvres âmes perdues... elles m\'appartiennent !"',
+                startingPower: 3,
+                victoryCondition: 'Obtenir le Trident et la Couronne du Roi Triton',
+                color: '#4b0082',
+                gradient: 'linear-gradient(135deg, #4b0082, #663399)',
+                element: 'Eau et Magie Noire',
+                realm: 'Atlantica'
+            },
+            maleficent: {
+                id: 'maleficent',
+                name: 'Maléfique',
+                title: 'Maîtresse de Tous les Maux',
+                icon: '🧚‍♀️',
+                description: 'La fée sombre dont la malédiction plonge les royaumes dans les ténèbres',
+                quote: '"Maintenant vous connaîtrez la vraie malédiction !"',
+                startingPower: 4,
+                victoryCondition: 'Placer une malédiction sur chaque lieu de votre royaume',
+                color: '#8b008b',
+                gradient: 'linear-gradient(135deg, #8b008b, #ba55d3)',
+                element: 'Magie Noire et Malédictions',
+                realm: 'La Lande Maudite'
+            },
+            scar: {
+                id: 'scar',
+                name: 'Scar',
+                title: 'Roi des Terres Désolées',
+                icon: '🦁',
+                description: 'Le lion perfide qui a usurpé le trône de la Terre des Lions',
+                quote: '"Je suis entouré d\'idiots..."',
+                startingPower: 3,
+                victoryCondition: 'Commencer votre tour avec Simba à Fierté Rock',
+                color: '#cd853f',
+                gradient: 'linear-gradient(135deg, #cd853f, #daa520)',
+                element: 'Ruse et Trahison',
+                realm: 'Terre des Lions'
+            },
+            evil_queen: {
+                id: 'evil_queen',
+                name: 'Reine Maléfique',
+                title: 'Souveraine du Miroir',
+                icon: '👸',
+                description: 'La reine vaniteuse obsédée par sa beauté et sa suprématie',
+                quote: '"Miroir, mon beau miroir, qui est la plus belle ?"',
+                startingPower: 4,
+                victoryCondition: 'Avoir Blanche-Neige dans la Forêt Sombre et jouer Prends Ceci',
+                color: '#800080',
+                gradient: 'linear-gradient(135deg, #800080, #9370db)',
+                element: 'Vanité et Poison',
+                realm: 'Royaume de Blanche-Neige'
+            },
+            cruella: {
+                id: 'cruella',
+                name: 'Cruella De Vil',
+                title: 'Chasseuse de Fourrures',
+                icon: '🐕',
+                description: 'La styliste démoniaque obsédée par les manteaux de fourrure',
+                quote: '"Je vivrai dans le luxe ou pas du tout !"',
+                startingPower: 3,
+                victoryCondition: 'Capturer 15 chiots pour créer le manteau parfait',
+                color: '#000000',
+                gradient: 'linear-gradient(135deg, #000000, #2f2f2f)',
+                element: 'Élégance Cruelle',
+                realm: 'Londres'
+            }
+        };
+
+        // ====== GESTIONNAIRE D'ANIMATIONS MALÉFIQUES ======
+        class VillainAnimationManager {
+            constructor() {
+                this.particles = [];
+                this.activeAnimations = new Set();
+                console.log('✨ Gestionnaire d\'animations maléfiques activé');
+            }
+            
+            createEvilParticles() {
+                const particleContainer = document.querySelector('.evil-particles');
+                if (!particleContainer) return;
+                
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'evil-particle';
+                    particle.style.cssText = `
+                        position: absolute;
+                        width: 3px;
+                        height: 3px;
+                        background: var(--royal-gold);
+                        border-radius: 50%;
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                        animation: evilFloat ${3 + Math.random() * 4}s ease-in-out infinite;
+                        animation-delay: ${Math.random() * 2}s;
+                        opacity: ${0.3 + Math.random() * 0.7};
+                    `;
+                    particleContainer.appendChild(particle);
+                }
+            }
+            
+            villainEntrance(element) {
+                if (!element) return Promise.resolve();
+                
+                element.style.cssText += `
+                    transform: scale(0) rotate(-180deg);
+                    opacity: 0;
+                    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                `;
+                
+                return new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        element.style.transform = 'scale(1) rotate(0deg)';
+                        element.style.opacity = '1';
+                        setTimeout(resolve, 800);
+                    });
+                });
+            }
+            
+            evilGlow(element, color = '#ffd700') {
+                if (!element) return;
+                
+                element.style.animation = 'none';
+                element.style.boxShadow = `0 0 30px ${color}`;
+                
+                setTimeout(() => {
+                    element.style.animation = '';
+                    element.style.boxShadow = '';
+                }, 1000);
+            }
+        }
+
+        // ====== GESTIONNAIRE D'INTERFACE MALÉFIQUE ======
+        class VillainUIManager {
+            constructor() {
+                this.currentScreen = 'loading';
+                this.animationManager = new VillainAnimationManager();
+                this.selectedVillains = new Set();
+                console.log('👑 Interface maléfique initialisée');
+            }
+            
+            showScreen(screenId) {
+                console.log(`🎭 Transition vers: ${screenId}`);
+                
+                const screens = ['loading-screen', 'main-menu', 'game-setup', 'game-interface', 'villain-gallery'];
+                screens.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (id === screenId) {
+                            element.classList.remove('hidden');
+                            this.animationManager.villainEntrance(element);
+                        } else {
+                            element.classList.add('hidden');
+                        }
+                    }
+                });
+                
+                this.currentScreen = screenId;
+                
+                // Actions spécifiques par écran
+                if (screenId === 'game-setup') {
+                    this.generateVillainCards();
+                } else if (screenId === 'villain-gallery') {
+                    this.generateVillainGallery();
+                }
+            }
+            
+            updateLoadingStatus(message) {
+                const statusElement = document.getElementById('loading-status');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                }
+                console.log(`[EVIL LOADING] ${message}`);
+            }
+            
+            generateVillainCards() {
+                const container = document.getElementById('villain-cards');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                Object.values(VILLAINS).forEach((villain, index) => {
+                    const card = document.createElement('div');
+                    card.className = `villain-card ${villain.id}`;
+                    card.innerHTML = `
+                        <div class="villain-card-header">
+                            <div class="villain-icon-large">${villain.icon}</div>
+                            <div class="villain-crown">👑</div>
+                        </div>
+                        <div class="villain-card-body">
+                            <h3 class="villain-name">${villain.name}</h3>
+                            <p class="villain-title">${villain.title}</p>
+                            <p class="villain-description">${villain.description}</p>
+                            <div class="villain-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Pouvoir</span>
+                                    <span class="stat-value">${villain.startingPower}</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Élément</span>
+                                    <span class="stat-value">${villain.element}</span>
+                                </div>
+                            </div>
+                            <div class="villain-quote">"${villain.quote}"</div>
+                        </div>
+                        <div class="villain-card-footer">
+                            <div class="selection-indicator"></div>
+                        </div>
+                    `;
+                    
+                    card.style.background = villain.gradient;
+                    card.style.animationDelay = `${index * 0.2}s`;
+                    
+                    card.onclick = () => this.selectVillain(villain.id, card);
+                    container.appendChild(card);
+                    
+                    // Animation d'entrée décalée
+                    setTimeout(() => {
+                        this.animationManager.villainEntrance(card);
+                    }, index * 200);
+                });
+            }
+            
+            selectVillain(villainId, cardElement) {
+                const villain = VILLAINS[villainId];
+                console.log(`⚔️ ${villain.name} rejoint votre alliance !`);
+                
+                if (this.selectedVillains.has(villainId)) {
+                    // Désélectionner
+                    this.selectedVillains.delete(villainId);
+                    cardElement.classList.remove('selected');
+                } else {
+                    // Sélectionner
+                    this.selectedVillains.add(villainId);
+                    cardElement.classList.add('selected');
+                    this.animationManager.evilGlow(cardElement, villain.color);
+                }
+                
+                // Mettre à jour l'indicateur de sélection
+                const indicator = cardElement.querySelector('.selection-indicator');
+                if (indicator) {
+                    indicator.textContent = this.selectedVillains.has(villainId) ? '✅ CHOISI' : '';
+                }
+            }
+            
+            generateVillainGallery() {
+                const container = document.getElementById('gallery-content');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                Object.values(VILLAINS).forEach(villain => {
+                    const galleryCard = document.createElement('div');
+                    galleryCard.className = 'gallery-card';
+                    galleryCard.innerHTML = `
+                        <div class="gallery-card-header" style="background: ${villain.gradient}">
+                            <div class="gallery-icon">${villain.icon}</div>
+                            <h3>${villain.name}</h3>
+                            <p class="gallery-title">${villain.title}</p>
+                        </div>
+                        <div class="gallery-card-body">
+                            <p class="gallery-description">${villain.description}</p>
+                            <div class="gallery-stats">
+                                <div class="gallery-stat">
+                                    <strong>Royaume:</strong> ${villain.realm}
+                                </div>
+                                <div class="gallery-stat">
+                                    <strong>Élément:</strong> ${villain.element}
+                                </div>
+                                <div class="gallery-stat">
+                                    <strong>Victoire:</strong> ${villain.victoryCondition}
+                                </div>
+                            </div>
+                            <div class="gallery-quote">"${villain.quote}"</div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(galleryCard);
+                });
+            }
+        }
+
+        // ====== VARIABLES GLOBALES ======
+        let villainUI;
+        let gameData = { selectedVillains: [], currentPlayer: 0 };
+
+        // ====== FONCTIONS PRINCIPALES ======
+        function initializeVillainApp() {
+            try {
+                villainUI.updateLoadingStatus('🔮 Invocation des pouvoirs maléfiques...');
+                
+                // Créer les particules
+                villainUI.animationManager.createEvilParticles();
+                
+                villainUI.updateLoadingStatus('⚡ Réveil des méchants...');
+                
+                setTimeout(() => {
+                    villainUI.updateLoadingStatus('👑 Préparation du royaume des ténèbres...');
+                    
+                    setTimeout(() => {
+                        villainUI.showScreen('main-menu');
+                        console.log('🎉 Empire maléfique établi avec succès !');
+                    }, 1000);
+                }, 1500);
+                
+            } catch (error) {
+                console.error('💀 Erreur dans l\'invocation:', error);
+                villainUI.updateLoadingStatus('💀 Échec de l\'invocation...');
+            }
+        }
+
+        function showGameSetup() {
+            villainUI.showScreen('game-setup');
+        }
+
+        function showMainMenu() {
+            villainUI.showScreen('main-menu');
+        }
+
+        function showVillainGallery() {
+            villainUI.showScreen('villain-gallery');
+        }
+
+        function startGame() {
+            if (villainUI.selectedVillains.size === 0) {
+                alert('🎭 Vous devez choisir au moins un méchant pour commencer votre conquête !');
+                return;
+            }
+            
+            console.log('⚔️ La conquête commence !');
+            villainUI.showScreen('game-interface');
+            initializeGameBoard();
+        }
+
+        function initializeGameBoard() {
+            const gameBoard = document.getElementById('game-board');
+            if (gameBoard) {
+                const selectedVillainsList = Array.from(villainUI.selectedVillains)
+                    .map(id => VILLAINS[id])
+                    .map(v => `<div class="board-villain">
+                        <span class="board-villain-icon">${v.icon}</span>
+                        <span class="board-villain-name">${v.name}</span>
+                        <span class="board-villain-title">${v.title}</span>
+                    </div>`).join('');
+                
+                gameBoard.innerHTML = `
+                    <div class="evil-board">
+                        <h2 class="board-title">🎮 Plateau de la Domination 🎮</h2>
+                        <p class="board-subtitle">Votre alliance maléfique est prête à conquérir les royaumes !</p>
+                        <div class="selected-villains">
+                            <h3>⚔️ Vos Champions ⚔️</h3>
+                            <div class="villain-alliance">
+                                ${selectedVillainsList}
+                            </div>
+                        </div>
+                        <div class="board-message">
+                            <p>🏰 Interface de conquête en cours de développement...</p>
+                            <p>🎭 Préparez-vous à dominer les royaumes Disney !</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showRules() {
+            alert('📜 Le Grimoire des Règles sera bientôt disponible...\n\n🎭 En attendant, préparez votre stratégie maléfique !');
+        }
+
+        function showCredits() {
+            alert('🏆 Hall de la Renommée\n\n👑 Créé par les forces du mal pour dominer l\'univers Disney !\n\n🎭 Tous droits réservés aux méchants.');
+        }
+
+        function pauseGame() {
+            alert('⏸️ Pause dans votre conquête...\n\nMême les méchants ont besoin de repos !');
+        }
+
+        // ====== INITIALISATION MALÉFIQUE ======
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('👑 Réveil du Royaume des Ténèbres');
+            
+            villainUI = new VillainUIManager();
+            
+            villainUI.updateLoadingStatus('🌟 Chargement des sorts maléfiques...');
+            
+            console.log(`✨ ${Object.keys(VILLAINS).length} méchants légendaires invoqués`);
+            
+            setTimeout(initializeVillainApp, 2000);
+        });
+
+        window.addEventListener('error', (e) => {
+            console.error('💀 Malédiction détectée:', e.message);
+            if (villainUI) {
+                villainUI.updateLoadingStatus(`💀 Malédiction: ${e.message}`);
+            }
+        });
+
+        console.log('🎭 Empire maléfique Disney - Scripts chargés et prêts pour la domination !');
+    </script>
+
+    <style>
+        /* Styles intégrés pour le thème villain */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #2d1b36 50%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            z-index: 2;
+        }
+
+        .villain-crown {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px #ffd700);
+        }
+
+        .loading-title {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+        }
+
+        .title-disney {
+            background: linear-gradient(45deg, #4169E1, #87CEEB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title-villainous {
+            background: linear-gradient(45deg, #8B0000, #DC143C, #FF4500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top: 4px solid #ffd700;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 2rem;
+        }
+
+        .loading-evil-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .evil-icon {
+            font-size: 2.5rem;
+            animation: pulse 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px #ffd700);
+        }
+
+        .evil-icon:nth-child(1) { animation-delay: 0s; }
+        .evil-icon:nth-child(2) { animation-delay: 0.4s; }
+        .evil-icon:nth-child(3) { animation-delay: 0.8s; }
+        .evil-icon:nth-child(4) { animation-delay: 1.2s; }
+        .evil-icon:nth-child(5) { animation-delay: 1.6s; }
+
+        .loading-status {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            color: #ffd700;
+            font-style: italic;
+        }
+
+        .evil-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .main-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #2d1b36 50%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .villain-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(139, 0, 139, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(75, 0, 130, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(220, 20, 60, 0.2) 0%, transparent 50%);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .menu-content {
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .crown-decoration {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: pulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px #ffd700);
+        }
+
+        .game-title {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+        }
+
+        .game-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #c0c0c0;
+            font-style: italic;
+        }
+
+        .evil-quote {
+            font-size: 1.3rem;
+            color: #ffd700;
+            font-style: italic;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .villain-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 3rem;
+            min-width: 350px;
+            background: linear-gradient(145deg, #4b0082, #8b008b, #4b0082);
+            border: 2px solid #ffd700;
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 32px rgba(75, 0, 130, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .villain-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .villain-btn:hover::before {
+            left: 100%;
+        }
+
+        .villain-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 30px #ffd700;
+            border-color: #ffed4e;
+        }
+
+        .btn-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-family: 'Cinzel', serif;
+        }
+
+        .btn-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+
+        .villain-btn.primary {
+            background: linear-gradient(145deg, #8b0000, #dc143c, #ff4500);
+            box-shadow: 0 8px 32px rgba(220, 20, 60, 0.4);
+        }
+
+        .villain-btn.primary:hover {
+            box-shadow: 0 0 30px #dc143c;
+        }
+
+        /* Styles pour les autres écrans */
+        .game-setup, .game-interface, .villain-gallery {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #2d1b36 50%, #1a1a1a 100%);
+            padding: 2rem;
+            overflow-y: auto;
+            color: white;
+        }
+
+        .setup-header, .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .setup-title, .gallery-header h2 {
+            font-size: 3rem;
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(45deg, #ffd700, #ffb300);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .villain-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .villain-card {
+            background: linear-gradient(145deg, #1a1a1a, #2d1b36);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .villain-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .villain-card.selected {
+            border-color: #ffed4e;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            transform: scale(1.05);
+        }
+
+        .villain-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .villain-icon-large {
+            font-size: 4rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .villain-crown {
+            font-size: 2rem;
+            opacity: 0.7;
+        }
+
+        .villain-name {
+            font-size: 1.8rem;
+            font-family: 'Cinzel', serif;
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+
+        .villain-title {
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .villain-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .villain-quote {
+            font-style: italic;
+            color: #ffd700;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .selection-indicator {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #32cd32;
+        }
+
+        .setup-actions, .gallery-actions {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .evil-start {
+            background: linear-gradient(145deg, #8b0000, #dc143c, #ff4500) !important;
+            font-size: 1.3rem !important;
+            padding: 1.5rem 3rem !important;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes evilFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px);
+                opacity: 0.3;
+            }
+            33% { 
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.8;
+            }
+            66% { 
+                transform: translateY(-10px) translateX(-10px);
+                opacity: 0.5;
+            }
+        }
+
+        .hidden { display: none !important; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .loading-title, .game-title { font-size: 2.5rem; }
+            .villain-btn { min-width: 280px; padding: 1rem 2rem; }
+            .villain-cards-grid { grid-template-columns: 1fr; }
+            .setup-title, .gallery-header h2 { font-size: 2rem; }
+        }
+    </style>
+</body>
+</html>
