@@ -1,0 +1,120 @@
+{
+  "locations": [
+    {
+      "id": "maleficent_forbidden_mountains",
+      "name": "Montagnes Interdites",
+      "position": 0,
+      "description": "Le repaire sinistre de Maléfique",
+      "actions": [
+        {
+          "type": "gain_power",
+          "value": 3,
+          "description": "Gagne 3 pouvoirs",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "play_card",
+          "description": "Joue une carte",
+          "blocked_by_heroes": true
+        },
+        {
+          "type": "activate",
+          "description": "Active une capacité",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "discard",
+          "description": "Défausse des cartes pour gagner du pouvoir",
+          "blocked_by_heroes": false
+        }
+      ]
+    },
+    {
+      "id": "maleficent_briar_rose_cottage",
+      "name": "Chaumière d'Aurore",
+      "position": 1,
+      "description": "Où vit la princesse Aurora",
+      "actions": [
+        {
+          "type": "gain_power",
+          "value": 1,
+          "description": "Gagne 1 pouvoir",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "play_card",
+          "description": "Joue une carte",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "vanquish",
+          "description": "Vaincs un héros",
+          "blocked_by_heroes": true
+        },
+        {
+          "type": "fate",
+          "description": "Joue le Destin",
+          "blocked_by_heroes": false
+        }
+      ]
+    },
+    {
+      "id": "maleficent_king_stefan_castle",
+      "name": "Château du Roi Stefan",
+      "position": 2,
+      "description": "Le château royal",
+      "actions": [
+        {
+          "type": "play_card",
+          "description": "Joue une carte",
+          "blocked_by_heroes": true
+        },
+        {
+          "type": "activate",
+          "description": "Active une capacité",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "discard",
+          "description": "Défausse des cartes",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "gain_power",
+          "value": 1,
+          "description": "Gagne 1 pouvoir",
+          "blocked_by_heroes": false
+        }
+      ]
+    },
+    {
+      "id": "maleficent_forest",
+      "name": "Forêt Enchantée",
+      "position": 3,
+      "description": "La forêt mystérieuse",
+      "actions": [
+        {
+          "type": "fate",
+          "description": "Joue le Destin",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "gain_power",
+          "value": 2,
+          "description": "Gagne 2 pouvoirs",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "move_item",
+          "description": "Déplace un objet ou une condition",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "activate",
+          "description": "Active une capacité",
+          "blocked_by_heroes": true
+        }
+      ]
+    }
+  ]
+}

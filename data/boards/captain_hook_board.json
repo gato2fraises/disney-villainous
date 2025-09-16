@@ -1,0 +1,120 @@
+{
+  "locations": [
+    {
+      "id": "hook_jolly_roger",
+      "name": "Le Jolly Roger",
+      "position": 0,
+      "description": "Le légendaire navire pirate du Capitaine Crochet",
+      "actions": [
+        {
+          "type": "gain_power",
+          "value": 2,
+          "description": "Gagne 2 pouvoirs",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "play_card",
+          "description": "Joue une carte",
+          "blocked_by_heroes": true
+        },
+        {
+          "type": "activate",
+          "description": "Active une capacité",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "vanquish",
+          "description": "Vaincs un héros",
+          "blocked_by_heroes": false
+        }
+      ]
+    },
+    {
+      "id": "hook_skull_rock",
+      "name": "Rocher du Crâne",
+      "position": 1,
+      "description": "Le repaire secret et sinistre des pirates",
+      "actions": [
+        {
+          "type": "gain_power",
+          "value": 1,
+          "description": "Gagne 1 pouvoir",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "play_card",
+          "description": "Joue une carte",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "vanquish",
+          "description": "Vaincs un héros",
+          "blocked_by_heroes": true
+        },
+        {
+          "type": "fate",
+          "description": "Joue le Destin",
+          "blocked_by_heroes": false
+        }
+      ]
+    },
+    {
+      "id": "hook_mermaid_lagoon",
+      "name": "Lagon des Sirènes",
+      "position": 2,
+      "description": "Le lagon enchanté où vivent les sirènes",
+      "actions": [
+        {
+          "type": "play_card",
+          "description": "Joue une carte",
+          "blocked_by_heroes": true
+        },
+        {
+          "type": "activate",
+          "description": "Active une capacité",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "discard",
+          "description": "Défausse des cartes",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "gain_power",
+          "value": 1,
+          "description": "Gagne 1 pouvoir",
+          "blocked_by_heroes": false
+        }
+      ]
+    },
+    {
+      "id": "hook_hangmans_tree",
+      "name": "Arbre du Pendu",
+      "position": 3,
+      "description": "La cachette secrète des Enfants Perdus",
+      "actions": [
+        {
+          "type": "fate",
+          "description": "Joue le Destin",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "gain_power",
+          "value": 2,
+          "description": "Gagne 2 pouvoirs",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "move_item",
+          "description": "Déplace un objet",
+          "blocked_by_heroes": false
+        },
+        {
+          "type": "activate",
+          "description": "Active une capacité",
+          "blocked_by_heroes": true
+        }
+      ]
+    }
+  ]
+}

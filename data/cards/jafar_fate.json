@@ -1,0 +1,113 @@
+{
+  "cards": [
+    {
+      "id": "jafar_hero_1",
+      "name": "Aladdin",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le héros d'Agrabah",
+      "strength": 2,
+      "effects": [
+        {
+          "description": "Force +1 si Abu est en jeu",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_hero_2",
+      "name": "Jasmine",
+      "type": "hero",
+      "cost": 0,
+      "description": "La princesse d'Agrabah",
+      "strength": 2,
+      "effects": [
+        {
+          "description": "Empêche d'hypnotiser",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_hero_3",
+      "name": "Abu",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le singe fidèle d'Aladdin",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Vole un objet quand joué",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_hero_4",
+      "name": "Génie",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le génie de la lampe",
+      "strength": 4,
+      "effects": [
+        {
+          "description": "Retire la Lampe Magique du jeu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_hero_5",
+      "name": "Tapis Volant",
+      "type": "item_hero",
+      "cost": 0,
+      "description": "Le tapis magique d'Aladdin",
+      "effects": [
+        {
+          "description": "Aladdin peut se déplacer n'importe où",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_event_1",
+      "name": "Trois Vœux",
+      "type": "event",
+      "cost": 0,
+      "description": "Les vœux d'Aladdin",
+      "effects": [
+        {
+          "description": "Révèle et joue les 3 prochaines cartes Destin",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_event_2",
+      "name": "Prince Ali",
+      "type": "event",
+      "cost": 0,
+      "description": "Aladdin déguisé en prince",
+      "effects": [
+        {
+          "description": "Aladdin gagne +2 force",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    }
+  ]
+}

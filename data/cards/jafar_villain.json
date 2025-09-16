@@ -1,0 +1,130 @@
+{
+  "cards": [
+    {
+      "id": "jafar_ally_1",
+      "name": "Iago",
+      "type": "ally",
+      "cost": 2,
+      "description": "Le perroquet maléfique de Jafar",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Gagne 1 pouvoir quand joué",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_ally_2",
+      "name": "Razoul",
+      "type": "ally",
+      "cost": 3,
+      "description": "Capitaine des gardes du palais",
+      "strength": 3,
+      "effects": [
+        {
+          "description": "Force +1 si au Palais",
+          "trigger": "passive",
+          "parameters": {
+            "location": "palace_gates"
+          }
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_item_1",
+      "name": "Lampe Magique",
+      "type": "item",
+      "cost": 4,
+      "description": "La lampe du génie - objectif de victoire",
+      "effects": [
+        {
+          "description": "Permet de vaincre n'importe quel héros",
+          "trigger": "activate"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_item_2",
+      "name": "Bâton de Serpent",
+      "type": "item",
+      "cost": 2,
+      "description": "Le bâton magique de Jafar",
+      "effects": [
+        {
+          "description": "Les héros ont -1 force",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_effect_1",
+      "name": "Hypnotiser",
+      "type": "effect",
+      "cost": 2,
+      "description": "Jafar hypnotise ses ennemis",
+      "effects": [
+        {
+          "description": "Prends le contrôle d'un héros",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_effect_2",
+      "name": "Génie Tout-Puissant",
+      "type": "effect",
+      "cost": 5,
+      "description": "Jafar devient le génie le plus puissant",
+      "effects": [
+        {
+          "description": "Gagne 4 pouvoirs et pioche 2 cartes",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_ally_3",
+      "name": "Gardes du Palais",
+      "type": "ally",
+      "cost": 1,
+      "description": "Les gardes loyaux au Vizir",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Force +1 pour chaque autre garde",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    },
+    {
+      "id": "jafar_condition_1",
+      "name": "Sultan Hypnotisé",
+      "type": "condition",
+      "cost": 3,
+      "description": "Le Sultan est sous contrôle",
+      "effects": [
+        {
+          "description": "Gagne 1 pouvoir par tour",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "jafar",
+      "expansion": "base"
+    }
+  ]
+}
