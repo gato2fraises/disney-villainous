@@ -1,0 +1,114 @@
+{
+  "cards": [
+    {
+      "id": "hook_hero_1",
+      "name": "Peter Pan",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le garçon qui ne grandit jamais",
+      "strength": 3,
+      "effects": [
+        {
+          "description": "Peut voler vers n'importe quel lieu",
+          "trigger": "activate"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_hero_2",
+      "name": "Wendy",
+      "type": "hero",
+      "cost": 0,
+      "description": "La mère des Enfants Perdus",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Peter Pan gagne +1 force",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_hero_3",
+      "name": "John Darling",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le frère de Wendy",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Force +1 si Wendy est en jeu",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_hero_4",
+      "name": "Michael Darling",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le petit frère de Wendy",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Force +1 si John est en jeu",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_hero_5",
+      "name": "Clochette",
+      "type": "hero",
+      "cost": 0,
+      "description": "La fée jalouse",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Retire un objet du jeu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_event_1",
+      "name": "Vol Heureux",
+      "type": "event",
+      "cost": 0,
+      "description": "Peter Pan et les enfants s'envolent",
+      "effects": [
+        {
+          "description": "Tous les héros changent de lieu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_event_2",
+      "name": "Chant de Peter Pan",
+      "type": "event",
+      "cost": 0,
+      "description": "Peter Pan chante pour défier Crochet",
+      "effects": [
+        {
+          "description": "Peter Pan gagne +2 force jusqu'à la fin du tour",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    }
+  ]
+}

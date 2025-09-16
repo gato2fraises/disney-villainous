@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Syntaxe Game Data</title>
+</head>
+<body>
+    <h1>Test de Syntaxe game-data.js</h1>
+    <div id="result">Test en cours...</div>
+    
+    <script>
+        console.log("Début du test de syntaxe");
+        
+        try {
+            // Test 1: Charger le script dans un élément isolé
+            const testScript = document.createElement('script');
+            testScript.textContent = '';
+            
+            // Créer une requête pour lire le contenu du fichier
+            fetch('js/game-data.js')
+                .then(response => {
+                    console.log("Réponse fetch:", response.status);
+                    if (!response.ok) {
+                        throw new Error(`Erreur HTTP: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(scriptContent => {
+                    console.log("Contenu récupéré, longueur:", scriptContent.length);
+                    
+                    // Essayer d'évaluer le script
+                    try {
+                        eval(scriptContent);
+                        console.log("✅ Syntaxe correcte");
+                        
+                        // Vérifier si VILLAINS existe
+                        if (typeof VILLAINS !== 'undefined') {
+                            document.getElementById('result').innerHTML = 
+                                '<h2 style="color:green">✅ SUCCÈS</h2>' +
+                                '<p>Syntaxe correcte et VILLAINS défini</p>' +
+                                '<p>Méchants trouvés: ' + Object.keys(VILLAINS).length + '</p>' +
+                                '<ul>' + Object.keys(VILLAINS).map(v => '<li>' + v + '</li>').join('') + '</ul>';
+                        } else {
+                            document.getElementById('result').innerHTML = 
+                                '<h2 style="color:orange">⚠️ SYNTAXE OK</h2>' +
+                                '<p>Le script se charge sans erreur mais VILLAINS n\'est pas défini</p>';
+                        }
+                    } catch (evalError) {
+                        console.error("❌ Erreur de syntaxe:", evalError);
+                        document.getElementById('result').innerHTML = 
+                            '<h2 style="color:red">❌ ERREUR DE SYNTAXE</h2>' +
+                            '<p>Erreur: ' + evalError.message + '</p>' +
+                            '<pre>' + evalError.stack + '</pre>';
+                    }
+                })
+                .catch(fetchError => {
+                    console.error("❌ Erreur de chargement:", fetchError);
+                    document.getElementById('result').innerHTML = 
+                        '<h2 style="color:red">❌ ERREUR DE CHARGEMENT</h2>' +
+                        '<p>Impossible de charger js/game-data.js</p>' +
+                        '<p>Erreur: ' + fetchError.message + '</p>';
+                });
+                
+        } catch (error) {
+            console.error("❌ Erreur générale:", error);
+            document.getElementById('result').innerHTML = 
+                '<h2 style="color:red">❌ ERREUR GÉNÉRALE</h2>' +
+                '<p>' + error.message + '</p>';
+        }
+    </script>
+</body>
+</html>

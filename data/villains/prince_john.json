@@ -1,0 +1,151 @@
+{
+  "villain": {
+    "id": "prince_john",
+    "name": "Prince John",
+    "description": "Le prince avide qui taxe ses sujets pour remplir ses coffres royaux",
+    "starting_power": 5,
+    "starting_location": 1,
+    "victory_condition": {
+      "type": "custom",
+      "description": "Accumuler 20 Pouvoir et avoir au moins 1 Tax dans chaque lieu",
+      "requirements": [
+        {
+          "type": "power_minimum",
+          "amount": 20
+        },
+        {
+          "type": "tax_all_locations",
+          "card_type": "tax"
+        }
+      ]
+    },
+    "special_abilities": [
+      {
+        "name": "Taxation Royale",
+        "description": "Gagne +1 Pouvoir supplémentaire pour chaque action 'Gagner du Pouvoir'"
+      },
+      {
+        "name": "Coffres Royaux",
+        "description": "Peut stocker du Pouvoir supplémentaire sans limite"
+      }
+    ],
+    "board": [
+      {
+        "id": "nottingham",
+        "name": "Nottingham",
+        "description": "La ville principale du royaume, riche en opportunités de taxation",
+        "actions": [
+          {
+            "type": "gain_power",
+            "value": 3,
+            "icon": "💰",
+            "description": "Collecte les Taxes"
+          },
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "vanquish",
+            "icon": "⚔️",
+            "description": "Vaincs un héros"
+          },
+          {
+            "type": "discard",
+            "icon": "🗑️",
+            "description": "Défausse des cartes"
+          }
+        ]
+      },
+      {
+        "id": "sherwood_forest",
+        "name": "Forêt de Sherwood",
+        "description": "La forêt dangereuse où se cachent les hors-la-loi",
+        "actions": [
+          {
+            "type": "gain_power",
+            "value": 1,
+            "icon": "💰",
+            "description": "Fouille la Forêt"
+          },
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte"
+          },
+          {
+            "type": "activate",
+            "icon": "🔧",
+            "description": "Active une capacité",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "fate",
+            "icon": "🔮",
+            "description": "Joue le Destin"
+          }
+        ]
+      },
+      {
+        "id": "royal_castle",
+        "name": "Château Royal",
+        "description": "La forteresse du Prince John, centre de son pouvoir",
+        "actions": [
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte"
+          },
+          {
+            "type": "royal_treasury",
+            "icon": "💎",
+            "description": "Trésor Royal",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "gain_power",
+            "value": 2,
+            "icon": "💰",
+            "description": "Collecte les Tributs"
+          },
+          {
+            "type": "discard",
+            "icon": "🗑️",
+            "description": "Défausse des cartes"
+          }
+        ]
+      },
+      {
+        "id": "village_square",
+        "name": "Place du Village",
+        "description": "Le cœur de la communauté, parfait pour collecter les taxes",
+        "actions": [
+          {
+            "type": "taxation",
+            "icon": "🏛️",
+            "description": "Impose une Taxe"
+          },
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "gain_power",
+            "value": 2,
+            "icon": "💰",
+            "description": "Collecte les Taxes"
+          },
+          {
+            "type": "activate",
+            "icon": "🔧",
+            "description": "Active une capacité"
+          }
+        ]
+      }
+    ]
+  }
+}

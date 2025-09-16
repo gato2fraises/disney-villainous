@@ -1,0 +1,21 @@
+# Requirements pour Disney Villainous
+
+# Core dependencies
+dataclasses  # Pour les structures de données (Python < 3.7)
+typing-extensions  # Pour les annotations de type avancées
+enum34  # Pour les énumérations (Python < 3.4)
+
+# Interface et affichage
+colorama>=0.4.4  # Couleurs dans la console
+rich>=10.0.0  # Interface console riche et interactive
+
+# Gestion des données
+pyyaml>=5.4.0  # Pour lire des fichiers YAML (alternative aux JSON)
+
+# Tests (optionnel)
+pytest>=6.0.0  # Framework de tests
+pytest-cov>=2.0.0  # Couverture de code
+
+# Développement (optionnel)
+black>=21.0.0  # Formatage du code
+flake8>=3.8.0  # Linting du code

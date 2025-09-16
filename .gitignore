@@ -1,0 +1,110 @@
+# Fichiers Python compilés
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Habituellement ces fichiers sont écrits par un script python depuis un template
+#  avant PyInstaller builds la exe, donc quant à inclure le script lui-même.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environnements virtuels
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+python_portable/
+
+# IDE et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.spyderproject
+.spyproject
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Logs et données temporaires
+*.log
+.cache/
+.pytest_cache/
+.coverage
+.nyc_output
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# OS spécifiques
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+
+# Fichiers de sauvegarde et temporaires
+*.backup
+*.bak
+*.tmp
+*~
+
+# Configuration locale
+config.local.json
+.env
+.env.local
+.env.production.local
+.env.development.local
+
+# Historique VS Code
+.history/
+
+# Fichiers exécutables générés (optionnel - décommentez si vous ne voulez pas les inclure)
+# Disney_Villainous.exe
+# *.exe
+
+# Dossiers de test temporaires
+test_output/
+temp/

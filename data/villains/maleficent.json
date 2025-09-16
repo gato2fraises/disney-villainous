@@ -1,0 +1,34 @@
+{
+  "villain": {
+    "id": "maleficent",
+    "name": "Maléfique",
+    "description": "La fée maléfique qui veut maudire tous les royaumes",
+    "starting_power": 3,
+    "starting_location": 0,
+    "victory_condition": {
+      "type": "custom",
+      "description": "Commencer son tour avec une Malédiction sur chacun des 4 lieux",
+      "requirements": [
+        {
+          "type": "item_at_all_locations",
+          "item_type": "curse"
+        }
+      ]
+    },
+    "special_abilities": [
+      {
+        "name": "Malédictions",
+        "description": "Peut placer des malédictions qui persistent et donnent des bonus"
+      },
+      {
+        "name": "Transformation Dragon",
+        "description": "Peut se transformer en dragon pour vaincre plus facilement les héros"
+      }
+    ]
+  },
+  "statistics": {
+    "difficulty": "Facile",
+    "victory_time": "20-30 tours",
+    "key_strategy": "Étaler les malédictions rapidement sur tous les lieux"
+  }
+}

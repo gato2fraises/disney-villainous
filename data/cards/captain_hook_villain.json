@@ -1,0 +1,130 @@
+{
+  "cards": [
+    {
+      "id": "hook_ally_1",
+      "name": "Mr. Smee",
+      "type": "ally",
+      "cost": 1,
+      "description": "Le fidèle second du Capitaine Crochet",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Pioche une carte quand joué",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_ally_2",
+      "name": "Pirates",
+      "type": "ally",
+      "cost": 2,
+      "description": "L'équipage pirate du Jolly Roger",
+      "strength": 2,
+      "effects": [
+        {
+          "description": "Force +1 si au Jolly Roger",
+          "trigger": "passive",
+          "parameters": {
+            "location": "jolly_roger"
+          }
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_item_1",
+      "name": "Crochet",
+      "type": "item",
+      "cost": 2,
+      "description": "La main-crochet du capitaine",
+      "effects": [
+        {
+          "description": "Gagne +1 force au combat",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_item_2",
+      "name": "Épée du Capitaine",
+      "type": "item",
+      "cost": 3,
+      "description": "L'épée légendaire du Capitaine Crochet",
+      "effects": [
+        {
+          "description": "Permet de vaincre Peter Pan",
+          "trigger": "activate"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_effect_1",
+      "name": "Canons du Navire",
+      "type": "effect",
+      "cost": 3,
+      "description": "Tir de canon depuis le Jolly Roger",
+      "effects": [
+        {
+          "description": "Vaincs tous les héros d'un lieu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_effect_2",
+      "name": "Marcher sur la Planche",
+      "type": "effect",
+      "cost": 2,
+      "description": "Force un héros à marcher sur la planche",
+      "effects": [
+        {
+          "description": "Défausse un héros",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_ally_3",
+      "name": "Nana",
+      "type": "ally",
+      "cost": 1,
+      "description": "Le chien-nurse de la famille Darling",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Empêche Peter Pan de voler",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    },
+    {
+      "id": "hook_condition_1",
+      "name": "Tic-Tac le Crocodile",
+      "type": "condition",
+      "cost": 2,
+      "description": "Le crocodile qui a mangé la main de Crochet",
+      "effects": [
+        {
+          "description": "Crochet ne peut pas quitter ce lieu",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "captain_hook",
+      "expansion": "base"
+    }
+  ]
+}

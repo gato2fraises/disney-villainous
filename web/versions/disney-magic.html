@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Disney Villainous - Magie Colorée</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Écran de chargement Disney -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="disney-castle">🏰</div>
+        <h1 class="loading-title">
+            <span class="disney-text">Disney</span>
+            <span class="villainous-text">Villainous</span>
+        </h1>
+        <div class="magic-stars">
+            <span class="star">✨</span>
+            <span class="star">⭐</span>
+            <span class="star">🌟</span>
+            <span class="star">💫</span>
+            <span class="star">⭐</span>
+        </div>
+        <p class="loading-text">Préparation de l'aventure magique...</p>
+        <div id="loading-status" class="loading-status">
+            Chargement de la magie Disney...
+        </div>
+    </div>
+
+    <!-- Menu principal Disney -->
+    <div id="main-menu" class="main-menu hidden">
+        <div class="disney-background"></div>
+        <div class="menu-content">
+            <div class="main-castle">🏰</div>
+            <h1 class="game-title">
+                <span class="disney-logo">Disney</span>
+                <span class="villainous-logo">Villainous</span>
+            </h1>
+            <p class="game-subtitle">✨ Une aventure magique avec les méchants Disney ✨</p>
+            <div class="disney-quote">"Même les méchants ont leur propre magie..."</div>
+            
+            <div class="menu-buttons">
+                <button class="disney-btn primary" onclick="showGameSetup()">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">Nouvelle Aventure</span>
+                </button>
+                
+                <button class="disney-btn secondary" onclick="showRules()">
+                    <span class="btn-icon">📚</span>
+                    <span class="btn-text">Règles du Jeu</span>
+                </button>
+                
+                <button class="disney-btn secondary" onclick="showVillainGallery()">
+                    <span class="btn-icon">🎭</span>
+                    <span class="btn-text">Galerie des Personnages</span>
+                </button>
+                
+                <button class="disney-btn secondary" onclick="showCredits()">
+                    <span class="btn-icon">🏆</span>
+                    <span class="btn-text">Crédits</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sélection des personnages -->
+    <div id="game-setup" class="game-setup hidden">
+        <div class="setup-header">
+            <h2 class="setup-title">🎭 Choisissez votre Personnage 🎭</h2>
+            <p class="setup-subtitle">Sélectionnez vos méchants Disney préférés pour cette aventure</p>
+        </div>
+        
+        <div class="character-selection">
+            <div id="villain-cards" class="character-grid"></div>
+        </div>
+        
+        <div class="setup-actions">
+            <button onclick="startGame()" class="disney-btn primary large">
+                <span>🌟 Commencer l'Aventure 🌟</span>
+            </button>
+            <button onclick="showMainMenu()" class="disney-btn secondary">
+                <span>↩️ Retour au Menu</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Interface de jeu -->
+    <div id="game-interface" class="game-interface hidden">
+        <div class="game-header">
+            <div class="current-character">
+                <div class="character-avatar">
+                    <span id="current-player-icon">🧙‍♂️</span>
+                </div>
+                <div class="character-info">
+                    <span id="current-player-name">Jafar</span>
+                    <span class="character-story">Aladdin</span>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button class="control-btn" onclick="showMainMenu()">
+                    <span>🏠 Menu</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="game-board" id="game-board"></div>
+    </div>
+
+    <!-- Galerie des personnages -->
+    <div id="villain-gallery" class="villain-gallery hidden">
+        <div class="gallery-header">
+            <h2>🎭 Galerie des Personnages Disney 🎭</h2>
+            <p>Découvrez l'histoire de chaque personnage iconique</p>
+        </div>
+        
+        <div id="gallery-content" class="gallery-grid"></div>
+        
+        <div class="gallery-actions">
+            <button onclick="showMainMenu()" class="disney-btn secondary">
+                <span>↩️ Retour au Menu</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        console.log('🏰 Disney Villainous - Version Magique');
+        
+        // ====== PERSONNAGES DISNEY COLORÉS ======
+        const VILLAINS = {
+            jafar: {
+                id: 'jafar',
+                name: 'Jafar',
+                story: 'Aladdin',
+                icon: '🧙‍♂️',
+                description: 'Le Grand Vizier d\'Agrabah rêve de pouvoir suprême',
+                quote: '"Le pouvoir cosmique infini dans un espace tout petit !"',
+                colors: {
+                    primary: '#FF6B35',    // Orange du désert
+                    secondary: '#F7931E',  // Orange doré
+                    accent: '#FFD700'      // Or
+                },
+                element: '🔥 Magie du Désert'
+            },
+            ursula: {
+                id: 'ursula',
+                name: 'Ursula',
+                story: 'La Petite Sirène',
+                icon: '🐙',
+                description: 'La sorcière des mers qui collectionne les voix',
+                quote: '"Les pauvres âmes perdues, si tristes, si vraies !"',
+                colors: {
+                    primary: '#9C27B0',    // Violet profond
+                    secondary: '#E1BEE7',  // Violet clair
+                    accent: '#00E676'      // Vert aqua
+                },
+                element: '🌊 Magie des Océans'
+            },
+            maleficent: {
+                id: 'maleficent',
+                name: 'Maléfique',
+                story: 'La Belle au Bois Dormant',
+                icon: '🧚‍♀️',
+                description: 'La fée aux pouvoirs sombres et mystérieux',
+                quote: '"Maintenant vous connaîtrez la vraie malédiction !"',
+                colors: {
+                    primary: '#4CAF50',    // Vert mystique
+                    secondary: '#8BC34A',  // Vert clair
+                    accent: '#9C27B0'      // Violet magique
+                },
+                element: '🌿 Magie des Forêts'
+            },
+            scar: {
+                id: 'scar',
+                name: 'Scar',
+                story: 'Le Roi Lion',
+                icon: '🦁',
+                description: 'Le lion ambitieux qui rêve de régner sur la savane',
+                quote: '"Je suis entouré d\'idiots..."',
+                colors: {
+                    primary: '#FF9800',    // Orange fauve
+                    secondary: '#FFC107',  // Jaune doré
+                    accent: '#795548'      // Brun
+                },
+                element: '🌅 Magie de la Savane'
+            },
+            evil_queen: {
+                id: 'evil_queen',
+                name: 'Reine Maléfique',
+                story: 'Blanche-Neige',
+                icon: '👸',
+                description: 'La reine obsédée par sa beauté dans le miroir magique',
+                quote: '"Miroir, mon beau miroir, qui est la plus belle ?"',
+                colors: {
+                    primary: '#E91E63',    // Rose royal
+                    secondary: '#F48FB1',  // Rose clair
+                    accent: '#9C27B0'      // Violet royal
+                },
+                element: '🪞 Magie du Miroir'
+            },
+            cruella: {
+                id: 'cruella',
+                name: 'Cruella De Vil',
+                story: '101 Dalmatiens',
+                icon: '🐕',
+                description: 'La styliste excentrique passionnée de mode',
+                quote: '"Je vivrai dans le luxe ou pas du tout !"',
+                colors: {
+                    primary: '#212121',    // Noir élégant
+                    secondary: '#757575',  // Gris
+                    accent: '#F44336'      // Rouge passion
+                },
+                element: '✨ Magie de la Mode'
+            }
+        };
+
+        // ====== GESTIONNAIRE D'ANIMATIONS DISNEY ======
+        class DisneyAnimationManager {
+            constructor() {
+                this.animations = new Map();
+                console.log('✨ Animations Disney activées');
+            }
+            
+            createMagicStars() {
+                const container = document.querySelector('.magic-stars');
+                if (!container) return;
+                
+                const stars = container.querySelectorAll('.star');
+                stars.forEach((star, index) => {
+                    star.style.animationDelay = `${index * 0.3}s`;
+                });
+            }
+            
+            disneyEntrance(element) {
+                if (!element) return Promise.resolve();
+                
+                element.style.cssText += `
+                    transform: scale(0.8) translateY(20px);
+                    opacity: 0;
+                    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                `;
+                
+                return new Promise(resolve => {
+                    requestAnimationFrame(() => {
+                        element.style.transform = 'scale(1) translateY(0)';
+                        element.style.opacity = '1';
+                        setTimeout(resolve, 600);
+                    });
+                });
+            }
+            
+            magicSparkle(element, color = '#FFD700') {
+                if (!element) return;
+                
+                // Créer des particules magiques
+                for (let i = 0; i < 6; i++) {
+                    const sparkle = document.createElement('div');
+                    sparkle.textContent = '✨';
+                    sparkle.style.cssText = `
+                        position: absolute;
+                        color: ${color};
+                        font-size: 1.5rem;
+                        pointer-events: none;
+                        animation: sparkleFloat 1s ease-out forwards;
+                        left: ${Math.random() * 100}%;
+                        top: ${Math.random() * 100}%;
+                    `;
+                    
+                    element.style.position = 'relative';
+                    element.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        if (sparkle.parentNode) {
+                            sparkle.parentNode.removeChild(sparkle);
+                        }
+                    }, 1000);
+                }
+            }
+        }
+
+        // ====== GESTIONNAIRE D'INTERFACE DISNEY ======
+        class DisneyUIManager {
+            constructor() {
+                this.currentScreen = 'loading';
+                this.animationManager = new DisneyAnimationManager();
+                this.selectedCharacters = new Set();
+                console.log('🏰 Interface Disney initialisée');
+            }
+            
+            showScreen(screenId) {
+                console.log(`🎭 Changement d'écran: ${screenId}`);
+                
+                const screens = ['loading-screen', 'main-menu', 'game-setup', 'game-interface', 'villain-gallery'];
+                screens.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (id === screenId) {
+                            element.classList.remove('hidden');
+                            this.animationManager.disneyEntrance(element);
+                        } else {
+                            element.classList.add('hidden');
+                        }
+                    }
+                });
+                
+                this.currentScreen = screenId;
+                
+                if (screenId === 'game-setup') {
+                    this.generateCharacterCards();
+                } else if (screenId === 'villain-gallery') {
+                    this.generateCharacterGallery();
+                }
+            }
+            
+            updateLoadingStatus(message) {
+                const statusElement = document.getElementById('loading-status');
+                if (statusElement) {
+                    statusElement.textContent = message;
+                }
+                console.log(`[DISNEY LOADING] ${message}`);
+            }
+            
+            generateCharacterCards() {
+                const container = document.getElementById('villain-cards');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                Object.values(VILLAINS).forEach((character, index) => {
+                    const card = document.createElement('div');
+                    card.className = `character-card ${character.id}`;
+                    card.innerHTML = `
+                        <div class="character-header">
+                            <div class="character-icon">${character.icon}</div>
+                            <div class="character-story">${character.story}</div>
+                        </div>
+                        <div class="character-body">
+                            <h3 class="character-name">${character.name}</h3>
+                            <p class="character-description">${character.description}</p>
+                            <div class="character-element">${character.element}</div>
+                            <div class="character-quote">"${character.quote}"</div>
+                        </div>
+                        <div class="selection-badge">
+                            <span class="badge-text">Sélectionné ✨</span>
+                        </div>
+                    `;
+                    
+                    // Appliquer les couleurs du personnage
+                    card.style.background = `linear-gradient(135deg, ${character.colors.primary}, ${character.colors.secondary})`;
+                    card.style.borderColor = character.colors.accent;
+                    
+                    card.onclick = () => this.selectCharacter(character.id, card);
+                    container.appendChild(card);
+                    
+                    // Animation d'entrée décalée
+                    setTimeout(() => {
+                        this.animationManager.disneyEntrance(card);
+                    }, index * 150);
+                });
+            }
+            
+            selectCharacter(characterId, cardElement) {
+                const character = VILLAINS[characterId];
+                console.log(`✨ ${character.name} rejoint l'aventure !`);
+                
+                if (this.selectedCharacters.has(characterId)) {
+                    this.selectedCharacters.delete(characterId);
+                    cardElement.classList.remove('selected');
+                } else {
+                    this.selectedCharacters.add(characterId);
+                    cardElement.classList.add('selected');
+                    this.animationManager.magicSparkle(cardElement, character.colors.accent);
+                }
+            }
+            
+            generateCharacterGallery() {
+                const container = document.getElementById('gallery-content');
+                if (!container) return;
+                
+                container.innerHTML = '';
+                
+                Object.values(VILLAINS).forEach(character => {
+                    const galleryCard = document.createElement('div');
+                    galleryCard.className = 'gallery-card';
+                    galleryCard.innerHTML = `
+                        <div class="gallery-header" style="background: linear-gradient(135deg, ${character.colors.primary}, ${character.colors.secondary})">
+                            <div class="gallery-icon">${character.icon}</div>
+                            <h3>${character.name}</h3>
+                            <p class="gallery-story">Histoire : ${character.story}</p>
+                        </div>
+                        <div class="gallery-body">
+                            <p class="gallery-description">${character.description}</p>
+                            <div class="gallery-element">${character.element}</div>
+                            <div class="gallery-quote">"${character.quote}"</div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(galleryCard);
+                });
+            }
+        }
+
+        // ====== VARIABLES GLOBALES ======
+        let disneyUI;
+
+        // ====== FONCTIONS PRINCIPALES ======
+        function initializeDisneyApp() {
+            try {
+                disneyUI.updateLoadingStatus('✨ Préparation de la magie Disney...');
+                
+                disneyUI.animationManager.createMagicStars();
+                
+                setTimeout(() => {
+                    disneyUI.updateLoadingStatus('🏰 Ouverture du château...');
+                    
+                    setTimeout(() => {
+                        disneyUI.showScreen('main-menu');
+                        console.log('🎉 Disney Villainous prêt !');
+                    }, 1000);
+                }, 1500);
+                
+            } catch (error) {
+                console.error('❌ Erreur Disney:', error);
+                disneyUI.updateLoadingStatus('❌ Erreur de chargement...');
+            }
+        }
+
+        function showGameSetup() {
+            disneyUI.showScreen('game-setup');
+        }
+
+        function showMainMenu() {
+            disneyUI.showScreen('main-menu');
+        }
+
+        function showVillainGallery() {
+            disneyUI.showScreen('villain-gallery');
+        }
+
+        function startGame() {
+            if (disneyUI.selectedCharacters.size === 0) {
+                alert('🎭 Choisissez au moins un personnage pour commencer l\'aventure !');
+                return;
+            }
+            
+            console.log('🌟 L\'aventure commence !');
+            disneyUI.showScreen('game-interface');
+            initializeGameBoard();
+        }
+
+        function initializeGameBoard() {
+            const gameBoard = document.getElementById('game-board');
+            if (gameBoard) {
+                const selectedList = Array.from(disneyUI.selectedCharacters)
+                    .map(id => VILLAINS[id])
+                    .map(char => `
+                        <div class="board-character" style="background: linear-gradient(135deg, ${char.colors.primary}, ${char.colors.secondary})">
+                            <span class="board-icon">${char.icon}</span>
+                            <span class="board-name">${char.name}</span>
+                            <span class="board-story">${char.story}</span>
+                        </div>
+                    `).join('');
+                
+                gameBoard.innerHTML = `
+                    <div class="disney-board">
+                        <h2 class="board-title">🎮 Plateau de Jeu Disney 🎮</h2>
+                        <p class="board-subtitle">Vos personnages sont prêts pour l'aventure !</p>
+                        <div class="selected-characters">
+                            <h3>✨ Vos Héros ✨</h3>
+                            <div class="character-lineup">
+                                ${selectedList}
+                            </div>
+                        </div>
+                        <div class="board-message">
+                            <p>🏰 L'interface de jeu complète arrive bientôt...</p>
+                            <p>🎭 Préparez-vous pour une aventure magique !</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showRules() {
+            alert('📚 Les règles du jeu Disney Villainous\n\n🎭 Incarnez vos méchants Disney préférés\n🏰 Explorez leurs royaumes uniques\n✨ Accomplissez vos objectifs maléfiques\n\n🌟 Guide complet à venir !');
+        }
+
+        function showCredits() {
+            alert('🏆 Disney Villainous\n\n✨ Créé avec amour pour l\'univers Disney\n🎭 Tous les personnages appartiennent à Disney\n🏰 Une expérience magique pour tous les âges !');
+        }
+
+        // ====== INITIALISATION DISNEY ======
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🏰 Chargement de la magie Disney');
+            
+            disneyUI = new DisneyUIManager();
+            
+            disneyUI.updateLoadingStatus('🎭 Réveil des personnages Disney...');
+            
+            console.log(`✨ ${Object.keys(VILLAINS).length} personnages Disney chargés`);
+            
+            setTimeout(initializeDisneyApp, 2000);
+        });
+
+        window.addEventListener('error', (e) => {
+            console.error('❌ Erreur Disney:', e.message);
+            if (disneyUI) {
+                disneyUI.updateLoadingStatus(`❌ Erreur: ${e.message}`);
+            }
+        });
+
+        console.log('🎉 Disney Villainous - Version magique chargée !');
+    </script>
+
+    <style>
+        /* ===== THÈME DISNEY COLORÉ ===== */
+        
+        /* Variables Disney */
+        :root {
+            --disney-blue: #0074D9;
+            --disney-yellow: #FFD700;
+            --disney-red: #FF4136;
+            --disney-purple: #B10DC9;
+            --disney-green: #2ECC40;
+            --disney-orange: #FF851B;
+            --disney-pink: #F012BE;
+            
+            --background-gradient: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #87CEFA 100%);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --magic-glow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        /* Reset et base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', 'Arial', sans-serif;
+            background: var(--background-gradient);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Écran de chargement Disney */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .disney-castle {
+            font-size: 6rem;
+            margin-bottom: 1rem;
+            animation: castleBounce 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+        }
+
+        .loading-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .disney-text {
+            color: var(--disney-blue);
+            text-shadow: 2px 2px 4px rgba(0, 116, 217, 0.3);
+        }
+
+        .villainous-text {
+            color: var(--disney-purple);
+            text-shadow: 2px 2px 4px rgba(177, 13, 201, 0.3);
+        }
+
+        .magic-stars {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .star {
+            font-size: 2rem;
+            animation: starTwinkle 1.5s ease-in-out infinite;
+        }
+
+        .star:nth-child(1) { color: var(--disney-yellow); }
+        .star:nth-child(2) { color: var(--disney-blue); }
+        .star:nth-child(3) { color: var(--disney-green); }
+        .star:nth-child(4) { color: var(--disney-pink); }
+        .star:nth-child(5) { color: var(--disney-orange); }
+
+        .loading-text {
+            font-size: 1.3rem;
+            color: var(--disney-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .loading-status {
+            font-size: 1rem;
+            color: var(--disney-purple);
+            font-style: italic;
+        }
+
+        /* Menu principal Disney */
+        .main-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+
+        .disney-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 116, 217, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(177, 13, 201, 0.1) 0%, transparent 50%);
+            animation: backgroundFloat 10s ease-in-out infinite;
+        }
+
+        .menu-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-castle {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: castleBounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+        }
+
+        .game-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .disney-logo {
+            color: var(--disney-blue);
+            text-shadow: 3px 3px 6px rgba(0, 116, 217, 0.3);
+        }
+
+        .villainous-logo {
+            color: var(--disney-purple);
+            text-shadow: 3px 3px 6px rgba(177, 13, 201, 0.3);
+        }
+
+        .game-subtitle {
+            font-size: 1.3rem;
+            color: var(--disney-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .disney-quote {
+            font-size: 1.1rem;
+            color: var(--disney-purple);
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        /* Boutons Disney */
+        .disney-btn {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            padding: 1rem 2.5rem;
+            margin: 0.5rem;
+            border: 3px solid transparent;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            min-width: 250px;
+            justify-content: center;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .disney-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .disney-btn:hover::before {
+            left: 100%;
+        }
+
+        .disney-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--magic-glow);
+        }
+
+        .disney-btn.primary {
+            background: linear-gradient(135deg, var(--disney-orange), var(--disney-yellow));
+            color: white;
+            border-color: var(--disney-red);
+        }
+
+        .disney-btn.secondary {
+            background: linear-gradient(135deg, var(--disney-blue), var(--disney-purple));
+            color: white;
+            border-color: var(--disney-pink);
+        }
+
+        .disney-btn.large {
+            padding: 1.5rem 3rem;
+            font-size: 1.3rem;
+        }
+
+        .btn-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Sélection des personnages */
+        .game-setup, .game-interface, .villain-gallery {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .setup-header, .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .setup-title, .gallery-header h2 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(177, 13, 201, 0.3);
+        }
+
+        .setup-subtitle, .gallery-header p {
+            font-size: 1.2rem;
+            color: var(--disney-blue);
+            font-weight: 600;
+        }
+
+        .character-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .character-card {
+            background: white;
+            border: 3px solid var(--disney-yellow);
+            border-radius: 20px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .character-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--magic-glow);
+        }
+
+        .character-card.selected {
+            border-color: var(--disney-green);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(46, 204, 64, 0.5);
+        }
+
+        .character-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .character-icon {
+            font-size: 4rem;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        .character-story {
+            background: var(--disney-blue);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .character-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--disney-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .character-description {
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .character-element {
+            background: var(--disney-green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .character-quote {
+            font-style: italic;
+            color: var(--disney-purple);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .selection-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--disney-green);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .character-card.selected .selection-badge {
+            opacity: 1;
+        }
+
+        /* Actions */
+        .setup-actions, .gallery-actions {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* Interface de jeu */
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .current-character {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .character-avatar {
+            font-size: 3rem;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        .character-info span {
+            display: block;
+        }
+
+        .character-info #current-player-name {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: var(--disney-purple);
+        }
+
+        .character-story {
+            color: var(--disney-blue);
+            font-weight: 600;
+        }
+
+        .control-btn {
+            background: var(--disney-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover {
+            background: var(--disney-purple);
+            transform: translateY(-2px);
+        }
+
+        /* Plateau de jeu */
+        .disney-board {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .board-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            color: var(--disney-purple);
+            margin-bottom: 1rem;
+        }
+
+        .character-lineup {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .board-character {
+            padding: 1rem;
+            border-radius: 15px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .board-icon {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .board-name {
+            display: block;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1rem;
+        }
+
+        .board-story {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Galerie */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-header {
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .gallery-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-header h3 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+        }
+
+        .gallery-body {
+            padding: 1.5rem;
+        }
+
+        .gallery-description {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-element {
+            background: var(--disney-green);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-quote {
+            font-style: italic;
+            color: var(--disney-purple);
+            text-align: center;
+        }
+
+        /* Animations Disney */
+        @keyframes castleBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.7; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes sparkleFloat {
+            0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+            100% { opacity: 0; transform: translateY(-50px) scale(0) rotate(360deg); }
+        }
+
+        /* Utilitaires */
+        .hidden { display: none !important; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .loading-title, .game-title { font-size: 2.5rem; }
+            .setup-title, .gallery-header h2 { font-size: 2rem; }
+            .disney-btn { min-width: 200px; padding: 0.8rem 1.5rem; }
+            .character-grid { grid-template-columns: 1fr; }
+            .main-castle, .disney-castle { font-size: 4rem; }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,195 @@
+🏰 DISNEY VILLAINOUS - MANUEL DE JEU 🏰
+=============================================
+
+📖 TABLE DES MATIÈRES
+1. Comment jouer rapidement
+2. Règles du jeu
+3. Méchants disponibles
+4. Actions de jeu
+5. Conditions de victoire
+6. Conseils stratégiques
+7. Dépannage
+
+=============================================
+🚀 1. COMMENT JOUER RAPIDEMENT
+=============================================
+
+▶️ ÉTAPE 1 : Lancement
+   Double-cliquez sur "JOUER.bat"
+
+▶️ ÉTAPE 2 : Configuration
+   • Nombre de joueurs (1-6)
+   • Nom de chaque joueur
+   • Choix du méchant pour chaque joueur
+
+▶️ ÉTAPE 3 : Jeu
+   • Déplacez-vous sur votre plateau
+   • Effectuez les actions du lieu
+   • Jouez vos cartes
+   • Accomplissez votre objectif
+
+=============================================
+📜 2. RÈGLES DU JEU
+=============================================
+
+🎯 OBJECTIF
+Chaque méchant a un objectif unique à accomplir avant les autres.
+
+🔄 TOUR DE JEU
+1. DÉPLACEMENT : Choisissez un lieu adjacent
+2. ACTIONS : Effectuez toutes les actions du lieu (obligatoire)
+3. FIN DE TOUR : Repiochez jusqu'à 4 cartes
+
+⚡ ACTIONS POSSIBLES
+• 💰 Gagner du Pouvoir : Obtenez de la monnaie
+• 🃏 Jouer une Carte : Payez le coût et activez
+• ⚡ Activer : Utilisez vos cartes/objets
+• 🗑️ Défausser : Retirez des cartes
+• ⚔️ Vaincre : Éliminez les héros
+• 💀 Destin : Gênez un adversaire
+
+🃏 CARTES
+• Coût en Pouvoir pour les jouer
+• Effets variés selon le type
+• Main limitée à 4 cartes
+
+=============================================
+👑 3. MÉCHANTS DISPONIBLES
+=============================================
+
+🧙‍♀️ MALÉFIQUE
+┌─────────────────────────────────────┐
+│ Lieux : Château Interdit, Bruyère   │
+│         Maudite, Pont-Levis, Donjon │
+│ Objectif : Placer une Malédiction   │
+│           sur chaque lieu           │
+│ Stratégie : Magie noire et contrôle │
+└─────────────────────────────────────┘
+
+🧞‍♂️ JAFAR
+┌─────────────────────────────────────┐
+│ Lieux : Palais du Sultan, Rues      │
+│         d'Agrabah, Oasis, Caverne   │
+│ Objectif : Avoir la Lampe Magique   │
+│           et localiser Jasmine      │
+│ Stratégie : Hypnose et manipulation │
+└─────────────────────────────────────┘
+
+🏴‍☠️ CAPITAINE CROCHET
+┌─────────────────────────────────────┐
+│ Lieux : Repaire de Crochet, Plage   │
+│         du Crâne, Jolly Roger, Baie  │
+│ Objectif : Vaincre Peter Pan au     │
+│           Jolly Roger               │
+│ Stratégie : Combat et navigation    │
+└─────────────────────────────────────┘
+
+=============================================
+⚡ 4. ACTIONS DÉTAILLÉES
+=============================================
+
+💰 GAGNER DU POUVOIR
+Obtenez de la monnaie selon le lieu (1-3 points)
+
+🃏 JOUER UNE CARTE
+• Payez le coût en Pouvoir
+• Activez l'effet immédiatement
+• Types : Alliés, Objets, Effets, Conditions
+
+⚡ ACTIVER
+Utilisez une capacité de carte déjà jouée
+
+🗑️ DÉFAUSSER
+Retirez des cartes inutiles de votre main
+
+⚔️ VAINCRE
+Éliminez les héros avec vos alliés
+(Force Allié ≥ Force Héros)
+
+💀 DESTIN
+Jouez des cartes gênantes contre un adversaire
+
+=============================================
+🏆 5. CONDITIONS DE VICTOIRE
+=============================================
+
+🧙‍♀️ MALÉFIQUE
+"Placez une Malédiction sur chaque lieu de votre plateau"
+
+🧞‍♂️ JAFAR  
+"Ayez la Lampe Magique à la Caverne aux Merveilles
+ ET localisez Jasmine"
+
+🏴‍☠️ CAPITAINE CROCHET
+"Vainquez Peter Pan lorsqu'il est au Jolly Roger"
+
+⚠️ IMPORTANT : Vérifiez votre victoire à la fin de votre tour
+
+=============================================
+💡 6. CONSEILS STRATÉGIQUES
+=============================================
+
+🎯 GÉNÉRAL
+• Concentrez-vous sur votre objectif
+• Gérez votre Pouvoir efficacement
+• Utilisez le Destin aux moments clés
+
+🧙‍♀️ MALÉFIQUE
+• Récupérez vos Malédictions défaussées
+• Contrôlez les héros qui bloquent vos actions
+• Utilisez "Magie Noire" pour chercher des Malédictions
+
+🧞‍♂️ JAFAR
+• Trouvez la Lampe en premier
+• Gardez du Pouvoir pour "Hypnose"
+• Éliminez Aladdin rapidement
+
+🏴‍☠️ CAPITAINE CROCHET
+• Attirez Peter Pan au Jolly Roger
+• Augmentez votre Force avec des objets
+• Contrôlez les autres lieux en attendant
+
+=============================================
+🔧 7. DÉPANNAGE
+=============================================
+
+❌ "Le jeu ne démarre pas"
+→ Lancez DIAGNOSTIC.bat pour vérifier
+→ Assurez-vous que tous les fichiers sont présents
+
+❌ "Erreur Python"
+→ Utilisez JOUER.bat au lieu de main.py
+→ Ou créez un .exe avec compiler.ps1
+
+❌ "Cartes manquantes"
+→ Vérifiez que le dossier data/ existe
+→ Retéléchargez le package si nécessaire
+
+❌ "Interface bizarre"
+→ Utilisez un terminal moderne (Windows Terminal)
+→ Activez les couleurs dans votre console
+
+❌ "Jeu lent"
+→ Normal, c'est un jeu de réflexion !
+→ Prenez votre temps pour les stratégies
+
+=============================================
+📞 SUPPORT
+=============================================
+
+🆘 En cas de problème persistant :
+1. Lancez DIAGNOSTIC.bat
+2. Vérifiez que tous les fichiers sont présents
+3. Essayez de recréer l'exécutable
+4. Consultez la documentation complète
+
+📋 Fichiers importants :
+• JOUER.bat - Lance le jeu
+• DIAGNOSTIC.bat - Vérifie le système
+• compiler.ps1 - Crée un .exe
+• README.md - Documentation complète
+
+=============================================
+
+🎉 Amusez-vous bien avec Disney Villainous !
+Incarnez votre méchant préféré et conquérez ! 👑

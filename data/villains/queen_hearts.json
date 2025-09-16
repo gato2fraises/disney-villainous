@@ -1,0 +1,151 @@
+{
+  "villain": {
+    "id": "queen_hearts",
+    "name": "Queen of Hearts",
+    "description": "La reine tyrannique du Royaume des Cartes qui veut maintenir son pouvoir absolu",
+    "starting_power": 3,
+    "starting_location": 0,
+    "victory_condition": {
+      "type": "custom",
+      "description": "Avoir 4 Gardes Cartes à différents lieux et décapiter 3 héros",
+      "requirements": [
+        {
+          "type": "cards_at_locations",
+          "card_type": "garde_carte",
+          "minimum_locations": 4
+        },
+        {
+          "type": "heroes_defeated",
+          "count": 3
+        }
+      ]
+    },
+    "special_abilities": [
+      {
+        "name": "Décret Royal",
+        "description": "Peut immédiatement jouer une carte Garde après avoir vaincu un héros"
+      },
+      {
+        "name": "Colère Royale",
+        "description": "Gagne +1 Pouvoir chaque fois qu'un héros entre dans son royaume"
+      }
+    ],
+    "board": [
+      {
+        "id": "throne_room",
+        "name": "Salle du Trône",
+        "description": "Le cœur du pouvoir royal où la Reine rend ses verdicts",
+        "actions": [
+          {
+            "type": "gain_power",
+            "value": 2,
+            "icon": "💰",
+            "description": "Gagne 2 pouvoirs"
+          },
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte"
+          },
+          {
+            "type": "royal_decree",
+            "icon": "👑",
+            "description": "Décret Royal",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "vanquish",
+            "icon": "⚔️",
+            "description": "Vaincs un héros"
+          }
+        ]
+      },
+      {
+        "id": "courtyard",
+        "name": "Cour Royale",
+        "description": "Là où les sujets viennent implorer la clémence de la Reine",
+        "actions": [
+          {
+            "type": "gain_power",
+            "value": 1,
+            "icon": "💰",
+            "description": "Gagne 1 pouvoir"
+          },
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "activate",
+            "icon": "🔧",
+            "description": "Active une capacité"
+          },
+          {
+            "type": "fate",
+            "icon": "🔮",
+            "description": "Joue le Destin"
+          }
+        ]
+      },
+      {
+        "id": "wicket_garden",
+        "name": "Jardin de Croquet",
+        "description": "Le terrain de jeu favori de la Reine, avec ses règles changeantes",
+        "actions": [
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte"
+          },
+          {
+            "type": "card_game_rules",
+            "icon": "🎯",
+            "description": "Règles du Jeu",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "discard",
+            "icon": "🗑️",
+            "description": "Défausse des cartes"
+          },
+          {
+            "type": "gain_power",
+            "value": 1,
+            "icon": "💰",
+            "description": "Gagne 1 pouvoir"
+          }
+        ]
+      },
+      {
+        "id": "execution_grounds",
+        "name": "Terrain d'Exécution",
+        "description": "Où la justice de la Reine est rendue de manière... définitive",
+        "actions": [
+          {
+            "type": "vanquish",
+            "icon": "⚔️",
+            "description": "Vaincs un héros"
+          },
+          {
+            "type": "play_card",
+            "icon": "🃏",
+            "description": "Joue une carte",
+            "blocked_by_heroes": true
+          },
+          {
+            "type": "execute_decree",
+            "icon": "⚡",
+            "description": "Exécute un Décret"
+          },
+          {
+            "type": "discard",
+            "icon": "🗑️",
+            "description": "Défausse des cartes"
+          }
+        ]
+      }
+    ]
+  }
+}

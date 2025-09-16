@@ -1,0 +1,114 @@
+{
+  "cards": [
+    {
+      "id": "maleficent_hero_1",
+      "name": "Aurora",
+      "type": "hero",
+      "cost": 0,
+      "description": "La princesse endormie",
+      "strength": 2,
+      "effects": [
+        {
+          "description": "Empêche de jouer des cartes Malédiction",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    },
+    {
+      "id": "maleficent_hero_2",
+      "name": "Prince Philip",
+      "type": "hero",
+      "cost": 0,
+      "description": "Le prince courageux",
+      "strength": 3,
+      "effects": [
+        {
+          "description": "Force +1 si Aurora est en jeu",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    },
+    {
+      "id": "maleficent_hero_3",
+      "name": "Merryweather",
+      "type": "hero",
+      "cost": 0,
+      "description": "Fée bleue protectrice",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Retire une malédiction du jeu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    },
+    {
+      "id": "maleficent_hero_4",
+      "name": "Flora",
+      "type": "hero",
+      "cost": 0,
+      "description": "Fée rouge protectrice",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Les alliés ont -1 force",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    },
+    {
+      "id": "maleficent_hero_5",
+      "name": "Fauna",
+      "type": "hero",
+      "cost": 0,
+      "description": "Fée verte protectrice",
+      "strength": 1,
+      "effects": [
+        {
+          "description": "Bloque l'action Gagner du Pouvoir",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    },
+    {
+      "id": "maleficent_event_1",
+      "name": "True Love's Kiss",
+      "type": "event",
+      "cost": 0,
+      "description": "Le baiser du véritable amour",
+      "effects": [
+        {
+          "description": "Retire toutes les malédictions du jeu",
+          "trigger": "play"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    },
+    {
+      "id": "maleficent_event_2",
+      "name": "Sword of Truth",
+      "type": "item_hero",
+      "cost": 0,
+      "description": "L'épée de la vérité du Prince Philip",
+      "effects": [
+        {
+          "description": "Prince Philip gagne +2 force",
+          "trigger": "passive"
+        }
+      ],
+      "villain_set": "maleficent",
+      "expansion": "base"
+    }
+  ]
+}

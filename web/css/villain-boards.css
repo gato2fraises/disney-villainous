@@ -1,0 +1,330 @@
+/* Styles thématiques pour les plateaux Disney Villainous inspirés de l'image officielle */
+
+/* === COULEURS THÉMATIQUES PAR MÉCHANT === */
+:root {
+  /* Captain Hook - Tons pirates/océan */
+  --hook-primary: #2C5F41;
+  --hook-secondary: #8B4513;
+  --hook-accent: #DAA520;
+  --hook-bg: linear-gradient(135deg, #1e3a5f 0%, #2c5f41 100%);
+  
+  /* Maleficent - Tons sombres/mystiques */
+  --maleficent-primary: #4A0E4E;
+  --maleficent-secondary: #2F1B69;
+  --maleficent-accent: #9400D3;
+  --maleficent-bg: linear-gradient(135deg, #1a0033 0%, #4a0e4e 100%);
+  
+  /* Jafar - Tons orientaux/désert */
+  --jafar-primary: #8B4513;
+  --jafar-secondary: #CD853F;
+  --jafar-accent: #FFD700;
+  --jafar-bg: linear-gradient(135deg, #8b4513 0%, #daa520 100%);
+  
+  /* Queen of Hearts - Tons rouge/cartes */
+  --queen-primary: #DC143C;
+  --queen-secondary: #B22222;
+  --queen-accent: #FFD700;
+  --queen-bg: linear-gradient(135deg, #8b0000 0%, #dc143c 100%);
+  
+  /* Prince John - Tons royaux/médiévaux */
+  --prince-primary: #4B0082;
+  --prince-secondary: #6A5ACD;
+  --prince-accent: #FFD700;
+  --prince-bg: linear-gradient(135deg, #2e2e5c 0%, #4b0082 100%);
+}
+
+/* === PLATEAU DE BASE === */
+.villain-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+/* Effet de brillance animé sur le plateau */
+.villain-board::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%);
+  transform: rotate(45deg);
+  animation: boardShine 8s infinite;
+  pointer-events: none;
+}
+
+@keyframes boardShine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* === PLATEAUX SPÉCIFIQUES PAR MÉCHANT === */
+
+/* Captain Hook */
+.villain-board.captain-hook {
+  background: var(--hook-bg);
+  border-color: var(--hook-accent);
+}
+
+.villain-board.captain-hook .location {
+  background: rgba(44, 95, 65, 0.8);
+  border: 2px solid var(--hook-accent);
+}
+
+.villain-board.captain-hook .location:hover {
+  background: rgba(44, 95, 65, 0.9);
+  box-shadow: 0 0 20px var(--hook-accent);
+}
+
+/* Maleficent */
+.villain-board.maleficent {
+  background: var(--maleficent-bg);
+  border-color: var(--maleficent-accent);
+}
+
+.villain-board.maleficent .location {
+  background: rgba(74, 14, 78, 0.8);
+  border: 2px solid var(--maleficent-accent);
+}
+
+.villain-board.maleficent .location:hover {
+  background: rgba(74, 14, 78, 0.9);
+  box-shadow: 0 0 20px var(--maleficent-accent);
+}
+
+/* Jafar */
+.villain-board.jafar {
+  background: var(--jafar-bg);
+  border-color: var(--jafar-accent);
+}
+
+.villain-board.jafar .location {
+  background: rgba(139, 69, 19, 0.8);
+  border: 2px solid var(--jafar-accent);
+}
+
+.villain-board.jafar .location:hover {
+  background: rgba(139, 69, 19, 0.9);
+  box-shadow: 0 0 20px var(--jafar-accent);
+}
+
+/* Queen of Hearts */
+.villain-board.queen-hearts {
+  background: var(--queen-bg);
+  border-color: var(--queen-accent);
+}
+
+.villain-board.queen-hearts .location {
+  background: rgba(220, 20, 60, 0.8);
+  border: 2px solid var(--queen-accent);
+}
+
+.villain-board.queen-hearts .location:hover {
+  background: rgba(220, 20, 60, 0.9);
+  box-shadow: 0 0 20px var(--queen-accent);
+}
+
+/* Prince John */
+.villain-board.prince-john {
+  background: var(--prince-bg);
+  border-color: var(--prince-accent);
+}
+
+.villain-board.prince-john .location {
+  background: rgba(75, 0, 130, 0.8);
+  border: 2px solid var(--prince-accent);
+}
+
+.villain-board.prince-john .location:hover {
+  background: rgba(75, 0, 130, 0.9);
+  box-shadow: 0 0 20px var(--prince-accent);
+}
+
+/* === LIEUX INDIVIDUELS === */
+.location {
+  border-radius: 12px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+}
+
+.location::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.location:hover::before {
+  left: 100%;
+}
+
+.location.current-location {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  border-color: #FFD700;
+}
+
+.location.current-location::after {
+  content: '👑';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 20px;
+  animation: crownFloat 2s ease-in-out infinite;
+}
+
+@keyframes crownFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* === NOMS DES LIEUX === */
+.location-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* === ACTIONS DES LIEUX === */
+.location-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.action-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.action-icon:hover {
+  background: rgba(255, 215, 0, 0.3);
+  transform: translateX(5px);
+}
+
+.action-icon.blocked {
+  opacity: 0.5;
+  position: relative;
+}
+
+.action-icon.blocked::after {
+  content: '🚫';
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* === ANIMATIONS DE TRANSITION === */
+.board-transition-enter {
+  animation: boardSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.board-transition-exit {
+  animation: boardSlideOut 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes boardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes boardSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .villain-board {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 15px;
+  }
+  
+  .location {
+    padding: 10px;
+  }
+  
+  .location-name {
+    font-size: 14px;
+  }
+  
+  .action-icon {
+    font-size: 12px;
+  }
+}
+
+/* === EFFETS DE PARTICULES POUR LES LIEUX === */
+.location.magical-effect {
+  animation: magicalPulse 3s ease-in-out infinite;
+}
+
+@keyframes magicalPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(148, 0, 211, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(148, 0, 211, 0.8);
+  }
+}
+
+.location.treasure-effect {
+  animation: treasureGlow 2s ease-in-out infinite;
+}
+
+@keyframes treasureGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+  }
+}

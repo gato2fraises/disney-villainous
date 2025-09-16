@@ -1,0 +1,35 @@
+{
+  "villain": {
+    "id": "captain_hook",
+    "name": "Capitaine Crochet",
+    "description": "Le capitaine pirate obsédé par sa vengeance contre Peter Pan",
+    "starting_power": 2,
+    "starting_location": 0,
+    "victory_condition": {
+      "type": "custom",
+      "description": "Vaincre Peter Pan au Jolly Roger",
+      "requirements": [
+        {
+          "type": "hero_defeated_at_location",
+          "hero": "peter_pan",
+          "location": "jolly_roger"
+        }
+      ]
+    },
+    "special_abilities": [
+      {
+        "name": "Épée du Capitaine",
+        "description": "Bonus de combat contre Peter Pan"
+      },
+      {
+        "name": "Équipage Pirate",
+        "description": "Les alliés pirates sont moins chers à jouer"
+      }
+    ]
+  },
+  "statistics": {
+    "difficulty": "Difficile",
+    "victory_time": "30-40 tours",
+    "key_strategy": "Attirer Peter Pan au Jolly Roger et réunir assez de force pour le vaincre"
+  }
+}

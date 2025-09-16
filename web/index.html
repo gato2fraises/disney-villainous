@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏰 Disney Villainous - Index Principal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #87CEFA 100%);
+            background-attachment: fixed;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .main-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .disney {
+            color: #0074D9;
+            text-shadow: 2px 2px 4px rgba(0, 116, 217, 0.3);
+        }
+
+        .villainous {
+            color: #B10DC9;
+            text-shadow: 2px 2px 4px rgba(177, 13, 201, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #0074D9;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            font-size: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: #B10DC9;
+        }
+
+        .section-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1.2rem;
+            background: linear-gradient(135deg, #0074D9, #B10DC9);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .link.primary {
+            background: linear-gradient(135deg, #FF851B, #FFD700);
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+        }
+
+        .link.secondary {
+            background: linear-gradient(135deg, #2ECC40, #01FF70);
+        }
+
+        .link.info {
+            background: linear-gradient(135deg, #0074D9, #7FDBFF);
+        }
+
+        .link.warning {
+            background: linear-gradient(135deg, #FF851B, #FFDC00);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5rem;
+            color: #B10DC9;
+            margin-bottom: 1rem;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 0.3rem;
+        }
+
+        .status.complete {
+            background: #2ECC40;
+            color: white;
+        }
+
+        .status.in-progress {
+            background: #FF851B;
+            color: white;
+        }
+
+        .status.planned {
+            background: #0074D9;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .sections {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">
+                <span class="disney">Disney</span>
+                <span class="villainous">Villainous</span>
+            </h1>
+            <p class="subtitle">🏰 Index Principal du Projet 🏰</p>
+            <p class="description">
+                Bienvenue dans l'univers Disney Villainous ! Ce projet contient plusieurs versions du jeu, 
+                des outils de développement et de la documentation. Choisissez votre aventure ci-dessous.
+            </p>
+        </div>
+
+        <div class="sections">
+            <!-- VERSIONS DE JEU -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🎮</span>
+                    <h2 class="section-title">Versions de Jeu</h2>
+                </div>
+                <p class="section-description">
+                    Différentes versions du jeu Disney Villainous, de la plus simple à la plus complète.
+                </p>
+                <div class="links">
+                    <a href="complete-game.html" class="link primary">
+                        <span>🏆</span>
+                        <span>Jeu Complet (Recommandé)</span>
+                    </a>
+                    <a href="disney-magic.html" class="link secondary">
+                        <span>✨</span>
+                        <span>Version Thème Disney</span>
+                    </a>
+                    <a href="integrated.html" class="link info">
+                        <span>🔧</span>
+                        <span>Version Intégrée</span>
+                    </a>
+                    <a href="versions/" class="link">
+                        <span>📁</span>
+                        <span>Toutes les Versions</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- OUTILS DE DÉVELOPPEMENT -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🛠️</span>
+                    <h2 class="section-title">Outils de Développement</h2>
+                </div>
+                <p class="section-description">
+                    Outils pour tester, déboguer et développer le jeu.
+                </p>
+                <div class="links">
+                    <a href="tests/" class="link info">
+                        <span>🧪</span>
+                        <span>Tests et Diagnostics</span>
+                    </a>
+                    <a href="start-server.bat" class="link secondary">
+                        <span>🌐</span>
+                        <span>Serveur Local</span>
+                    </a>
+                    <a href="../scripts/" class="link">
+                        <span>⚙️</span>
+                        <span>Scripts Utilitaires</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- VERSION PYTHON -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🐍</span>
+                    <h2 class="section-title">Version Python</h2>
+                </div>
+                <p class="section-description">
+                    Version console originale du jeu en Python avec interface texte.
+                </p>
+                <div class="links">
+                    <a href="../main.py" class="link primary">
+                        <span>🎯</span>
+                        <span>Jeu Python Principal</span>
+                    </a>
+                    <a href="../lancer_jeu.bat" class="link secondary">
+                        <span>🚀</span>
+                        <span>Lancement Rapide</span>
+                    </a>
+                    <a href="../src/" class="link info">
+                        <span>📂</span>
+                        <span>Code Source</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- DOCUMENTATION -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">📚</span>
+                    <h2 class="section-title">Documentation</h2>
+                </div>
+                <p class="section-description">
+                    Guides, règles et documentation technique du projet.
+                </p>
+                <div class="links">
+                    <a href="../docs/" class="link primary">
+                        <span>📖</span>
+                        <span>Documentation Complète</span>
+                    </a>
+                    <a href="../README.md" class="link info">
+                        <span>ℹ️</span>
+                        <span>README Principal</span>
+                    </a>
+                    <a href="../GUIDE_DEMARRAGE.md" class="link secondary">
+                        <span>🏁</span>
+                        <span>Guide de Démarrage</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- CONFIGURATION -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">⚙️</span>
+                    <h2 class="section-title">Configuration</h2>
+                </div>
+                <p class="section-description">
+                    Installation, configuration et outils système.
+                </p>
+                <div class="links">
+                    <a href="../INSTALLER.bat" class="link primary">
+                        <span>💾</span>
+                        <span>Installer le Projet</span>
+                    </a>
+                    <a href="../diagnostic.bat" class="link warning">
+                        <span>🔍</span>
+                        <span>Diagnostic Système</span>
+                    </a>
+                    <a href="../requirements.txt" class="link info">
+                        <span>📋</span>
+                        <span>Dépendances</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ARCHIVES -->
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">📦</span>
+                    <h2 class="section-title">Archives</h2>
+                </div>
+                <p class="section-description">
+                    Anciennes versions et fichiers d'archive du projet.
+                </p>
+                <div class="links">
+                    <a href="../archives/" class="link">
+                        <span>🗄️</span>
+                        <span>Fichiers Archivés</span>
+                    </a>
+                    <a href="../.history/" class="link">
+                        <span>📜</span>
+                        <span>Historique des Modifications</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3 class="footer-title">🎭 État du Projet 🎭</h3>
+            <div>
+                <span class="status complete">✅ Version Web</span>
+                <span class="status complete">✅ Version Python</span>
+                <span class="status complete">✅ Interface Disney</span>
+                <span class="status in-progress">🔧 Mécaniques Avancées</span>
+                <span class="status planned">📋 Multijoueur</span>
+                <span class="status planned">🎨 Plus de Méchants</span>
+            </div>
+            <p style="margin-top: 1rem; color: #666;">
+                Créé avec ❤️ pour l'univers Disney Villainous
+            </p>
+        </div>
+    </div>
+</body>
+</html>

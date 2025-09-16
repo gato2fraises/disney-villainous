@@ -1,0 +1,4531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disney Villainous™ - Official Digital Edition | Professional Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-purple: #4A148C;
+            --primary-dark: #1A0E33;
+            --secondary-blue: #1565C0;
+            --accent-red: #B71C1C;
+            --text-light: #F5F5F5;
+            --text-dark: #212121;
+            --surface-dark: #2E1065;
+            --surface-light: rgba(255, 255, 255, 0.1);
+            --shadow-main: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --gradient-main: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-purple) 50%, var(--secondary-blue) 100%);
+            --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA000 50%, #FF8F00 100%);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-main);
+            background-attachment: fixed;
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen Professionnel */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-main);
+            z-index: 3000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .studio-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        .game-logo-loading {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out 2s;
+        }
+
+        .loading-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out 2s;
+        }
+
+        .loading-bar-container {
+            width: 400px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out 3s;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: var(--gradient-gold);
+            width: 0%;
+            animation: loadProgress 3s ease-out 3s forwards;
+        }
+
+        .loading-percentage {
+            color: var(--text-light);
+            font-size: 1rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out 3s;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes loadProgress {
+            to { width: 100%; }
+        }
+
+        /* Header de jeu professionnel */
+        .game-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 14, 51, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--primary-gold);
+            padding: 0.8rem 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .game-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo-header {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .game-status {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .status-value {
+            color: var(--primary-gold);
+            font-weight: 600;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .control-btn {
+            background: var(--surface-dark);
+            border: 1px solid var(--primary-gold);
+            color: var(--text-light);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .control-btn:hover {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+        }
+
+        .control-btn.primary {
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+            border: none;
+        }
+
+        /* Interface de jeu principale */
+        .game-interface {
+            margin-top: 70px;
+            padding: 1rem;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+            display: none;
+        }
+
+        .game-interface.active {
+            display: block;
+        }
+
+        .game-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            grid-template-rows: auto 1fr auto;
+            gap: 1rem;
+            height: calc(100vh - 90px);
+        }
+
+        /* Panneau gauche - Joueur actuel */
+        .player-panel {
+            background: var(--surface-dark);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid var(--primary-gold);
+            box-shadow: var(--shadow-main);
+        }
+
+        .player-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--gradient-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary-gold);
+        }
+
+        .player-name {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .villain-name {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            color: var(--primary-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .player-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            color: var(--primary-gold);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* ===== STRUCTURE OFFICIELLE DISNEY VILLAINOUS ===== */
+        
+        /* Zone de jeu centrale */
+        .game-board {
+            background: var(--surface-dark);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 3px solid var(--primary-gold);
+            box-shadow: var(--shadow-main);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .board-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Zones de cartes séparées comme dans le vrai jeu */
+        .fate-cards-zone,
+        .villain-cards-zone {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            min-height: 80px;
+        }
+
+        .fate-cards-zone {
+            border-color: rgba(220, 20, 60, 0.4);
+            background: rgba(220, 20, 60, 0.1);
+        }
+
+        .villain-cards-zone {
+            border-color: rgba(218, 165, 32, 0.4);
+            background: rgba(218, 165, 32, 0.1);
+        }
+
+        .zone-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .fate-cards-container,
+        .villain-cards-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .empty-zone {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.4);
+            font-style: italic;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Zone des 4 lieux - layout horizontal */
+        .locations-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .location-card {
+            background: linear-gradient(135deg, var(--primary-dark), var(--surface-dark));
+            border: 2px solid transparent;
+            border-radius: 15px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .location-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .location-card.active {
+            border-color: var(--primary-gold);
+            background: linear-gradient(135deg, var(--primary-gold), #FFA000);
+            color: var(--primary-dark);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+        }
+
+        .location-name {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            min-height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Actions en grille 2x2 comme dans le vrai jeu */
+        .location-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex-grow: 1;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 0.3rem;
+            justify-content: center;
+        }
+
+        .action-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .action-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.4);
+        }
+
+        .action-icon.empty {
+            background: transparent;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            cursor: default;
+        }
+
+        /* Actions bloquées par les Héros */
+        .action-icon[data-blocked-by-heroes="true"]:after {
+            content: '🛡️';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.6rem;
+            background: rgba(220, 20, 60, 0.9);
+            border-radius: 50%;
+            width: 14px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Figurine du joueur */
+        .player-figure {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 1.2rem;
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            60% { transform: translateY(-4px); }
+        }
+
+        /* Zone des pioches */
+        .decks-zone {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .deck-pile {
+            background: var(--surface-medium);
+            border: 2px solid var(--primary-gold);
+            border-radius: 10px;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .deck-pile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(218, 165, 32, 0.3);
+        }
+
+        .deck-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .deck-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .deck-count {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+        }
+
+        .villain-deck {
+            border-color: var(--primary-gold);
+        }
+
+        .fate-deck {
+            border-color: #DC143C;
+        }
+
+        .fate-deck .deck-icon {
+            color: #DC143C;
+        }
+
+        .discard-pile {
+            border-color: #666;
+            opacity: 0.7;
+        }
+
+        /* ===== RESPONSIVE POUR MOBILES ===== */
+        
+        /* Sélecteur de méchant */
+        .villain-selector {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .villain-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .villain-option {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid #DAA520;
+            border-radius: 15px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .villain-option:hover {
+            border-color: #FFA000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+        }
+
+        .villain-icon {
+            font-size: 4rem;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .villain-info h3 {
+            color: #DAA520;
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .villain-desc {
+            color: rgba(245, 245, 245, 0.8);
+            font-size: 0.9rem;
+            margin: 0 0 0.5rem 0;
+            line-height: 1.4;
+        }
+
+        .victory-condition {
+            color: #FFA000;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .villain-stats {
+            color: rgba(245, 245, 245, 0.6);
+            font-size: 0.8rem;
+            margin: 0;
+        }
+
+        /* Marqueurs spéciaux sur le plateau */
+        .victory-marker {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            font-size: 1.2rem;
+            z-index: 10;
+            animation: trophy-glow 2s infinite alternate;
+        }
+
+        .curse-marker {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+            z-index: 10;
+            animation: curse-glow 2s infinite alternate;
+        }
+
+        @keyframes trophy-glow {
+            0% { 
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            100% { 
+                transform: scale(1.1);
+                filter: brightness(1.3) drop-shadow(0 0 10px #FFD700);
+            }
+        }
+
+        @keyframes curse-glow {
+            0% { 
+                transform: scale(1);
+                filter: brightness(1) hue-rotate(0deg);
+            }
+            100% { 
+                transform: scale(1.1);
+                filter: brightness(1.3) hue-rotate(15deg) drop-shadow(0 0 10px #8B008B);
+            }
+        }
+
+        /* Bonus temporaires */
+        .boarding-bonus {
+            border: 2px solid #32CD32 !important;
+            box-shadow: 0 0 15px rgba(50, 205, 50, 0.5) !important;
+            animation: power-boost 1s ease;
+        }
+
+        .moved-item {
+            border: 2px solid #1E90FF !important;
+            box-shadow: 0 0 15px rgba(30, 144, 255, 0.5) !important;
+        }
+
+        @keyframes power-boost {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Cartes Fatalité spéciales */
+        .fate-card.hero {
+            border-color: #DC143C;
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .fate-card.item {
+            border-color: #FF6347;
+            background: linear-gradient(135deg, #CD5C5C, #FF6347);
+        }
+
+        .fate-card.effect {
+            border-color: #FF1493;
+            background: linear-gradient(135deg, #C71585, #FF1493);
+        }
+
+        /* Responsive pour mobiles */
+        @media (max-width: 768px) {
+            .villain-option {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .villain-icon {
+                min-width: auto;
+            }
+
+            .villain-options {
+                grid-template-columns: 1fr;
+            }
+
+            .locations-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+
+            .location-card {
+                min-height: 120px;
+                padding: 0.8rem;
+            }
+
+            .location-name {
+                font-size: 0.8rem;
+                min-height: 2rem;
+            }
+
+            .action-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.8rem;
+            }
+        }
+
+        .action-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--primary-dark);
+            margin: 0 auto;
+        }
+
+        /* Panneau droit - Actions et cartes */
+        .actions-panel {
+            background: var(--surface-dark);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid var(--primary-gold);
+            box-shadow: var(--shadow-main);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .panel-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--primary-gold);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .objective-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            border-left: 4px solid var(--primary-gold);
+        }
+
+        .objective-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .objective-text {
+            font-size: 0.9rem;
+            color: rgba(245, 245, 245, 0.8);
+            line-height: 1.4;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-gold);
+            transition: width 0.5s ease;
+        }
+
+        /* Main du joueur */
+        .player-hand {
+            grid-column: 1 / -1;
+            background: var(--surface-dark);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid var(--primary-gold);
+            box-shadow: var(--shadow-main);
+        }
+
+        .hand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .cards-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+        }
+
+        .game-card {
+            min-width: 200px;
+            height: 280px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--surface-dark));
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+            z-index: 10;
+        }
+
+        .game-card.selected {
+            border: 3px solid #FFD700;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .card-cost {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 120px;
+            background: var(--gradient-gold);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--primary-dark);
+        }
+
+        .card-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .card-description {
+            font-size: 0.8rem;
+            color: rgba(245, 245, 245, 0.8);
+            line-height: 1.3;
+        }
+
+        /* Menu contextuel */
+        .context-menu {
+            position: fixed;
+            background: var(--surface-dark);
+            border: 2px solid var(--primary-gold);
+            border-radius: 10px;
+            padding: 1rem;
+            z-index: 2000;
+            display: none;
+            box-shadow: var(--shadow-main);
+        }
+
+        .menu-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.2s ease;
+            color: var(--text-light);
+        }
+
+        .menu-item:hover {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .game-layout {
+                grid-template-columns: 250px 1fr;
+                grid-template-rows: auto 1fr auto auto;
+            }
+            
+            .actions-panel {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-layout {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto 1fr auto;
+            }
+            
+            .locations-container {
+                grid-template-columns: repeat(2, 1fr);
+                height: auto;
+            }
+            
+            .cards-container {
+                justify-content: center;
+            }
+            
+            .game-card {
+                min-width: 150px;
+                height: 220px;
+            }
+        }
+
+        /* Menu principal */
+        .main-menu {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .menu-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .menu-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            color: rgba(245, 245, 245, 0.9);
+        }
+
+        .menu-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .menu-btn {
+            background: var(--surface-dark);
+            border: 2px solid var(--primary-gold);
+            color: var(--text-light);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background: var(--primary-gold);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .menu-btn.primary {
+            background: var(--gradient-gold);
+            color: var(--primary-dark);
+            border: none;
+        }
+
+        /* ===== PLATEAUX THÉMATIQUES DISNEY VILLAINOUS ===== */
+        
+        /* Couleurs thématiques par méchant */
+        .villain-board.captain-hook {
+            --theme-primary: #2C5F41;
+            --theme-secondary: #8B4513;
+            --theme-accent: #DAA520;
+            --theme-bg: linear-gradient(135deg, #1e3a5f 0%, #2c5f41 100%);
+        }
+
+        .villain-board.maleficent {
+            --theme-primary: #4A0E4E;
+            --theme-secondary: #2F1B69;
+            --theme-accent: #9400D3;
+            --theme-bg: linear-gradient(135deg, #1a0033 0%, #4a0e4e 100%);
+        }
+
+        .villain-board.jafar {
+            --theme-primary: #8B4513;
+            --theme-secondary: #CD853F;
+            --theme-accent: #FFD700;
+            --theme-bg: linear-gradient(135deg, #8b4513 0%, #daa520 100%);
+        }
+
+        .villain-board.queen-hearts {
+            --theme-primary: #DC143C;
+            --theme-secondary: #B22222;
+            --theme-accent: #FFD700;
+            --theme-bg: linear-gradient(135deg, #8b0000 0%, #dc143c 100%);
+        }
+
+        .villain-board.prince-john {
+            --theme-primary: #4B0082;
+            --theme-secondary: #6A5ACD;
+            --theme-accent: #FFD700;
+            --theme-bg: linear-gradient(135deg, #2e2e5c 0%, #4b0082 100%);
+        }
+
+        /* Plateau de base avec thème */
+        .villain-board {
+            background: var(--theme-bg, var(--gradient-main));
+            border: 2px solid var(--theme-accent, var(--primary-gold));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .villain-board::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 70%);
+            transform: rotate(45deg);
+            animation: boardShine 8s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes boardShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Lieux avec thèmes */
+        .villain-board .location-card {
+            background: var(--theme-primary, var(--surface-dark));
+            border-color: var(--theme-accent, var(--primary-gold));
+        }
+
+        .villain-board .location-card:hover {
+            box-shadow: 0 0 20px var(--theme-accent, var(--primary-gold));
+        }
+
+        .villain-board .location-card.active {
+            background: var(--theme-accent, var(--primary-gold));
+            color: var(--primary-dark);
+            animation: crownFloat 2s ease-in-out infinite;
+        }
+
+        .villain-board .location-card.active::after {
+            content: '👑';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 20px;
+            animation: crownFloat 2s ease-in-out infinite;
+        }
+
+        @keyframes crownFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+
+        /* Effets magiques par lieu */
+        .location-card.magical-effect {
+            animation: magicalPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes magicalPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(148, 0, 211, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(148, 0, 211, 0.8); }
+        }
+
+        .location-card.treasure-effect {
+            animation: treasureGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes treasureGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
+
+        /* Transitions de plateau */
+        .board-transition-enter {
+            animation: boardSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .board-transition-exit {
+            animation: boardSlideOut 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes boardSlideIn {
+            from { opacity: 0; transform: translateY(50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes boardSlideOut {
+            from { opacity: 1; transform: translateY(0) scale(1); }
+            to { opacity: 0; transform: translateY(-50px) scale(0.9); }
+        }
+
+        /* Actions thématiques */
+        .action-icon.blocked::after {
+            content: '🚫';
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            font-size: 12px;
+        }
+
+        /* Particules et effets */
+        .location-ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        /* ===== SÉLECTION DES MÉCHANTS ===== */
+        .villain-selection {
+            margin: 2rem 0;
+        }
+
+        .villain-card {
+            background: var(--surface-dark);
+            border: 2px solid var(--primary-gold);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .villain-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+            border-color: #FFD700;
+        }
+
+        .villain-card.selected {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, var(--primary-gold), #FFA000);
+            color: var(--primary-dark);
+            transform: scale(1.02);
+        }
+
+        .villain-card.coming-soon {
+            opacity: 0.6;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .villain-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .villain-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        }
+
+        .villain-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .villain-card.selected .villain-name {
+            color: var(--primary-dark);
+        }
+
+        .villain-difficulty {
+            font-size: 0.9rem;
+            color: var(--primary-gold);
+            filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.8));
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="studio-logo">VILLAIN STUDIOS</div>
+        <div class="game-logo-loading">Disney Villainous™</div>
+        <div class="loading-subtitle">Official Digital Edition</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-percentage" id="loadingPercentage">0%</div>
+    </div>
+
+    <!-- Header de jeu -->
+    <header class="game-header">
+        <div class="header-content">
+            <div class="game-info">
+                <div class="logo-header">Disney Villainous™</div>
+                <div class="game-status">
+                    <div class="status-item">
+                        <span>Tour:</span>
+                        <span class="status-value" id="turnNumber">1</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Joueur:</span>
+                        <span class="status-value" id="currentPlayer">Jafar</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Temps:</span>
+                        <span class="status-value" id="gameTimer">00:00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <button class="control-btn" onclick="showHelp()">❓ Aide</button>
+                <button class="control-btn" onclick="showSettings()">⚙️ Options</button>
+                <button class="control-btn" onclick="saveGame()">💾 Sauvegarder</button>
+                <button class="control-btn primary" onclick="endTurn()">⏭️ Fin du Tour</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Principal -->
+    <div class="main-menu" id="mainMenu">
+        <h1 class="menu-title">Disney Villainous™</h1>
+        <p class="menu-subtitle">Professional Digital Edition</p>
+        
+        <!-- Sélection des Méchants -->
+        <div class="villain-selection">
+            <h3 style="color: var(--primary-gold); margin-bottom: 1rem; text-align: center;">Choisissez Votre Méchant</h3>
+            <div class="villain-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                <div class="villain-card" onclick="selectVillainForGame('jafar')" data-villain="jafar">
+                    <div class="villain-icon">🧞‍♂️</div>
+                    <div class="villain-name">Jafar</div>
+                    <div class="villain-difficulty">⭐⭐⭐⭐</div>
+                </div>
+                <div class="villain-card" onclick="selectVillainForGame('maleficent')" data-villain="maleficent">
+                    <div class="villain-icon">🧙‍♀️</div>
+                    <div class="villain-name">Maleficent</div>
+                    <div class="villain-difficulty">⭐⭐⭐</div>
+                </div>
+                <div class="villain-card" onclick="selectVillainForGame('captain_hook')" data-villain="captain_hook">
+                    <div class="villain-icon">🏴‍☠️</div>
+                    <div class="villain-name">Captain Hook</div>
+                    <div class="villain-difficulty">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="villain-card" onclick="selectVillainForGame('queen_hearts')" data-villain="queen_hearts">
+                    <div class="villain-icon">👸</div>
+                    <div class="villain-name">Queen of Hearts</div>
+                    <div class="villain-difficulty">⭐⭐⭐⭐</div>
+                </div>
+                <div class="villain-card" onclick="selectVillainForGame('prince_john')" data-villain="prince_john">
+                    <div class="villain-icon">🤴</div>
+                    <div class="villain-name">Prince John</div>
+                    <div class="villain-difficulty">⭐⭐⭐</div>
+                </div>
+                <div class="villain-card coming-soon">
+                    <div class="villain-icon">❓</div>
+                    <div class="villain-name">Bientôt...</div>
+                    <div class="villain-difficulty">⭐⭐⭐⭐</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-buttons">
+            <button class="menu-btn primary" onclick="startNewGame()">🎮 Nouvelle Partie</button>
+            <button class="menu-btn" onclick="startOfficialMode()">⚡ Mode Règles Officielles</button>
+            <button class="menu-btn" onclick="loadSavedGame()">📁 Charger une Partie</button>
+            <button class="menu-btn" onclick="showTutorial()">🎓 Tutoriel</button>
+            <button class="menu-btn" onclick="showCredits()">🏆 Crédits</button>
+            <button class="menu-btn" onclick="exitGame()">🚪 Quitter</button>
+        </div>
+    </div>
+
+    <!-- Interface de Jeu -->
+    <div class="game-interface" id="gameInterface">
+        <div class="game-layout">
+            <!-- Panneau Joueur -->
+            <div class="player-panel">
+                <div class="player-avatar">🧞‍♂️</div>
+                <div class="player-name">Joueur 1</div>
+                <div class="villain-name">Jafar</div>
+                
+                <div class="player-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">⚡ Pouvoir</span>
+                        <span class="stat-value" id="playerPower">4</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">🃏 Cartes</span>
+                        <span class="stat-value" id="handSize">4</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">🎯 Position</span>
+                        <span class="stat-value" id="currentLocation">Palais</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plateau de Jeu - Structure officielle Disney Villainous -->
+            <div class="game-board">
+                <h2 class="board-title">🏰 Royaume de <span id="current-villain-name">Jafar</span></h2>
+                
+                <!-- Zone Cartes Fatalité (partie supérieure du royaume) -->
+                <div class="fate-cards-zone">
+                    <div class="zone-title">💀 Zone Fatalité</div>
+                    <div class="fate-cards-container" id="fateCardsContainer">
+                        <div class="empty-zone">Les adversaires placeront ici leurs cartes Fatalité</div>
+                    </div>
+                </div>
+                
+                <!-- Zone des 4 Lieux du Royaume -->
+                <div class="locations-container">
+                    <div class="location-card active" data-location="palace" onclick="selectLocation('palace')">
+                        <div class="location-name">Palais du Sultan</div>
+                        <div class="location-actions">
+                            <div class="action-row">
+                                <div class="action-icon" title="Gagner 2 Pouvoirs">💰</div>
+                                <div class="action-icon" title="Jouer une Carte" data-blocked-by-heroes="true">🃏</div>
+                            </div>
+                            <div class="action-row">
+                                <div class="action-icon" title="Attaquer/Vaincre">⚔️</div>
+                                <div class="action-icon" title="Défausser des Cartes">🗑️</div>
+                            </div>
+                        </div>
+                        <!-- Figurine du joueur -->
+                        <div class="player-figure" id="playerFigure">🧞‍♂️</div>
+                    </div>
+                    
+                    <div class="location-card" data-location="throne" onclick="selectLocation('throne')">
+                        <div class="location-name">Salle du Trône</div>
+                        <div class="location-actions">
+                            <div class="action-row">
+                                <div class="action-icon" title="Gagner 1 Pouvoir">💰</div>
+                                <div class="action-icon" title="Jouer une Carte">🃏</div>
+                            </div>
+                            <div class="action-row">
+                                <div class="action-icon" title="Activer" data-blocked-by-heroes="true">🔧</div>
+                                <div class="action-icon" title="Fatalité">🔮</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="location-card" data-location="cave" onclick="selectLocation('cave')">
+                        <div class="location-name">Caverne aux Merveilles</div>
+                        <div class="location-actions">
+                            <div class="action-row">
+                                <div class="action-icon" title="Jouer une Carte" data-blocked-by-heroes="true">🃏</div>
+                                <div class="action-icon" title="Activer">�</div>
+                            </div>
+                            <div class="action-row">
+                                <div class="action-icon" title="Défausser des Cartes">🗑️</div>
+                                <div class="action-icon" title="Gagner 3 Pouvoirs">�</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="location-card" data-location="chamber" onclick="selectLocation('chamber')">
+                        <div class="location-name">Chambre Secrète</div>
+                        <div class="location-actions">
+                            <div class="action-row">
+                                <div class="action-icon" title="Gagner 1 Pouvoir">💰</div>
+                                <div class="action-icon" title="Jouer une Carte">🃏</div>
+                            </div>
+                            <div class="action-row">
+                                <div class="action-icon" title="Hypnotiser les Gardes">👁️</div>
+                                <div class="action-icon empty"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Zone Cartes Méchant (partie inférieure du royaume) -->
+                <div class="villain-cards-zone">
+                    <div class="zone-title">🎭 Cartes Méchant en jeu</div>
+                    <div class="villain-cards-container" id="villainCardsContainer">
+                        <div class="empty-zone">Vos cartes Méchant apparaîtront ici</div>
+                    </div>
+                </div>
+                
+                <!-- Pioches et défausse -->
+                <div class="decks-zone">
+                    <div class="deck-pile villain-deck" onclick="drawVillainCard()" title="Pioche Méchant">
+                        <div class="deck-icon">🎭</div>
+                        <div class="deck-title">Pioche Méchant</div>
+                        <div class="deck-count" id="villainDeckCount">30</div>
+                    </div>
+                    <div class="deck-pile fate-deck" onclick="showFateDeck()" title="Pioche Fatalité (Adversaires)">
+                        <div class="deck-icon">💀</div>
+                        <div class="deck-title">Pioche Fatalité</div>
+                        <div class="deck-count" id="fateDeckCount">15</div>
+                    </div>
+                    <div class="deck-pile discard-pile" onclick="showDiscardPile()" title="Défausse">
+                        <div class="deck-icon">🗑️</div>
+                        <div class="deck-title">Défausse</div>
+                        <div class="deck-count" id="discardCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panneau Actions -->
+            <div class="actions-panel">
+                <h3 class="panel-title">Objectif</h3>
+                <div class="objective-box">
+                    <div class="objective-title">🎯 Condition de Victoire</div>
+                    <div class="objective-text">Avoir la Lampe Magique à la Caverne aux Merveilles et localiser Jasmine</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%"></div>
+                    </div>
+                </div>
+                
+                <h3 class="panel-title">Actions Disponibles</h3>
+                <div class="actions-list">
+                    <button class="menu-btn" onclick="gainPower()">💰 Gagner du Pouvoir (2)</button>
+                    <button class="menu-btn" onclick="playCard()">🃏 Jouer une Carte</button>
+                    <button class="menu-btn" onclick="discardCards()">🗑️ Défausser des Cartes</button>
+                </div>
+            </div>
+
+            <!-- Main du Joueur -->
+            <div class="player-hand">
+                <h3 class="hand-title">🃏 Votre Main</h3>
+                <div class="cards-container">
+                    <div class="game-card" onclick="selectCard(this)" oncontextmenu="showCardMenu(event, this)">
+                        <div class="card-cost">3</div>
+                        <div class="card-image">🐍</div>
+                        <div class="card-name">Serpent Géant</div>
+                        <div class="card-description">Allié. Force 8. Peut vaincre les Héros dans n'importe quel lieu.</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="selectCard(this)" oncontextmenu="showCardMenu(event, this)">
+                        <div class="card-cost">2</div>
+                        <div class="card-image">🔮</div>
+                        <div class="card-name">Hypnose</div>
+                        <div class="card-description">Effet. Regardez la main d'un adversaire et choisissez une carte à défausser.</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="selectCard(this)" oncontextmenu="showCardMenu(event, this)">
+                        <div class="card-cost">1</div>
+                        <div class="card-image">💎</div>
+                        <div class="card-name">Bague du Pouvoir</div>
+                        <div class="card-description">Objet. Gagnez +1 Pouvoir à chaque début de tour.</div>
+                    </div>
+                    
+                    <div class="game-card" onclick="selectCard(this)" oncontextmenu="showCardMenu(event, this)">
+                        <div class="card-cost">4</div>
+                        <div class="card-image">🧞‍♂️</div>
+                        <div class="card-name">Génie Corrompu</div>
+                        <div class="card-description">Allié. Force 12. Condition: Avoir la Lampe Magique en jeu.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Contextuel -->
+    <div class="context-menu" id="contextMenu">
+        <div class="menu-item" onclick="playSelectedCard()">🃏 Jouer la Carte</div>
+        <div class="menu-item" onclick="discardSelectedCard()">🗑️ Défausser</div>
+        <div class="menu-item" onclick="examineCard()">🔍 Examiner</div>
+    </div>
+
+    <script>
+        // ===== SYSTÈME DE TOUR OFFICIEL DISNEY VILLAINOUS =====
+        
+        // État du jeu selon les règles officielles
+        let gameState = {
+            currentPlayer: 'Jafar',
+            turnNumber: 1,
+            playerPower: 4,
+            currentLocation: 'palace',
+            gameStartTime: Date.now(),
+            selectedCard: null,
+            phase: 'move', // 'move', 'actions', 'draw', 'discard'
+            actionsRemaining: 0,
+            handLimit: 4,
+            maxHandSize: 7
+        };
+
+        // Séquence officielle d'un tour
+        const TURN_PHASES = {
+            MOVE: {
+                name: 'Déplacement',
+                description: 'Déplacez votre figurine vers un lieu adjacent',
+                icon: '🚶‍♂️',
+                mandatory: true
+            },
+            ACTIONS: {
+                name: 'Actions',
+                description: 'Effectuez toutes les actions du lieu (dans l\'ordre de votre choix)',
+                icon: '⚡',
+                mandatory: true
+            },
+            DRAW: {
+                name: 'Piocher',
+                description: 'Piochez jusqu\'à avoir 4 cartes en main',
+                icon: '🃏',
+                mandatory: true
+            },
+            DISCARD: {
+                name: 'Défausser',
+                description: 'Si vous avez plus de 7 cartes, défaussez l\'excédent',
+                icon: '🗑️',
+                mandatory: false
+            }
+        };
+
+        // Démarrer un nouveau tour selon les règles officielles
+        function startTurn() {
+            console.log(`🎯 Début du tour ${gameState.turnNumber} - ${gameState.currentPlayer}`);
+            
+            // Phase 1: Déplacement obligatoire
+            gameState.phase = 'move';
+            updateTurnDisplay();
+            showAvailableMovements();
+            
+            // Réinitialiser les actions
+            gameState.actionsRemaining = 0;
+            
+            // Animation d'entrée de tour
+            animateTurnStart();
+        }
+
+        // Déplacement vers un lieu adjacent
+        function moveToLocation(locationId) {
+            if (gameState.phase !== 'move') {
+                showMessage('Vous devez d\'abord vous déplacer !', 'warning');
+                return;
+            }
+
+            const currentLocationElement = document.querySelector('.location-card.active');
+            const newLocationElement = document.querySelector(`[data-location="${locationId}"]`);
+            
+            if (!newLocationElement) return;
+
+            // Vérifier si le mouvement est valide (lieu adjacent)
+            if (!isAdjacentLocation(gameState.currentLocation, locationId)) {
+                showMessage('Vous ne pouvez vous déplacer que vers un lieu adjacent !', 'warning');
+                return;
+            }
+
+            // Effectuer le déplacement
+            if (currentLocationElement) {
+                currentLocationElement.classList.remove('active');
+                // Retirer la figurine
+                const oldFigure = currentLocationElement.querySelector('.player-figure');
+                if (oldFigure) oldFigure.style.display = 'none';
+            }
+
+            newLocationElement.classList.add('active');
+            gameState.currentLocation = locationId;
+            
+            // Placer la figurine
+            let figure = newLocationElement.querySelector('.player-figure');
+            if (!figure) {
+                figure = document.createElement('div');
+                figure.className = 'player-figure';
+                figure.innerHTML = '🧞‍♂️';
+                newLocationElement.appendChild(figure);
+            }
+            figure.style.display = 'block';
+
+            // Animation du déplacement
+            animateMovement(newLocationElement);
+
+            // Passer à la phase d'actions
+            setTimeout(() => {
+                gameState.phase = 'actions';
+                startActionsPhase(locationId);
+            }, 500);
+        }
+
+        // Vérifier si deux lieux sont adjacents
+        function isAdjacentLocation(currentLoc, newLoc) {
+            const locations = ['palace', 'throne', 'cave', 'chamber'];
+            const currentIndex = locations.indexOf(currentLoc);
+            const newIndex = locations.indexOf(newLoc);
+            
+            // Adjacent = différence d'index de ±1 (avec wrap-around)
+            const diff = Math.abs(currentIndex - newIndex);
+            return diff === 1 || diff === 3; // 3 pour le wrap-around (premier/dernier)
+        }
+
+        // Phase d'actions selon les règles officielles
+        function startActionsPhase(locationId) {
+            const location = VILLAINS[gameState.currentPlayer].board.find(loc => loc.id === locationId);
+            if (!location) return;
+
+            console.log(`⚡ Phase d'actions au lieu: ${location.name}`);
+            
+            // Compter les actions disponibles (non bloquées par les Héros)
+            const availableActions = location.actions.filter(action => {
+                return !action.blockedByHeroes || !hasHeroesAtLocation(locationId);
+            });
+
+            gameState.actionsRemaining = availableActions.length;
+            updateTurnDisplay();
+            highlightAvailableActions(locationId);
+            
+            showMessage(`Vous pouvez effectuer ${gameState.actionsRemaining} actions dans ce lieu`, 'info');
+        }
+
+        // ===== MÉCANIQUES SPÉCIFIQUES PAR MÉCHANT =====
+        
+        // Maleficent - Maudire l'Aurore
+        function curse_spell(location) {
+            if (!location || location.id === 'forbidden_mountain') {
+                showNotification("⚠️ Aurora ne peut pas être maudite à la Montagne Interdite", "error");
+                return false;
+            }
+            
+            // Ajouter le marqueur de malédiction
+            const curseMarker = document.createElement('div');
+            curseMarker.className = 'curse-marker';
+            curseMarker.innerHTML = '🔮';
+            curseMarker.title = 'Malédiction de Maléfique';
+            location.element.style.position = 'relative';
+            location.element.appendChild(curseMarker);
+            
+            // Mettre à jour l'état du jeu
+            gameState.specialMechanics.cursedLocation = location.id;
+            gameState.power += 2; // Bonus de pouvoir
+            
+            showNotification("✨ Aurora a été maudite ! +2 Pouvoir", "success");
+            updateDisplay();
+            return true;
+        }
+
+        // Captain Hook - Abordage
+        function boarding_party(ally, enemy) {
+            if (!ally || !enemy) {
+                showNotification("⚠️ Sélectionnez un allié et un ennemi", "error");
+                return false;
+            }
+            
+            // Déplacer l'allié vers l'ennemi
+            moveAllyToEnemy(ally, enemy);
+            
+            // Bonus temporaire d'abordage
+            ally.element.classList.add('boarding-bonus');
+            setTimeout(() => {
+                ally.element.classList.remove('boarding-bonus');
+            }, 3000);
+            
+            gameState.power += 1; // Bonus de pouvoir
+            showNotification("⚔️ Abordage réussi ! L'allié attaque", "success");
+            updateDisplay();
+            return true;
+        }
+
+        // Jafar - Hypnotiser les gardes
+        function hypnotize_guards(location) {
+            if (!location) {
+                showNotification("⚠️ Sélectionnez un lieu", "error");
+                return false;
+            }
+            
+            // Contrôler temporairement le lieu
+            location.controlled = true;
+            location.element.style.border = '3px solid #9932CC';
+            
+            // Effet temporaire (3 tours)
+            gameState.specialMechanics.hypnotizedLocation = {
+                locationId: location.id,
+                turnsRemaining: 3
+            };
+            
+            gameState.power += 1;
+            showNotification("🐍 Gardes hypnotisés ! Lieu contrôlé", "success");
+            updateDisplay();
+            return true;
+        }
+
+        // Déplacer allié vers ennemi (pour Captain Hook)
+        function moveAllyToEnemy(ally, enemy) {
+            const enemyLocation = findLocationById(enemy.locationId);
+            if (enemyLocation) {
+                ally.locationId = enemy.locationId;
+                ally.element.classList.add('moved-item');
+                setTimeout(() => {
+                    ally.element.classList.remove('moved-item');
+                }, 2000);
+            }
+        }
+
+        // Trouver lieu par ID
+        function findLocationById(locationId) {
+            return gameState.currentVillain.locations.find(loc => loc.id === locationId);
+        }
+
+        // Décompte des effets temporaires
+        function updateTemporaryEffects() {
+            // Hypnose de Jafar
+            if (gameState.specialMechanics.hypnotizedLocation) {
+                gameState.specialMechanics.hypnotizedLocation.turnsRemaining--;
+                
+                if (gameState.specialMechanics.hypnotizedLocation.turnsRemaining <= 0) {
+                    const location = findLocationById(gameState.specialMechanics.hypnotizedLocation.locationId);
+                    if (location) {
+                        location.controlled = false;
+                        location.element.style.border = '';
+                    }
+                    delete gameState.specialMechanics.hypnotizedLocation;
+                    showNotification("🕐 L'hypnose s'estompe", "info");
+                }
+            }
+        }
+
+        // Vérification des conditions de victoire spécifiques
+        function checkVillainSpecificVictory() {
+            const villain = gameState.currentVillain;
+            
+            switch(villain.name) {
+                case 'Maleficent':
+                    return checkMaleficentVictory();
+                case 'Captain Hook':
+                    return checkCaptainHookVictory();
+                case 'Jafar':
+                    return checkJafarVictory();
+                default:
+                    return false;
+            }
+        }
+
+        function checkMaleficentVictory() {
+            // Aurore doit être maudite et à la Ronce Épineuse
+            return gameState.specialMechanics.cursedLocation && 
+                   gameState.specialMechanics.cursedLocation === 'the_briar_rose' &&
+                   gameState.power >= 15;
+        }
+
+        function checkCaptainHookVictory() {
+            // Peter Pan doit être vaincu au Jolly Roger
+            return gameState.specialMechanics.peterPanDefeated && 
+                   gameState.power >= 12;
+        }
+
+        function checkJafarVictory() {
+            // Génie contrôlé et Sultan hypnotisé
+            return gameState.specialMechanics.genieControlled && 
+                   gameState.specialMechanics.sultanHypnotized &&
+                   gameState.power >= 10;
+        }
+
+        // Effectuer une action spécifique selon les règles officielles
+        function performAction(actionType, actionData) {
+            if (gameState.phase !== 'actions' || gameState.actionsRemaining <= 0) {
+                showMessage('Aucune action disponible !', 'warning');
+                return;
+            }
+
+            console.log(`🎬 Action: ${actionType}`, actionData);
+
+            switch (actionType) {
+                case 'gain_power':
+                    gameState.playerPower += actionData.value;
+                    showMessage(`+${actionData.value} Pouvoir ! Total: ${gameState.playerPower}`, 'success');
+                    updatePowerDisplay();
+                    break;
+
+                case 'play_card':
+                    showPlayCardDialog();
+                    break;
+
+                case 'vanquish':
+                    showVanquishDialog();
+                    break;
+
+                case 'discard':
+                    showDiscardDialog();
+                    break;
+
+                case 'activate':
+                    showActivateDialog();
+                    break;
+
+                case 'fate':
+                    performFateAction();
+                    break;
+
+                case 'curse_spell':
+                    performCurseSpell();
+                    break;
+
+                case 'boarding_party':
+                    performBoardingParty();
+                    break;
+
+                case 'move_item':
+                    showMoveItemDialog();
+                    break;
+
+                case 'hypnotize_guards':
+                    performHypnotizeGuards();
+                    break;
+
+                default:
+                    showMessage(`Action ${actionType} non implémentée`, 'warning');
+            }
+
+            // Décrémenter les actions restantes
+            gameState.actionsRemaining--;
+            updateOfficialTurnDisplay();
+
+            // Si toutes les actions sont effectuées, passer à la phase de pioche
+            if (gameState.actionsRemaining <= 0) {
+                setTimeout(() => {
+                    gameState.phase = 'draw';
+                    startDrawPhase();
+                }, 1000);
+            }
+        }
+
+        // Action spéciale Maleficent : Placer une Malédiction
+        function performCurseSpell() {
+            console.log('🟣 Action: Placer une Malédiction');
+            
+            if (gameState.playerPower < 3) {
+                showMessage('Pas assez de Pouvoir pour placer une Malédiction ! (Coût: 3)', 'warning');
+                return;
+            }
+
+            const currentVillain = VILLAINS[gameState.currentPlayer.toLowerCase()];
+            if (currentVillain && currentVillain.specialMechanic === 'curse_placement') {
+                const currentLocationData = currentVillain.board.find(loc => loc.id === gameState.currentLocation);
+                
+                if (currentLocationData && !currentLocationData.cursed) {
+                    // Placer la malédiction
+                    gameState.playerPower -= 3;
+                    currentLocationData.cursed = true;
+                    
+                    // Mise à jour visuelle
+                    const locationElement = document.querySelector(`[data-location="${gameState.currentLocation}"]`);
+                    if (locationElement) {
+                        const curseElement = document.createElement('div');
+                        curseElement.className = 'curse-marker';
+                        curseElement.innerHTML = '🟣';
+                        curseElement.style.cssText = `
+                            position: absolute;
+                            top: -10px;
+                            right: -10px;
+                            font-size: 1.5rem;
+                            z-index: 10;
+                            animation: curse-glow 2s infinite alternate;
+                        `;
+                        locationElement.appendChild(curseElement);
+                    }
+                    
+                    updatePowerDisplay();
+                    showMessage(`Malédiction placée sur ${currentLocationData.name} !`, 'success');
+                    
+                    // Vérifier condition de victoire
+                    checkMaleficentVictory();
+                } else if (currentLocationData && currentLocationData.cursed) {
+                    showMessage('Ce lieu est déjà maudit !', 'warning');
+                } else {
+                    showMessage('Impossible de placer une malédiction ici', 'error');
+                }
+            }
+        }
+
+        // Action spéciale Captain Hook : Groupe d'Abordage
+        function performBoardingParty() {
+            console.log('🏴‍☠️ Action: Groupe d\'Abordage');
+            
+            if (gameState.currentLocation === 'jolly_roger') {
+                showMessage('Tous vos Alliés au Jolly Roger gagnent +2 Force ce tour !', 'success');
+                
+                // Appliquer le bonus aux alliés présents
+                const allies = document.querySelectorAll('.villain-cards-container .game-card');
+                allies.forEach(ally => {
+                    const strengthElement = ally.querySelector('.card-strength');
+                    if (strengthElement) {
+                        const currentStrength = parseInt(strengthElement.textContent.replace('💪 ', ''));
+                        strengthElement.textContent = `💪 ${currentStrength + 2}`;
+                        ally.classList.add('boarding-bonus');
+                    }
+                });
+            } else {
+                showMessage('Cette action n\'est disponible qu\'au Jolly Roger !', 'warning');
+            }
+        }
+
+        // Action spéciale Jafar : Hypnotiser les Gardes
+        function performHypnotizeGuards() {
+            console.log('👁️ Action: Hypnotiser les Gardes');
+            
+            showMessage('Regardez la main d\'un adversaire et choisissez une carte à défausser', 'info');
+            
+            // Simuler l'effet pour l'instant
+            setTimeout(() => {
+                showMessage('Les gardes sont sous votre contrôle ! Un adversaire défausse une carte.', 'success');
+            }, 1500);
+        }
+
+        // Déplacer un objet entre les lieux
+        function showMoveItemDialog() {
+            const items = document.querySelectorAll('.villain-cards-container .game-card');
+            const movableItems = Array.from(items).filter(item => {
+                const cardName = item.querySelector('.card-name').textContent;
+                return cardName.includes('Objet') || cardName.includes('Item') || 
+                       cardName.includes('Crochet') || cardName.includes('Canon');
+            });
+
+            if (movableItems.length === 0) {
+                showMessage('Aucun objet à déplacer !', 'warning');
+                return;
+            }
+
+            let itemOptions = '';
+            movableItems.forEach((item, index) => {
+                const itemName = item.querySelector('.card-name').textContent;
+                itemOptions += `
+                    <div class="item-option" onclick="selectItemToMove('${item.dataset.cardId}')">
+                        📦 ${itemName}
+                    </div>
+                `;
+            });
+
+            const modal = createModal('Déplacer un Objet', `
+                <div class="move-item-dialog">
+                    <p>Choisissez un objet à déplacer vers un autre lieu :</p>
+                    <div class="item-options">
+                        ${itemOptions}
+                    </div>
+                </div>
+            `);
+            showModal(modal);
+        }
+
+        function selectItemToMove(itemId) {
+            gameState.selectedItemToMove = itemId;
+            closeModal();
+            
+            const locations = ['palace', 'throne', 'cave', 'chamber'];
+            let locationOptions = '';
+            
+            locations.forEach(loc => {
+                if (loc !== gameState.currentLocation) {
+                    const locationElement = document.querySelector(`[data-location="${loc}"]`);
+                    const locationName = locationElement ? locationElement.querySelector('.location-name').textContent : loc;
+                    locationOptions += `
+                        <div class="location-option" onclick="moveItemToLocation('${loc}')">
+                            🏰 ${locationName}
+                        </div>
+                    `;
+                }
+            });
+
+            const modal = createModal('Destination de l\'Objet', `
+                <div class="move-destination-dialog">
+                    <p>Choisissez le lieu de destination :</p>
+                    <div class="location-options">
+                        ${locationOptions}
+                    </div>
+                </div>
+            `);
+            showModal(modal);
+        }
+
+        function moveItemToLocation(targetLocation) {
+            const itemElement = document.querySelector(`[data-card-id="${gameState.selectedItemToMove}"]`);
+            if (itemElement) {
+                const itemName = itemElement.querySelector('.card-name').textContent;
+                const targetLocationElement = document.querySelector(`[data-location="${targetLocation}"]`);
+                const targetLocationName = targetLocationElement ? targetLocationElement.querySelector('.location-name').textContent : targetLocation;
+                
+                // Effet visuel : l'objet se déplace
+                showMessage(`${itemName} déplacé vers ${targetLocationName} !`, 'success');
+                
+                // Marquer l'objet comme déplacé
+                itemElement.classList.add('moved-item');
+                itemElement.dataset.location = targetLocation;
+            }
+            
+            closeModal();
+            delete gameState.selectedItemToMove;
+        }
+
+        // Vérifier la condition de victoire de Maleficent
+        function checkMaleficentVictory() {
+            if (gameState.currentPlayer.toLowerCase() !== 'maleficent') return false;
+            
+            const currentVillain = VILLAINS.maleficent;
+            const cursedLocations = currentVillain.board.filter(loc => loc.cursed).length;
+            const totalLocations = currentVillain.board.length;
+            
+            if (cursedLocations === totalLocations) {
+                setTimeout(() => {
+                    showVictoryScreen();
+                }, 1000);
+                return true;
+            }
+            
+            // Mettre à jour le progrès
+            const progressPercent = (cursedLocations / totalLocations) * 100;
+            const progressBar = document.querySelector('.progress-fill');
+            if (progressBar) {
+                progressBar.style.width = progressPercent + '%';
+            }
+            
+            showMessage(`Malédictions placées: ${cursedLocations}/${totalLocations}`, 'info');
+            return false;
+        }
+
+        // Phase de pioche obligatoire
+        function startDrawPhase() {
+            console.log('🃏 Phase de pioche');
+            const currentHandSize = getCurrentHandSize();
+            const cardsToDraw = Math.max(0, gameState.handLimit - currentHandSize);
+
+            if (cardsToDraw > 0) {
+                drawCards(cardsToDraw);
+                showMessage(`Vous piochez ${cardsToDraw} carte(s)`, 'info');
+            } else {
+                showMessage('Votre main est déjà pleine', 'info');
+            }
+
+            // Vérifier si défausse nécessaire
+            setTimeout(() => {
+                const finalHandSize = getCurrentHandSize();
+                if (finalHandSize > gameState.maxHandSize) {
+                    gameState.phase = 'discard';
+                    startDiscardPhase();
+                } else {
+                    endTurn();
+                }
+            }, 1500);
+        }
+
+        // Phase de défausse si nécessaire
+        function startDiscardPhase() {
+            console.log('🗑️ Phase de défausse');
+            const handSize = getCurrentHandSize();
+            const cardsToDiscard = handSize - gameState.maxHandSize;
+
+            showMessage(`Vous devez défausser ${cardsToDiscard} carte(s)`, 'warning');
+            showDiscardDialog(cardsToDiscard);
+        }
+
+        // Terminer le tour
+        function endTurn() {
+            console.log('✅ Fin du tour');
+            
+            // Vérifier les conditions de victoire
+            if (checkVictoryConditions()) {
+                showVictoryScreen();
+                return;
+            }
+
+            // Passer au tour suivant
+            gameState.turnNumber++;
+            
+            // Animation de fin de tour
+            animateTurnEnd();
+            
+            // Démarrer le nouveau tour après un délai
+            setTimeout(() => {
+                startTurn();
+            }, 2000);
+        }
+
+        // Fonctions utilitaires
+        function updateTurnDisplay() {
+            const phaseInfo = TURN_PHASES[gameState.phase.toUpperCase()];
+            const turnDisplay = document.getElementById('currentPhase') || createTurnDisplay();
+            
+            turnDisplay.innerHTML = `
+                <div class="turn-info">
+                    <div class="turn-number">Tour ${gameState.turnNumber}</div>
+                    <div class="phase-current">${phaseInfo.icon} ${phaseInfo.name}</div>
+                    <div class="phase-description">${phaseInfo.description}</div>
+                    ${gameState.actionsRemaining > 0 ? `<div class="actions-remaining">Actions: ${gameState.actionsRemaining}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function createTurnDisplay() {
+            const display = document.createElement('div');
+            display.id = 'currentPhase';
+            display.className = 'turn-display';
+            document.querySelector('.player-panel').appendChild(display);
+            return display;
+        }
+
+        function showAvailableMovements() {
+            const locations = document.querySelectorAll('.location-card');
+            locations.forEach(loc => {
+                const locationId = loc.dataset.location;
+                if (isAdjacentLocation(gameState.currentLocation, locationId) && locationId !== gameState.currentLocation) {
+                    loc.classList.add('available-movement');
+                    loc.style.border = '3px solid #00FF00';
+                } else {
+                    loc.classList.remove('available-movement');
+                }
+            });
+        }
+
+        function animateMovement(locationElement) {
+            locationElement.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                locationElement.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        function animateTurnStart() {
+            document.body.classList.add('turn-start-animation');
+            setTimeout(() => {
+                document.body.classList.remove('turn-start-animation');
+            }, 1000);
+        }
+
+        function animateTurnEnd() {
+            document.body.classList.add('turn-end-animation');
+            setTimeout(() => {
+                document.body.classList.remove('turn-end-animation');
+            }, 1000);
+        }
+
+        // ===== GESTION DES CARTES SELON LES RÈGLES OFFICIELLES =====
+        
+        // Types de cartes Méchant
+        const VILLAIN_CARD_TYPES = {
+            ALLY: { name: 'Allié', icon: '🛡️', color: '#4CAF50' },
+            ITEM: { name: 'Objet', icon: '⚔️', color: '#FF9800' },
+            EFFECT: { name: 'Effet', icon: '✨', color: '#9C27B0' },
+            CONDITION: { name: 'Condition', icon: '🎯', color: '#2196F3' }
+        };
+
+        // Types de cartes Fatalité
+        const FATE_CARD_TYPES = {
+            HERO: { name: 'Héros', icon: '🦸‍♂️', color: '#F44336' },
+            ITEM: { name: 'Objet', icon: '🛡️', color: '#FF5722' },
+            EFFECT: { name: 'Effet', icon: '💫', color: '#E91E63' }
+        };
+
+        // Piocher des cartes Méchant
+        function drawCards(count) {
+            for (let i = 0; i < count; i++) {
+                drawVillainCard();
+            }
+        }
+
+        function drawVillainCard() {
+            const deckCount = parseInt(document.getElementById('villainDeckCount').textContent);
+            if (deckCount <= 0) {
+                reshuffleVillainDeck();
+                return;
+            }
+
+            // Créer une nouvelle carte
+            const card = generateVillainCard();
+            addCardToHand(card);
+            
+            // Mettre à jour le compteur
+            document.getElementById('villainDeckCount').textContent = deckCount - 1;
+            
+            // Animation de pioche
+            animateCardDraw(card);
+        }
+
+        // Générer une carte Méchant aléatoire
+        function generateVillainCard() {
+            const villainData = VILLAINS[gameState.currentPlayer];
+            const cardTypes = Object.keys(VILLAIN_CARD_TYPES);
+            const type = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+            
+            const cards = {
+                jafar: {
+                    ALLY: [
+                        { name: 'Serpent Géant', cost: 3, strength: 8, description: 'Peut vaincre les Héros dans n\'importe quel lieu' },
+                        { name: 'Gardes du Palais', cost: 2, strength: 5, description: 'Défenseurs du Palais du Sultan' },
+                        { name: 'Génie Corrompu', cost: 5, strength: 12, description: 'Condition: Avoir la Lampe Magique' }
+                    ],
+                    ITEM: [
+                        { name: 'Lampe Magique', cost: 4, description: 'Objet de victoire. Doit être à la Caverne aux Merveilles' },
+                        { name: 'Bâton du Serpent', cost: 2, description: '+2 Force à tous vos Alliés' },
+                        { name: 'Anneau de Pouvoir', cost: 1, description: '+1 Pouvoir au début de chaque tour' }
+                    ],
+                    EFFECT: [
+                        { name: 'Hypnose', cost: 2, description: 'Regardez la main d\'un adversaire et choisissez une carte à défausser' },
+                        { name: 'Sables Mouvants', cost: 1, description: 'Déplacez un Héros vers un autre lieu' },
+                        { name: 'Illusion', cost: 3, description: 'Jouez cette carte comme si c\'était n\'importe quelle autre carte' }
+                    ],
+                    CONDITION: [
+                        { name: 'Localiser Jasmine', cost: 2, description: 'Condition de victoire. Doit être joué quand vous avez la Lampe' },
+                        { name: 'Contrôle du Palais', cost: 3, description: 'Aucun Héros ne peut être joué au Palais du Sultan' }
+                    ]
+                }
+            };
+
+            const availableCards = cards[gameState.currentPlayer][type] || [];
+            const card = availableCards[Math.floor(Math.random() * availableCards.length)];
+            
+            return {
+                ...card,
+                type: type,
+                typeInfo: VILLAIN_CARD_TYPES[type],
+                id: `card_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+            };
+        }
+
+        // Ajouter une carte à la main
+        function addCardToHand(card) {
+            const handContainer = document.querySelector('.cards-container');
+            const cardElement = createCardElement(card);
+            handContainer.appendChild(cardElement);
+            updateHandSizeDisplay();
+        }
+
+        // Créer l'élément visuel d'une carte
+        function createCardElement(card) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'game-card villain-card';
+            cardDiv.dataset.cardId = card.id;
+            cardDiv.onclick = () => selectCard(cardDiv);
+            cardDiv.oncontextmenu = (e) => showCardMenu(e, cardDiv);
+            
+            cardDiv.innerHTML = `
+                <div class="card-cost">${card.cost}</div>
+                <div class="card-type" style="background: ${card.typeInfo.color}">
+                    ${card.typeInfo.icon} ${card.typeInfo.name}
+                </div>
+                <div class="card-image">${getCardIcon(card)}</div>
+                <div class="card-name">${card.name}</div>
+                <div class="card-description">${card.description}</div>
+                ${card.strength ? `<div class="card-strength">💪 ${card.strength}</div>` : ''}
+            `;
+            
+            return cardDiv;
+        }
+
+        function getCardIcon(card) {
+            const icons = {
+                'Serpent Géant': '🐍',
+                'Lampe Magique': '🪔',
+                'Hypnose': '🔮',
+                'Génie Corrompu': '🧞‍♂️',
+                'Gardes du Palais': '⚔️',
+                'Bâton du Serpent': '🐍',
+                'Anneau de Pouvoir': '💍',
+                'Sables Mouvants': '🏜️',
+                'Illusion': '✨',
+                'Localiser Jasmine': '👸',
+                'Contrôle du Palais': '🏰'
+            };
+            return icons[card.name] || card.typeInfo.icon;
+        }
+
+        // Action Fatalité
+        function performFateAction() {
+            console.log('🔮 Action Fatalité');
+            
+            // Montrer les adversaires disponibles
+            showFateTargetDialog();
+        }
+
+        function showFateTargetDialog() {
+            const modal = createModal('Choisir la cible de la Fatalité', `
+                <div class="fate-targets">
+                    <p>Choisissez un adversaire pour lui infliger une Fatalité :</p>
+                    <div class="target-list">
+                        <div class="target-option" onclick="applyFateToPlayer('maleficent')">
+                            <div class="target-avatar">🧙‍♀️</div>
+                            <div class="target-name">Maleficent</div>
+                        </div>
+                        <div class="target-option" onclick="applyFateToPlayer('captain_hook')">
+                            <div class="target-avatar">🏴‍☠️</div>
+                            <div class="target-name">Captain Hook</div>
+                        </div>
+                    </div>
+                </div>
+            `);
+            showModal(modal);
+        }
+
+        function applyFateToPlayer(targetPlayer) {
+            closeModal();
+            
+            // Piocher une carte Fatalité
+            const fateCard = drawFateCard(targetPlayer);
+            
+            // L'appliquer au joueur cible
+            applyFateCard(targetPlayer, fateCard);
+            
+            showMessage(`Fatalité appliquée à ${targetPlayer} : ${fateCard.name}`, 'success');
+        }
+
+        function drawFateCard(targetPlayer) {
+            // Cartes Fatalité pour Jafar (quand on lui applique une Fatalité)
+            const fateCards = {
+                jafar: [
+                    { name: 'Aladdin', type: 'HERO', strength: 10, description: 'Bloque les actions "Jouer une Carte" au Palais' },
+                    { name: 'Jasmine', type: 'HERO', strength: 8, description: 'Empêche de gagner tant qu\'elle est en jeu' },
+                    { name: 'Génie d\'Aladdin', type: 'HERO', strength: 12, description: 'Peut vaincre n\'importe quel Allié' },
+                    { name: 'Épée d\'Aladdin', type: 'ITEM', description: 'Aladdin gagne +5 Force' },
+                    { name: 'Vol de Tapis', type: 'EFFECT', description: 'Déplacez Aladdin vers n\'importe quel lieu' }
+                ]
+            };
+
+            const availableCards = fateCards[targetPlayer] || fateCards.jafar;
+            return availableCards[Math.floor(Math.random() * availableCards.length)];
+        }
+
+        function applyFateCard(targetPlayer, fateCard) {
+            // Si c'est un Héros, le placer sur le plateau
+            if (fateCard.type === 'HERO') {
+                placeHeroOnBoard(fateCard, targetPlayer);
+            }
+            
+            // Mettre à jour l'affichage des cartes Fatalité
+            updateFateCardsDisplay(targetPlayer, fateCard);
+        }
+
+        function placeHeroOnBoard(hero, targetPlayer) {
+            // Placer le Héros sur un lieu aléatoire du plateau du joueur cible
+            const locations = ['palace', 'throne', 'cave', 'chamber'];
+            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+            
+            const locationElement = document.querySelector(`[data-location="${randomLocation}"]`);
+            if (locationElement) {
+                // Créer l'élément Héros
+                const heroElement = document.createElement('div');
+                heroElement.className = 'hero-card';
+                heroElement.innerHTML = `
+                    <div class="hero-name">${hero.name}</div>
+                    <div class="hero-strength">💪 ${hero.strength}</div>
+                `;
+                
+                // Ajouter au lieu
+                locationElement.appendChild(heroElement);
+                
+                // Bloquer les actions si nécessaire
+                if (hero.description.includes('Bloque')) {
+                    blockActionsAtLocation(randomLocation, hero.name);
+                }
+            }
+        }
+
+        function blockActionsAtLocation(locationId, heroName) {
+            const locationElement = document.querySelector(`[data-location="${locationId}"]`);
+            const blockedActions = locationElement.querySelectorAll('[data-blocked-by-heroes="true"]');
+            
+            blockedActions.forEach(action => {
+                action.classList.add('blocked-by-hero');
+                action.title = `Bloqué par ${heroName}`;
+            });
+        }
+
+        // Fonctions utilitaires
+        function getCurrentHandSize() {
+            return document.querySelectorAll('.cards-container .game-card').length;
+        }
+
+        function updateHandSizeDisplay() {
+            const handSize = getCurrentHandSize();
+            document.getElementById('handSize').textContent = handSize;
+        }
+
+        function updatePowerDisplay() {
+            document.getElementById('playerPower').textContent = gameState.playerPower;
+        }
+
+        function hasHeroesAtLocation(locationId) {
+            const locationElement = document.querySelector(`[data-location="${locationId}"]`);
+            return locationElement.querySelector('.hero-card') !== null;
+        }
+
+        function reshuffleVillainDeck() {
+            // Mélanger la défausse dans la pioche
+            const discardCount = parseInt(document.getElementById('discardCount').textContent);
+            document.getElementById('villainDeckCount').textContent = discardCount;
+            document.getElementById('discardCount').textContent = '0';
+            
+            showMessage('Pioche rechargée depuis la défausse !', 'info');
+        }
+
+        function animateCardDraw(card) {
+            // Animation de carte qui vient de la pioche vers la main
+            const deckElement = document.querySelector('.villain-deck');
+            const handElement = document.querySelector('.cards-container');
+            
+            if (deckElement && handElement) {
+                const flyingCard = document.createElement('div');
+                flyingCard.className = 'flying-card';
+                flyingCard.innerHTML = '🃏';
+                
+                const deckRect = deckElement.getBoundingClientRect();
+                const handRect = handElement.getBoundingClientRect();
+                
+                flyingCard.style.cssText = `
+                    position: fixed;
+                    left: ${deckRect.left}px;
+                    top: ${deckRect.top}px;
+                    z-index: 1000;
+                    font-size: 2rem;
+                    transition: all 0.6s ease;
+                    pointer-events: none;
+                `;
+                
+                document.body.appendChild(flyingCard);
+                
+                setTimeout(() => {
+                    flyingCard.style.left = handRect.right - 50 + 'px';
+                    flyingCard.style.top = handRect.top + 'px';
+                    flyingCard.style.transform = 'scale(0.3)';
+                    flyingCard.style.opacity = '0';
+                }, 100);
+                
+                setTimeout(() => {
+                    document.body.removeChild(flyingCard);
+                }, 700);
+            }
+        }
+
+        // ===== DONNÉES DES MÉCHANTS DISNEY VILLAINOUS =====
+        
+        // ===== CARTES SPÉCIFIQUES PAR MÉCHANT =====
+        const VILLAIN_CARDS = {
+            'Maleficent': {
+                villain: [
+                    { id: 'forest_of_thorns', name: 'Forêt de Ronces', cost: 3, type: 'condition', effect: 'Bloque les héros' },
+                    { id: 'maleficent_spell', name: 'Malédiction', cost: 2, type: 'spell', effect: 'Maudit Aurora' },
+                    { id: 'ravens', name: 'Corbeaux', cost: 1, type: 'ally', power: 2, effect: 'Reconnaissance' },
+                    { id: 'distaff', name: 'Quenouille', cost: 4, type: 'item', effect: 'Endort Aurora' },
+                    { id: 'green_fire', name: 'Feu Vert', cost: 2, type: 'spell', effect: '+3 Pouvoir ce tour' }
+                ],
+                fate: [
+                    { id: 'aurora', name: 'Aurore', type: 'hero', power: 4, effect: 'Résiste aux malédictions' },
+                    { id: 'three_fairies', name: 'Trois Fées', type: 'hero', power: 3, effect: 'Protège Aurora' },
+                    { id: 'prince_phillip', name: 'Prince Philippe', type: 'hero', power: 5, effect: 'Épée magique' },
+                    { id: 'sword_of_truth', name: 'Épée de Vérité', type: 'item', effect: 'Détruit les sorts' }
+                ]
+            },
+            'Captain Hook': {
+                villain: [
+                    { id: 'jolly_roger', name: 'Jolly Roger', cost: 4, type: 'location', effect: 'Navire principal' },
+                    { id: 'smee', name: 'Mouche', cost: 2, type: 'ally', power: 2, effect: 'Loyal serviteur' },
+                    { id: 'pirates', name: 'Pirates', cost: 3, type: 'ally', power: 3, effect: 'Abordage' },
+                    { id: 'hook_sword', name: 'Épée de Hook', cost: 2, type: 'item', effect: '+2 au combat' },
+                    { id: 'cannon_blast', name: 'Tir de Canon', cost: 3, type: 'spell', effect: 'Dégâts à distance' }
+                ],
+                fate: [
+                    { id: 'peter_pan', name: 'Peter Pan', type: 'hero', power: 5, effect: 'Vol et esquive' },
+                    { id: 'tinker_bell', name: 'Fée Clochette', type: 'hero', power: 2, effect: 'Soigne Peter Pan' },
+                    { id: 'wendy', name: 'Wendy', type: 'hero', power: 2, effect: 'Inspire courage' },
+                    { id: 'crocodile', name: 'Crocodile', type: 'effect', effect: 'Effraie Hook' }
+                ]
+            },
+            'Jafar': {
+                villain: [
+                    { id: 'hypnotize', name: 'Hypnose', cost: 2, type: 'spell', effect: 'Contrôle un ennemi' },
+                    { id: 'scarab_beetle', name: 'Scarabée', cost: 1, type: 'ally', power: 1, effect: 'Espionnage' },
+                    { id: 'snake_staff', name: 'Bâton Serpent', cost: 3, type: 'item', effect: 'Transformation' },
+                    { id: 'lamp_search', name: 'Recherche Lampe', cost: 2, type: 'spell', effect: 'Pioche 2 cartes' },
+                    { id: 'iago', name: 'Iago', cost: 2, type: 'ally', power: 2, effect: 'Imite les voix' }
+                ],
+                fate: [
+                    { id: 'aladdin', name: 'Aladdin', type: 'hero', power: 4, effect: 'Agilité et ruse' },
+                    { id: 'genie', name: 'Génie', type: 'hero', power: 6, effect: 'Trois vœux' },
+                    { id: 'jasmine', name: 'Jasmine', type: 'hero', power: 3, effect: 'Fière princesse' },
+                    { id: 'abu', name: 'Abu', type: 'ally', power: 1, effect: 'Vol à la tire' }
+                ]
+            }
+        };
+
+        // Mélanger et distribuer les cartes
+        function shuffleDeck(cards) {
+            const shuffled = [...cards];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Piocher une carte
+        function drawCard(deckType = 'villain') {
+            const villain = gameState.currentVillain;
+            const deck = deckType === 'villain' ? villain.villainDeck : villain.fateDeck;
+            
+            if (deck.length === 0) {
+                showNotification("🃏 Le deck est vide !", "warning");
+                return null;
+            }
+            
+            const card = deck.pop();
+            gameState.hand.push(card);
+            updateDisplay();
+            
+            showNotification(`📋 Carte piochée : ${card.name}`, "info");
+            return card;
+        }
+
+        // Jouer une carte
+        function playCard(cardId) {
+            const cardIndex = gameState.hand.findIndex(card => card.id === cardId);
+            if (cardIndex === -1) {
+                showNotification("❌ Carte introuvable !", "error");
+                return false;
+            }
+            
+            const card = gameState.hand[cardIndex];
+            
+            // Vérifier le coût
+            if (card.cost && gameState.power < card.cost) {
+                showNotification(`💰 Pas assez de pouvoir (${card.cost} requis)`, "warning");
+                return false;
+            }
+            
+            // Payer le coût
+            if (card.cost) {
+                gameState.power -= card.cost;
+            }
+            
+            // Appliquer l'effet
+            applyCardEffect(card);
+            
+            // Retirer de la main
+            gameState.hand.splice(cardIndex, 1);
+            
+            updateDisplay();
+            return true;
+        }
+
+        // Appliquer l'effet d'une carte
+        function applyCardEffect(card) {
+            switch(card.type) {
+                case 'ally':
+                    summonAlly(card);
+                    break;
+                case 'spell':
+                    castSpell(card);
+                    break;
+                case 'item':
+                    equipItem(card);
+                    break;
+                case 'condition':
+                    activateCondition(card);
+                    break;
+                default:
+                    showNotification(`✨ Effet de ${card.name} : ${card.effect}`, "info");
+            }
+        }
+
+        function summonAlly(card) {
+            gameState.allies.push({
+                id: card.id,
+                name: card.name,
+                power: card.power || 1,
+                locationId: gameState.currentLocation,
+                element: null
+            });
+            showNotification(`⚔️ ${card.name} rejoint votre cause !`, "success");
+        }
+
+        function castSpell(card) {
+            // Effets spéciaux selon la carte
+            switch(card.id) {
+                case 'maleficent_spell':
+                    if (gameState.currentVillain.name === 'Maleficent') {
+                        const location = findLocationById(gameState.currentLocation);
+                        curse_spell(location);
+                    }
+                    break;
+                case 'hypnotize':
+                    if (gameState.currentVillain.name === 'Jafar') {
+                        const location = findLocationById(gameState.currentLocation);
+                        hypnotize_guards(location);
+                    }
+                    break;
+                case 'green_fire':
+                    gameState.power += 3;
+                    showNotification("🔥 Feu vert : +3 Pouvoir ce tour !", "success");
+                    break;
+                default:
+                    showNotification(`🪄 Sort lancé : ${card.effect}`, "info");
+            }
+        }
+
+        function equipItem(card) {
+            gameState.items.push(card);
+            showNotification(`🛡️ Objet équipé : ${card.name}`, "success");
+        }
+
+        function activateCondition(card) {
+            gameState.conditions.push(card);
+            showNotification(`⚡ Condition active : ${card.name}`, "info");
+        }
+
+        const VILLAINS = {
+            jafar: {
+                id: 'jafar',
+                name: 'Jafar',
+                icon: '🧞‍♂️',
+                description: 'Le vizir maléfique d\'Agrabah qui cherche à devenir le génie le plus puissant',
+                startingPower: 4,
+                victoryCondition: 'Avoir la Lampe Magique à la Caverne aux Merveilles et localiser Jasmine',
+                color: '#8B4513',
+                board: [
+                    {
+                        id: 'palace_gates',
+                        name: 'Portes du Palais',
+                        actions: [
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'vanquish', icon: '⚔️' },
+                            { type: 'discard', icon: '🗑️' }
+                        ]
+                    },
+                    {
+                        id: 'throne_room',
+                        name: 'Salle du Trône',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'activate', icon: '🔧', blockedByHeroes: true },
+                            { type: 'fate', icon: '🔮' }
+                        ]
+                    },
+                    {
+                        id: 'cave_of_wonders',
+                        name: 'Caverne aux Merveilles',
+                        actions: [
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'activate', icon: '🔧' },
+                            { type: 'discard', icon: '🗑️' },
+                            { type: 'gain_power', value: 3, icon: '💰' }
+                        ]
+                    },
+                    {
+                        id: 'secret_chamber',
+                        name: 'Chambre Secrète',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'hypnotize_guards', icon: '👁️' }
+                        ]
+                    }
+                ]
+            },
+            maleficent: {
+                id: 'maleficent',
+                name: 'Maleficent',
+                icon: '🧙‍♀️',
+                description: 'La Maîtresse du Mal qui veut placer une malédiction sur chaque lieu',
+                startingPower: 3,
+                victoryCondition: 'Placer une Malédiction sur chaque lieu de votre domaine',
+                color: '#4A0E4E',
+                specialMechanic: 'curse_placement',
+                board: [
+                    {
+                        id: 'forbidden_mountains',
+                        name: 'Montagnes Interdites',
+                        actions: [
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'vanquish', icon: '⚔️' },
+                            { type: 'fate', icon: '🔮' }
+                        ],
+                        cursed: false
+                    },
+                    {
+                        id: 'briar_rose_cottage',
+                        name: 'Chaumière de Rose',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'activate', icon: '🔧' },
+                            { type: 'discard', icon: '🗑️' }
+                        ],
+                        cursed: false
+                    },
+                    {
+                        id: 'castle_gates',
+                        name: 'Portes du Château',
+                        actions: [
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'vanquish', icon: '⚔️', blockedByHeroes: true },
+                            { type: 'activate', icon: '🔧' },
+                            { type: 'gain_power', value: 2, icon: '💰' }
+                        ],
+                        cursed: false
+                    },
+                    {
+                        id: 'throne_room_mal',
+                        name: 'Salle du Trône',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'curse_spell', icon: '�' },
+                            { type: 'discard', icon: '🗑️' }
+                        ],
+                        cursed: false
+                    }
+                ],
+                uniqueCards: [
+                    { name: 'Malédiction', type: 'CONDITION', cost: 3, description: 'Place une Malédiction sur ce lieu. Requis pour la victoire.' },
+                    { name: 'Dragon de Maleficent', type: 'ALLY', cost: 5, strength: 15, description: 'La forme draconique de Maleficent' },
+                    { name: 'Épines Maudites', type: 'EFFECT', cost: 2, description: 'Tous les Héros perdent 3 Force ce tour' },
+                    { name: 'Bâton Magique', type: 'ITEM', cost: 3, description: 'Les Malédictions coûtent -1 Pouvoir' }
+                ]
+            },
+            captain_hook: {
+                id: 'captain_hook',
+                name: 'Captain Hook',
+                icon: '🏴‍☠️',
+                description: 'Le pirate impitoyable qui veut vaincre Peter Pan au Jolly Roger',
+                startingPower: 5,
+                victoryCondition: 'Vaincre Peter Pan lorsqu\'il est au Jolly Roger',
+                color: '#2C5F41',
+                specialMechanic: 'peter_pan_hunt',
+                board: [
+                    {
+                        id: 'hooks_lair',
+                        name: 'Repaire de Crochet',
+                        actions: [
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'vanquish', icon: '⚔️' },
+                            { type: 'activate', icon: '🔧' }
+                        ]
+                    },
+                    {
+                        id: 'skull_rock',
+                        name: 'Rocher du Crâne',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'activate', icon: '🔧' },
+                            { type: 'fate', icon: '🔮' }
+                        ]
+                    },
+                    {
+                        id: 'jolly_roger',
+                        name: 'Jolly Roger',
+                        actions: [
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'vanquish', icon: '⚔️', blockedByHeroes: true },
+                            { type: 'boarding_party', icon: '🏴‍☠️' },
+                            { type: 'gain_power', value: 3, icon: '💰' }
+                        ],
+                        victoryLocation: true
+                    },
+                    {
+                        id: 'mermaid_lagoon',
+                        name: 'Lagon des Sirènes',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'activate', icon: '🔧' },
+                            { type: 'discard', icon: '🗑️' }
+                        ]
+                    }
+                ]
+            },
+            queen_hearts: {
+                id: 'queen_hearts',
+                name: 'Queen of Hearts',
+                icon: '👸',
+                description: 'La reine tyrannique du Royaume des Cartes qui veut maintenir son pouvoir absolu',
+                startingPower: 3,
+                victoryCondition: 'Avoir 4 Gardes Cartes à différents lieux et décapiter 3 héros',
+                color: '#DC143C',
+                board: [
+                    {
+                        id: 'throne_room_queen',
+                        name: 'Salle du Trône',
+                        actions: [
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'royal_decree', icon: '👑', blockedByHeroes: true },
+                            { type: 'vanquish', icon: '⚔️' }
+                        ]
+                    },
+                    {
+                        id: 'courtyard',
+                        name: 'Cour Royale',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'activate', icon: '🔧' },
+                            { type: 'fate', icon: '🔮' }
+                        ]
+                    },
+                    {
+                        id: 'wicket_garden',
+                        name: 'Jardin de Croquet',
+                        actions: [
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'card_game_rules', icon: '🎯', blockedByHeroes: true },
+                            { type: 'discard', icon: '🗑️' },
+                            { type: 'gain_power', value: 1, icon: '💰' }
+                        ]
+                    },
+                    {
+                        id: 'execution_grounds',
+                        name: 'Terrain d\'Exécution',
+                        actions: [
+                            { type: 'vanquish', icon: '⚔️' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'execute_decree', icon: '⚡' },
+                            { type: 'discard', icon: '🗑️' }
+                        ]
+                    }
+                ]
+            },
+            prince_john: {
+                id: 'prince_john',
+                name: 'Prince John',
+                icon: '🤴',
+                description: 'Le prince avide qui taxe ses sujets pour remplir ses coffres royaux',
+                startingPower: 5,
+                victoryCondition: 'Accumuler 20 Pouvoir et avoir au moins 1 Tax dans chaque lieu',
+                color: '#4B0082',
+                board: [
+                    {
+                        id: 'nottingham',
+                        name: 'Nottingham',
+                        actions: [
+                            { type: 'gain_power', value: 3, icon: '💰' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'vanquish', icon: '⚔️' },
+                            { type: 'discard', icon: '🗑️' }
+                        ]
+                    },
+                    {
+                        id: 'sherwood_forest',
+                        name: 'Forêt de Sherwood',
+                        actions: [
+                            { type: 'gain_power', value: 1, icon: '💰' },
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'activate', icon: '🔧', blockedByHeroes: true },
+                            { type: 'fate', icon: '🔮' }
+                        ]
+                    },
+                    {
+                        id: 'royal_castle',
+                        name: 'Château Royal',
+                        actions: [
+                            { type: 'play_card', icon: '🃏' },
+                            { type: 'royal_treasury', icon: '💎', blockedByHeroes: true },
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'discard', icon: '🗑️' }
+                        ]
+                    },
+                    {
+                        id: 'village_square',
+                        name: 'Place du Village',
+                        actions: [
+                            { type: 'taxation', icon: '🏛️' },
+                            { type: 'play_card', icon: '🃏', blockedByHeroes: true },
+                            { type: 'gain_power', value: 2, icon: '💰' },
+                            { type: 'activate', icon: '🔧' }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // Gestion du loading screen améliorée
+        let loadingProgress = 0;
+        let loadingInterval;
+        
+        function startLoading() {
+            loadingInterval = setInterval(() => {
+                loadingProgress += Math.random() * 12 + 3; // Progression plus stable
+                if (loadingProgress >= 100) {
+                    loadingProgress = 100;
+                    clearInterval(loadingInterval);
+                    setTimeout(() => {
+                        const loadingScreen = document.getElementById('loadingScreen');
+                        if (loadingScreen) {
+                            loadingScreen.style.opacity = '0';
+                            loadingScreen.style.transition = 'opacity 0.5s ease-out';
+                            setTimeout(() => {
+                                loadingScreen.style.display = 'none';
+                            }, 500);
+                        }
+                    }, 800);
+                }
+                const percentageElement = document.getElementById('loadingPercentage');
+                if (percentageElement) {
+                    percentageElement.textContent = Math.floor(loadingProgress) + '%';
+                }
+            }, 150);
+        }
+
+        // Timer du jeu amélioré
+        let gameTimer;
+        
+        function updateGameTimer() {
+            try {
+                const elapsed = Date.now() - gameState.gameStartTime;
+                const minutes = Math.floor(elapsed / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                const timerElement = document.getElementById('gameTimer');
+                if (timerElement) {
+                    timerElement.textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            } catch (error) {
+                console.error('Erreur timer:', error);
+            }
+        }
+
+        function startGameTimer() {
+            if (gameTimer) clearInterval(gameTimer);
+            gameTimer = setInterval(updateGameTimer, 1000);
+        }
+
+        // Fonctions du menu principal améliorées
+        function startNewGame() {
+            try {
+                const mainMenu = document.getElementById('mainMenu');
+                const gameInterface = document.getElementById('gameInterface');
+                
+                if (mainMenu && gameInterface) {
+                    mainMenu.style.display = 'none';
+                    gameInterface.classList.add('active');
+                    gameState.gameStartTime = Date.now(); // Reset timer
+                    startGameTimer();
+                    showNotification('🎮 Nouvelle partie commencée !', 'success');
+                } else {
+                    console.error('Éléments menu/interface non trouvés');
+                }
+            } catch (error) {
+                console.error('Erreur démarrage:', error);
+                showNotification('❌ Erreur lors du démarrage', 'error');
+            }
+        }
+
+        // Démarrer le Mode Règles Officielles avec sélection de méchant
+        function startOfficialMode() {
+            console.log('⚡ Mode Règles Officielles activé');
+            
+            // Afficher d'abord le sélecteur de méchant
+            showVillainSelector();
+        }
+
+        // Afficher le sélecteur de méchant
+        function showVillainSelector() {
+            let villainOptions = '';
+            
+            Object.keys(VILLAINS).forEach(villainId => {
+                const villain = VILLAINS[villainId];
+                villainOptions += `
+                    <div class="villain-option" onclick="selectVillainAndStart('${villainId}')">
+                        <div class="villain-icon">${villain.icon}</div>
+                        <div class="villain-info">
+                            <h3>${villain.name}</h3>
+                            <p class="villain-desc">${villain.description}</p>
+                            <p class="victory-condition">🎯 ${villain.victoryCondition}</p>
+                            <div class="villain-stats">
+                                ⚡ Pouvoir de départ: ${villain.startingPower}
+                                ${villain.specialMechanic ? ` | 🔮 Mécanique: ${villain.specialMechanic}` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const modal = createModal('🏰 Choisissez votre Méchant', `
+                <div class="villain-selector">
+                    <p style="text-align: center; margin-bottom: 1.5rem; color: #DAA520; font-weight: 600;">
+                        Chaque méchant a ses propres règles et objectifs uniques
+                    </p>
+                    <div class="villain-options">
+                        ${villainOptions}
+                    </div>
+                </div>
+            `);
+            showModal(modal);
+        }
+
+        // Sélectionner un méchant et démarrer la partie
+        function selectVillainAndStart(villainId) {
+            const villain = VILLAINS[villainId];
+            if (!villain) return;
+
+            // Mettre à jour l'état du jeu
+            gameState.currentPlayer = villain.name;
+            gameState.playerPower = villain.startingPower;
+            gameState.selectedVillain = villainId;
+
+            closeModal();
+
+            // Démarrer la partie normale
+            startNewGame();
+
+            // Configurer le plateau pour ce méchant
+            setTimeout(() => {
+                setupVillainBoard(villainId);
+                initializeVillainDecks(villain.name); // Initialiser les cartes
+                
+                showNotification(`🎭 Vous incarnez ${villain.name} !\n\n🎯 Objectif: ${villain.victoryCondition}\n⚡ Pouvoir de départ: ${villain.startingPower}`, 'success');
+                
+                // Démarrer le premier tour officiel
+                setTimeout(() => {
+                    startOfficialTurn();
+                }, 3000);
+            }, 1000);
+        }
+
+        // Configuration du plateau spécifique au méchant
+        function setupVillainBoard(villainId) {
+            const villain = VILLAINS[villainId];
+            if (!villain) return;
+
+            // Mettre à jour le titre et les informations
+            const titleElement = document.querySelector('#villain-info h2');
+            if (titleElement) {
+                titleElement.textContent = villain.name;
+                titleElement.style.color = villain.color;
+            }
+
+            // Configurer les lieux du plateau
+            setupVillainLocations(villain);
+            
+            // Appliquer le thème visuel
+            applyVillainTheme(villain);
+            
+            // Mettre à jour l'état du jeu
+            gameState.currentVillain = villain;
+            gameState.power = villain.startingPower;
+            gameState.specialMechanics = {};
+            
+            updateDisplay();
+        }
+
+        function setupVillainLocations(villain) {
+            const locationsContainer = document.querySelector('.locations-container');
+            if (!locationsContainer) return;
+
+            locationsContainer.innerHTML = '';
+            
+            villain.board.forEach(location => {
+                const locationElement = createLocationElement(location);
+                locationsContainer.appendChild(locationElement);
+            });
+        }
+
+        function createLocationElement(location) {
+            const locationDiv = document.createElement('div');
+            locationDiv.className = 'location-card';
+            locationDiv.dataset.locationId = location.id;
+            locationDiv.style.position = 'relative';
+            
+            locationDiv.innerHTML = `
+                <div class="location-name">${location.name}</div>
+                <div class="location-actions">
+                    ${location.actions.map(action => `
+                        <div class="action-icon" title="${getActionDescription(action)}" onclick="performLocationAction('${action.type}', ${JSON.stringify(action).replace(/"/g, '&quot;')})">
+                            ${action.icon}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            
+            locationDiv.addEventListener('click', () => selectLocation(location.id));
+            
+            return locationDiv;
+        }
+
+        function getActionDescription(action) {
+            const descriptions = {
+                'gain_power': `Gagner ${action.value} Pouvoir`,
+                'move_item': 'Déplacer un objet ou allié',
+                'play_card': 'Jouer une carte',
+                'activate_location': 'Activer le lieu',
+                'curse_spell': 'Lancer une malédiction',
+                'boarding_party': 'Organiser un abordage',
+                'hypnotize_guards': 'Hypnotiser les gardes'
+            };
+            return descriptions[action.type] || action.type;
+        }
+
+        function performLocationAction(actionType, actionData) {
+            if (gameState.phase !== 'actions' || gameState.actionsRemaining <= 0) {
+                showNotification('❌ Aucune action disponible !', 'warning');
+                return;
+            }
+
+            // Appeler la fonction performAction existante
+            performAction(actionType, actionData);
+        }
+
+        function selectLocation(locationId) {
+            gameState.currentLocation = locationId;
+            
+            // Mettre en surbrillance le lieu sélectionné
+            document.querySelectorAll('.location-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            const selectedCard = document.querySelector(`[data-location-id="${locationId}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+            }
+            
+            showNotification(`📍 Lieu sélectionné : ${getLocationName(locationId)}`, 'info');
+        }
+
+        function getLocationName(locationId) {
+            const villain = gameState.currentVillain;
+            if (!villain) return locationId;
+            
+            const location = villain.board.find(loc => loc.id === locationId);
+            return location ? location.name : locationId;
+        }
+
+        function applyVillainTheme(villain) {
+            // Appliquer la couleur thème du méchant
+            document.documentElement.style.setProperty('--villain-color', villain.color);
+            
+            // Modifier l'arrière-plan si nécessaire
+            const body = document.body;
+            body.style.background = `radial-gradient(circle at center, ${villain.color}22, #0a0a1f)`;
+        }
+
+        // Démarrer un tour officiel
+        function startOfficialTurn() {
+            console.log(`🎯 === TOUR OFFICIEL ${gameState.turnNumber} - ${gameState.currentPlayer} ===`);
+            
+            // Phase 1: Déplacement obligatoire
+            gameState.phase = 'move';
+            gameState.actionsRemaining = 0;
+            
+            showNotification(`🚶‍♂️ PHASE 1: DÉPLACEMENT\n\nVous devez vous déplacer vers un lieu adjacent.\nLes lieux disponibles sont surlignés en vert.`, 'info');
+            
+            // Surligner les lieux adjacents
+            highlightAdjacentLocations();
+            
+            // Créer/mettre à jour l'affichage du tour
+            updateOfficialTurnDisplay();
+        }
+
+        // Surligner les lieux adjacents pour le déplacement
+        function highlightAdjacentLocations() {
+            const locations = document.querySelectorAll('.location-card');
+            const currentLoc = gameState.currentLocation;
+            
+            locations.forEach(loc => {
+                const locationId = loc.dataset.location;
+                loc.classList.remove('available-movement', 'blocked-movement');
+                loc.style.border = '';
+                loc.title = '';
+                
+                if (locationId === currentLoc) {
+                    loc.style.border = '3px solid #FF0000';
+                    loc.title = '📍 Lieu actuel - Vous devez vous déplacer';
+                } else if (isAdjacentLocation(currentLoc, locationId)) {
+                    loc.classList.add('available-movement');
+                    loc.style.border = '3px solid #00FF00';
+                    loc.title = '✅ Cliquez pour vous déplacer ici';
+                    loc.style.cursor = 'pointer';
+                } else {
+                    loc.style.border = '3px solid #666';
+                    loc.title = '❌ Trop éloigné - Seuls les lieux adjacents sont accessibles';
+                    loc.style.cursor = 'not-allowed';
+                }
+            });
+        }
+
+        // Mettre à jour l'affichage du tour officiel
+        function updateOfficialTurnDisplay() {
+            // Chercher ou créer le panneau de tour
+            let turnPanel = document.getElementById('officialTurnPanel');
+            if (!turnPanel) {
+                turnPanel = document.createElement('div');
+                turnPanel.id = 'officialTurnPanel';
+                turnPanel.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: linear-gradient(135deg, #1a1a2e, #16213e);
+                    border: 3px solid #DAA520;
+                    border-radius: 15px;
+                    padding: 1rem;
+                    color: #F5F5F5;
+                    font-family: 'Cinzel', serif;
+                    z-index: 1000;
+                    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.3);
+                    text-align: center;
+                    min-width: 350px;
+                `;
+                document.body.appendChild(turnPanel);
+            }
+
+            const phaseInfo = TURN_PHASES[gameState.phase.toUpperCase()];
+            const phaseIcon = phaseInfo ? phaseInfo.icon : '❓';
+            const phaseName = phaseInfo ? phaseInfo.name : gameState.phase;
+            const phaseDesc = phaseInfo ? phaseInfo.description : '';
+
+            turnPanel.innerHTML = `
+                <div style="font-size: 1.4rem; font-weight: 700; color: #DAA520; margin-bottom: 0.5rem;">
+                    ⚡ TOUR OFFICIEL ${gameState.turnNumber}
+                </div>
+                <div style="font-size: 1.2rem; margin-bottom: 0.5rem;">
+                    👑 ${gameState.currentPlayer}
+                </div>
+                <div style="background: rgba(218, 165, 32, 0.2); padding: 0.8rem; border-radius: 10px; margin: 0.5rem 0;">
+                    <div style="font-size: 1.1rem; font-weight: 600; color: #DAA520;">
+                        ${phaseIcon} Phase: ${phaseName}
+                    </div>
+                    <div style="font-size: 0.9rem; color: rgba(245, 245, 245, 0.8); margin-top: 0.3rem;">
+                        ${phaseDesc}
+                    </div>
+                    ${gameState.actionsRemaining > 0 ? `<div style="background: #DAA520; color: #1a1a2e; padding: 0.3rem 0.8rem; border-radius: 15px; margin-top: 0.5rem; font-weight: 600;">⚡ Actions restantes: ${gameState.actionsRemaining}</div>` : ''}
+                </div>
+                <div style="font-size: 0.8rem; color: rgba(245, 245, 245, 0.6);">
+                    💰 Pouvoir: ${gameState.playerPower} | 🃏 Cartes: ${getCurrentHandSize()}
+                </div>
+            `;
+        }
+
+        function loadSavedGame() {
+            showNotification('📁 Chargement des parties sauvegardées...', 'info');
+        }
+
+        function showTutorial() {
+            showNotification('🎓 Lancement du tutoriel interactif...', 'info');
+        }
+
+        function showCredits() {
+            showNotification('🏆 Développé par Villain Studios\n© 2025 Disney Villainous™', 'info');
+        }
+
+        function exitGame() {
+            if (confirm('Voulez-vous vraiment quitter le jeu ?')) {
+                window.close();
+            }
+        }
+
+        // Fonctions de jeu
+        function selectLocation(location) {
+            try {
+                // Désélectionner toutes les locations
+                document.querySelectorAll('.location-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                
+                // Sélectionner la nouvelle location
+                const targetLocation = document.querySelector(`[data-location="${location}"]`);
+                if (targetLocation) {
+                    targetLocation.classList.add('active');
+                    gameState.currentLocation = location;
+                    
+                    // Mettre à jour l'affichage
+                    updateLocationDisplay(location);
+                    showNotification(`📍 Déplacé vers ${getLocationName(location)}`, 'success');
+                } else {
+                    console.error(`Location ${location} non trouvée`);
+                }
+            } catch (error) {
+                console.error('Erreur sélection location:', error);
+                showNotification('❌ Erreur de déplacement', 'error');
+            }
+        }
+
+        function getLocationName(location) {
+            const names = {
+                'palace': 'Palais du Sultan',
+                'streets': 'Rues d\'Agrabah',
+                'oasis': 'Oasis',
+                'cave': 'Caverne aux Merveilles'
+            };
+            return names[location] || location;
+        }
+
+        function updateLocationDisplay(location) {
+            try {
+                const locationElement = document.getElementById('currentLocation');
+                if (locationElement) {
+                    locationElement.textContent = getLocationName(location);
+                }
+            } catch (error) {
+                console.error('Erreur mise à jour location:', error);
+            }
+        }
+
+        function selectCard(cardElement) {
+            try {
+                if (!cardElement) return;
+                
+                // Désélectionner toutes les cartes
+                document.querySelectorAll('.game-card').forEach(card => {
+                    card.style.border = '2px solid var(--primary-gold)';
+                    card.style.transform = '';
+                });
+                
+                // Sélectionner la carte cliquée
+                cardElement.style.border = '3px solid #FFD700';
+                cardElement.style.transform = 'scale(1.02)';
+                gameState.selectedCard = cardElement;
+                
+                // Feedback visuel
+                showNotification(`🃏 Carte sélectionnée: ${cardElement.querySelector('.card-name')?.textContent || 'Inconnue'}`, 'info');
+            } catch (error) {
+                console.error('Erreur sélection carte:', error);
+            }
+        }
+
+        function showCardMenu(event, cardElement) {
+            try {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                if (!cardElement) return;
+                
+                gameState.selectedCard = cardElement;
+                selectCard(cardElement); // Visuellement sélectionner la carte
+                
+                const menu = document.getElementById('contextMenu');
+                if (menu) {
+                    menu.style.display = 'block';
+                    menu.style.left = Math.min(event.pageX, window.innerWidth - 200) + 'px';
+                    menu.style.top = Math.min(event.pageY, window.innerHeight - 150) + 'px';
+                }
+            } catch (error) {
+                console.error('Erreur menu carte:', error);
+            }
+        }
+
+        // Fermer le menu contextuel amélioré
+        document.addEventListener('click', (event) => {
+            try {
+                const contextMenu = document.getElementById('contextMenu');
+                if (contextMenu && !contextMenu.contains(event.target)) {
+                    contextMenu.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Erreur fermeture menu:', error);
+            }
+        });
+
+        // Empêcher le menu contextuel par défaut
+        document.addEventListener('contextmenu', (event) => {
+            if (event.target.closest('.game-card')) {
+                event.preventDefault();
+            }
+        });
+
+        // Actions de jeu améliorées
+        function gainPower() {
+            try {
+                gameState.playerPower += 2;
+                const powerElement = document.getElementById('playerPower');
+                if (powerElement) {
+                    powerElement.textContent = gameState.playerPower;
+                    // Animation du gain de pouvoir
+                    powerElement.style.transform = 'scale(1.2)';
+                    powerElement.style.color = '#4CAF50';
+                    setTimeout(() => {
+                        powerElement.style.transform = 'scale(1)';
+                        powerElement.style.color = 'var(--primary-gold)';
+                    }, 300);
+                }
+                showNotification('💰 +2 Pouvoir gagné !', 'success');
+            } catch (error) {
+                console.error('Erreur gain pouvoir:', error);
+                showNotification('❌ Erreur lors du gain de pouvoir', 'error');
+            }
+        }
+
+        function playCard() {
+            try {
+                if (!gameState.selectedCard) {
+                    showNotification('❌ Sélectionnez d\'abord une carte !', 'error');
+                    return;
+                }
+                
+                const cardNameElement = gameState.selectedCard.querySelector('.card-name');
+                const cardCostElement = gameState.selectedCard.querySelector('.card-cost');
+                
+                if (!cardNameElement || !cardCostElement) {
+                    showNotification('❌ Carte invalide !', 'error');
+                    return;
+                }
+                
+                const cardName = cardNameElement.textContent;
+                const cost = parseInt(cardCostElement.textContent);
+                
+                if (isNaN(cost)) {
+                    showNotification('❌ Coût de carte invalide !', 'error');
+                    return;
+                }
+                
+                if (gameState.playerPower >= cost) {
+                    gameState.playerPower -= cost;
+                    const powerElement = document.getElementById('playerPower');
+                    if (powerElement) {
+                        powerElement.textContent = gameState.playerPower;
+                    }
+                    
+                    // Animation de suppression de carte
+                    gameState.selectedCard.style.transform = 'scale(0) rotate(180deg)';
+                    gameState.selectedCard.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        if (gameState.selectedCard && gameState.selectedCard.parentNode) {
+                            gameState.selectedCard.remove();
+                        }
+                        gameState.selectedCard = null;
+                        updateHandSize();
+                    }, 300);
+                    
+                    showNotification(`🃏 ${cardName} joué ! (-${cost} Pouvoir)`, 'success');
+                } else {
+                    showNotification(`❌ Pas assez de Pouvoir ! (${cost} requis, ${gameState.playerPower} disponible)`, 'error');
+                }
+            } catch (error) {
+                console.error('Erreur jeu carte:', error);
+                showNotification('❌ Erreur lors du jeu de la carte', 'error');
+            }
+        }
+
+        function playSelectedCard() {
+            playCard();
+            document.getElementById('contextMenu').style.display = 'none';
+        }
+
+        function discardSelectedCard() {
+            if (gameState.selectedCard) {
+                const cardName = gameState.selectedCard.querySelector('.card-name').textContent;
+                gameState.selectedCard.remove();
+                updateHandSize();
+                showNotification(`🗑️ ${cardName} défaussé`, 'info');
+            }
+            document.getElementById('contextMenu').style.display = 'none';
+        }
+
+        function discardCards() {
+            if (gameState.selectedCard) {
+                discardSelectedCard();
+            } else {
+                showNotification('❌ Sélectionnez d\'abord une carte à défausser !', 'error');
+            }
+        }
+
+        function examineCard() {
+            if (gameState.selectedCard) {
+                const cardName = gameState.selectedCard.querySelector('.card-name').textContent;
+                const description = gameState.selectedCard.querySelector('.card-description').textContent;
+                showNotification(`🔍 ${cardName}\n\n${description}`, 'info');
+            }
+            document.getElementById('contextMenu').style.display = 'none';
+        }
+
+        function updateHandSize() {
+            try {
+                const handSize = document.querySelectorAll('.game-card').length;
+                const handSizeElement = document.getElementById('handSize');
+                if (handSizeElement) {
+                    handSizeElement.textContent = handSize;
+                }
+            } catch (error) {
+                console.error('Erreur mise à jour main:', error);
+            }
+        }
+
+        function endTurn() {
+            try {
+                gameState.turnNumber++;
+                const turnElement = document.getElementById('turnNumber');
+                if (turnElement) {
+                    turnElement.textContent = gameState.turnNumber;
+                }
+                
+                // Réinitialiser la sélection
+                gameState.selectedCard = null;
+                document.querySelectorAll('.game-card').forEach(card => {
+                    card.style.border = '2px solid var(--primary-gold)';
+                    card.style.transform = '';
+                });
+                
+                showNotification(`⏭️ Tour ${gameState.turnNumber} commencé !`, 'info');
+            } catch (error) {
+                console.error('Erreur fin de tour:', error);
+                showNotification('❌ Erreur lors de la fin du tour', 'error');
+            }
+        }
+
+        // Fonctions d'interface
+        function showHelp() {
+            showNotification('❓ Aide\n\n🎯 Objectif: Accomplissez la condition de victoire de votre méchant\n🃏 Cartes: Cliquez pour sélectionner, clic droit pour le menu\n📍 Lieux: Cliquez pour vous déplacer', 'info');
+        }
+
+        function showSettings() {
+            showNotification('⚙️ Paramètres\n\nOptions disponibles:\n• Volume: 50%\n• Effets visuels: Activés\n• Sauvegarde auto: Activée', 'info');
+        }
+
+        function saveGame() {
+            showNotification('💾 Partie sauvegardée !', 'success');
+        }
+
+        // Système de notifications amélioré
+        let notificationCount = 0;
+        
+        function showNotification(message, type = 'info') {
+            try {
+                notificationCount++;
+                const notification = document.createElement('div');
+                const notificationId = `notification-${notificationCount}`;
+                notification.id = notificationId;
+                
+                notification.style.cssText = `
+                    position: fixed;
+                    top: ${100 + (notificationCount - 1) * 80}px;
+                    right: 20px;
+                    background: var(--surface-dark);
+                    color: var(--text-light);
+                    padding: 1rem 1.5rem;
+                    border-radius: 10px;
+                    border: 2px solid var(--primary-gold);
+                    z-index: 2500;
+                    max-width: 300px;
+                    box-shadow: var(--shadow-main);
+                    animation: slideIn 0.3s ease-out;
+                    white-space: pre-line;
+                    word-wrap: break-word;
+                    font-size: 0.9rem;
+                    line-height: 1.4;
+                `;
+                
+                if (type === 'error') {
+                    notification.style.borderColor = 'var(--accent-red)';
+                    notification.style.background = 'linear-gradient(135deg, #B71C1C, var(--surface-dark))';
+                } else if (type === 'success') {
+                    notification.style.borderColor = '#4CAF50';
+                    notification.style.background = 'linear-gradient(135deg, #4CAF50, var(--surface-dark))';
+                }
+                
+                notification.textContent = message;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    try {
+                        const notif = document.getElementById(notificationId);
+                        if (notif) {
+                            notif.style.animation = 'slideOut 0.3s ease-in';
+                            setTimeout(() => {
+                                if (notif.parentNode) {
+                                    notif.remove();
+                                }
+                                notificationCount = Math.max(0, notificationCount - 1);
+                            }, 300);
+                        }
+                    } catch (cleanupError) {
+                        console.error('Erreur nettoyage notification:', cleanupError);
+                    }
+                }, 4000);
+            } catch (error) {
+                console.error('Erreur notification:', error);
+            }
+        }
+
+        // Styles pour les animations de notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialisation améliorée
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                console.log('🎮 Initialisation Disney Villainous™ Ultimate');
+                
+                // Démarrer le loading
+                startLoading();
+                
+                // Initialiser le timer
+                startGameTimer();
+                
+                // Mettre à jour la taille de main
+                updateHandSize();
+                
+                // Vérifier les éléments critiques
+                const criticalElements = ['loadingScreen', 'mainMenu', 'gameInterface', 'contextMenu'];
+                const missingElements = criticalElements.filter(id => !document.getElementById(id));
+                
+                if (missingElements.length > 0) {
+                    console.error('Éléments manquants:', missingElements);
+                    showNotification('⚠️ Certains éléments de l\'interface sont manquants', 'error');
+                } else {
+                    console.log('✅ Tous les éléments critiques sont présents');
+                }
+                
+                // Message de bienvenue après le loading
+                setTimeout(() => {
+                    showNotification('🎮 Disney Villainous™ Professional Edition\nBienvenue dans l\'expérience ultime !', 'success');
+                }, 6000);
+                
+            } catch (error) {
+                console.error('Erreur initialisation:', error);
+                showNotification('❌ Erreur lors de l\'initialisation', 'error');
+            }
+        });
+
+        // Gestion des erreurs globales
+        window.addEventListener('error', (event) => {
+            console.error('Erreur JavaScript:', event.error);
+            showNotification('⚠️ Une erreur inattendue s\'est produite', 'error');
+        });
+
+        // Debugging tools (à retirer en production)
+        window.gameDebug = {
+            state: () => gameState,
+            resetPower: () => { gameState.playerPower = 10; document.getElementById('playerPower').textContent = 10; },
+            showElements: () => console.log({
+                loadingScreen: !!document.getElementById('loadingScreen'),
+                mainMenu: !!document.getElementById('mainMenu'),
+                gameInterface: !!document.getElementById('gameInterface'),
+                contextMenu: !!document.getElementById('contextMenu')
+            })
+        };
+
+        // ===== SYSTÈME D'ANIMATIONS DE PLATEAUX THÉMATIQUES =====
+        
+        class VillainBoardAnimations {
+            constructor() {
+                this.currentBoard = null;
+                this.transitionDuration = 800;
+                this.setupVillainEffects();
+            }
+            
+            setupVillainEffects() {
+                this.villainEffects = {
+                    'captain_hook': {
+                        theme: 'pirate',
+                        particles: '🌊⚓🏴‍☠️',
+                        ambientColor: '#2C5F41'
+                    },
+                    'maleficent': {
+                        theme: 'dark_magic',
+                        particles: '✨🔮💜',
+                        ambientColor: '#4A0E4E'
+                    },
+                    'jafar': {
+                        theme: 'oriental',
+                        particles: '🌟🕌💎',
+                        ambientColor: '#8B4513'
+                    },
+                    'queen_hearts': {
+                        theme: 'cards',
+                        particles: '♠️♥️♦️♣️',
+                        ambientColor: '#DC143C'
+                    },
+                    'prince_john': {
+                        theme: 'royal',
+                        particles: '👑💰🏰',
+                        ambientColor: '#4B0082'
+                    }
+                };
+            }
+            
+            switchToVillainBoard(villainId) {
+                return new Promise((resolve) => {
+                    const boardElement = document.querySelector('.board-container');
+                    if (boardElement) {
+                        this.applyVillainTheme(villainId, boardElement);
+                        this.animateBoardEntrance(villainId, boardElement).then(resolve);
+                    }
+                });
+            }
+            
+            applyVillainTheme(villainId, boardElement) {
+                // Nettoyer les classes précédentes
+                boardElement.className = 'board-container villain-board';
+                
+                // Appliquer la nouvelle classe thématique
+                const themeClass = villainId.replace('_', '-');
+                boardElement.classList.add(themeClass);
+            }
+            
+            animateBoardEntrance(villainId, boardElement) {
+                return new Promise((resolve) => {
+                    boardElement.classList.add('board-transition-enter');
+                    
+                    // Animer chaque lieu avec un délai
+                    const locations = boardElement.querySelectorAll('.location-card');
+                    locations.forEach((location, index) => {
+                        setTimeout(() => {
+                            this.animateLocationEntrance(location, villainId);
+                        }, index * 150);
+                    });
+                    
+                    setTimeout(() => {
+                        boardElement.classList.remove('board-transition-enter');
+                        this.startAmbientEffects(villainId, boardElement);
+                        resolve();
+                    }, this.transitionDuration);
+                });
+            }
+            
+            animateLocationEntrance(locationElement, villainId) {
+                locationElement.style.opacity = '0';
+                locationElement.style.transform = 'translateY(30px) scale(0.8)';
+                
+                setTimeout(() => {
+                    locationElement.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    locationElement.style.opacity = '1';
+                    locationElement.style.transform = 'translateY(0) scale(1)';
+                    
+                    // Effet de particules à l'arrivée
+                    this.createLocationParticles(locationElement, villainId);
+                }, 50);
+            }
+            
+            highlightCurrentLocation(locationElement, villainId) {
+                // Retirer la surbrillance des autres lieux
+                document.querySelectorAll('.location-card.active')
+                    .forEach(loc => loc.classList.remove('active'));
+                
+                // Ajouter la surbrillance au lieu actuel
+                locationElement.classList.add('active');
+                
+                // Animation spéciale d'arrivée
+                this.playLocationArrivalAnimation(locationElement, villainId);
+            }
+            
+            playLocationArrivalAnimation(locationElement, villainId) {
+                const effects = this.villainEffects[villainId];
+                
+                // Créer une onde d'énergie
+                const ripple = document.createElement('div');
+                ripple.className = 'location-ripple';
+                ripple.style.cssText = `
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, ${effects.ambientColor}40 0%, transparent 70%);
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    z-index: 1000;
+                `;
+                
+                locationElement.appendChild(ripple);
+                
+                // Animation de l'onde
+                ripple.animate([
+                    { width: '0px', height: '0px', opacity: 1 },
+                    { width: '200px', height: '200px', opacity: 0 }
+                ], {
+                    duration: 800,
+                    easing: 'ease-out'
+                }).onfinish = () => ripple.remove();
+                
+                // Particules thématiques
+                this.createThematicParticles(locationElement, villainId);
+            }
+            
+            createLocationParticles(locationElement, villainId) {
+                const effects = this.villainEffects[villainId];
+                const particles = effects.particles.split('');
+                
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        this.createSingleParticle(
+                            locationElement, 
+                            particles[Math.floor(Math.random() * particles.length)]
+                        );
+                    }, i * 200);
+                }
+            }
+            
+            createThematicParticles(locationElement, villainId) {
+                const effects = this.villainEffects[villainId];
+                const particles = effects.particles.split('');
+                const rect = locationElement.getBoundingClientRect();
+                
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => {
+                        this.createFloatingParticle(
+                            rect.left + rect.width / 2,
+                            rect.top + rect.height / 2,
+                            particles[Math.floor(Math.random() * particles.length)],
+                            effects.ambientColor
+                        );
+                    }, i * 100);
+                }
+            }
+            
+            createSingleParticle(container, emoji) {
+                const particle = document.createElement('div');
+                particle.textContent = emoji;
+                particle.style.cssText = `
+                    position: absolute;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    font-size: ${12 + Math.random() * 8}px;
+                    pointer-events: none;
+                    z-index: 1000;
+                    opacity: 0;
+                `;
+                
+                container.appendChild(particle);
+                
+                // Animation de particule
+                particle.animate([
+                    { opacity: 0, transform: 'translateY(0px) scale(0.5)' },
+                    { opacity: 1, transform: 'translateY(-20px) scale(1)' },
+                    { opacity: 0, transform: 'translateY(-40px) scale(0.5)' }
+                ], {
+                    duration: 2000,
+                    easing: 'ease-out'
+                }).onfinish = () => particle.remove();
+            }
+            
+            createFloatingParticle(x, y, emoji, color) {
+                const particle = document.createElement('div');
+                particle.textContent = emoji;
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${x}px;
+                    top: ${y}px;
+                    font-size: 20px;
+                    pointer-events: none;
+                    z-index: 10000;
+                    filter: drop-shadow(0 0 10px ${color});
+                `;
+                
+                document.body.appendChild(particle);
+                
+                // Trajectoire aléatoire
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 100 + Math.random() * 100;
+                const endX = x + Math.cos(angle) * distance;
+                const endY = y + Math.sin(angle) * distance;
+                
+                particle.animate([
+                    { opacity: 1, transform: 'translate(-50%, -50%) scale(0.5) rotate(0deg)' },
+                    { opacity: 1, transform: `translate(${endX - x - 10}px, ${endY - y - 10}px) scale(1) rotate(360deg)` },
+                    { opacity: 0, transform: `translate(${endX - x - 10}px, ${endY - y - 30}px) scale(0.3) rotate(720deg)` }
+                ], {
+                    duration: 3000,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                }).onfinish = () => particle.remove();
+            }
+            
+            startAmbientEffects(villainId, boardElement) {
+                // Arrêter les effets précédents
+                this.stopAmbientEffects();
+                
+                // Commencer les nouveaux effets
+                this.ambientInterval = setInterval(() => {
+                    this.createAmbientEffect(villainId, boardElement);
+                }, 5000 + Math.random() * 5000);
+            }
+            
+            stopAmbientEffects() {
+                if (this.ambientInterval) {
+                    clearInterval(this.ambientInterval);
+                    this.ambientInterval = null;
+                }
+            }
+            
+            createAmbientEffect(villainId, boardElement) {
+                const effects = this.villainEffects[villainId];
+                const locations = boardElement.querySelectorAll('.location-card');
+                
+                if (locations.length > 0) {
+                    const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+                    
+                    // Effet visuel subtil
+                    this.addTemporaryEffect(randomLocation, effects.theme);
+                    
+                    // Particule occasionnelle
+                    if (Math.random() < 0.3) {
+                        this.createLocationParticles(randomLocation, villainId);
+                    }
+                }
+            }
+            
+            addTemporaryEffect(element, theme) {
+                const effectClass = `${theme}-effect`;
+                element.classList.add(effectClass);
+                
+                setTimeout(() => {
+                    element.classList.remove(effectClass);
+                }, 2000);
+            }
+            
+            cleanup() {
+                this.stopAmbientEffects();
+            }
+        }
+
+        // Instance globale des animations
+        let villainBoardAnimations;
+
+        // Initialiser les animations après le chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            villainBoardAnimations = new VillainBoardAnimations();
+            
+            // Appliquer le thème initial si un méchant est sélectionné
+            if (gameState.currentPlayer && VILLAINS[gameState.currentPlayer.toLowerCase()]) {
+                villainBoardAnimations.switchToVillainBoard(gameState.currentPlayer.toLowerCase());
+            }
+        });
+
+        // Fonction pour changer de méchant avec animations
+        function switchVillain(villainId) {
+            if (villainBoardAnimations && VILLAINS[villainId]) {
+                villainBoardAnimations.switchToVillainBoard(villainId);
+                gameState.currentPlayer = VILLAINS[villainId].name;
+                showNotification(`🎭 Vous incarnez maintenant ${VILLAINS[villainId].name}`, 'success');
+            }
+        }
+
+        // Sélection d'un méchant depuis le menu
+        function selectVillainForGame(villainId) {
+            // Désélectionner tous les méchants
+            document.querySelectorAll('.villain-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Sélectionner le nouveau méchant
+            const villainCard = document.querySelector(`[data-villain="${villainId}"]`);
+            if (villainCard && !villainCard.classList.contains('coming-soon')) {
+                villainCard.classList.add('selected');
+                
+                // Mettre à jour l'état du jeu
+                const villain = VILLAINS[villainId];
+                if (villain) {
+                    gameState.currentPlayer = villain.name;
+                    gameState.playerPower = villain.startingPower;
+                    
+                    // Notification avec informations du méchant
+                    showNotification(`🎭 ${villain.name} sélectionné !\n${villain.description}\n\n🎯 Objectif: ${villain.victoryCondition}`, 'success');
+                }
+            } else if (villainCard && villainCard.classList.contains('coming-soon')) {
+                showNotification('🚧 Ce méchant sera disponible dans une prochaine mise à jour !', 'info');
+            }
+        }
+
+        // ===== SYSTÈME DE JEU OFFICIEL DISNEY VILLAINOUS =====
+        
+        // Variables d'état du jeu selon les règles officielles
+        const OFFICIAL_GAME_STATE = {
+            phase: 'move', // 'move', 'actions', 'draw', 'discard'
+            actionsRemaining: 0,
+            handLimit: 4,
+            maxHandSize: 7,
+            villainDeckSize: 30,
+            fateDeckSize: 15
+        };
+
+        // Fonction pour créer et afficher des modales
+        function createGameModal(title, content) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center;
+                z-index: 10000;
+            `;
+            modal.innerHTML = `
+                <div style="background: var(--surface-dark); border-radius: 15px; border: 3px solid var(--primary-gold);
+                           max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto;">
+                    <div style="background: var(--gradient-gold); color: var(--primary-dark); padding: 1rem;
+                               border-radius: 12px 12px 0 0; display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="margin: 0; font-family: 'Cinzel', serif;">${title}</h3>
+                        <button onclick="this.closest('div').parentElement.parentElement.remove()" 
+                                style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--primary-dark);">×</button>
+                    </div>
+                    <div style="padding: 1.5rem; color: var(--text-light);">
+                        ${content}
+                    </div>
+                </div>
+            `;
+            modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+            document.body.appendChild(modal);
+            return modal;
+        }
+
+        // Système de messages amélioré
+        function showGameMessage(message, type = 'info') {
+            const colors = { info: '#2196F3', success: '#4CAF50', warning: '#FF9800', error: '#F44336' };
+            const msg = document.createElement('div');
+            msg.textContent = message;
+            msg.style.cssText = `
+                position: fixed; top: 100px; right: 20px; padding: 1rem 1.5rem; border-radius: 10px;
+                color: white; font-weight: 600; z-index: 9999; background: ${colors[type] || colors.info};
+                transform: translateX(100%); transition: transform 0.3s ease; max-width: 300px;
+            `;
+            document.body.appendChild(msg);
+            setTimeout(() => msg.style.transform = 'translateX(0)', 100);
+            setTimeout(() => {
+                msg.style.transform = 'translateX(100%)';
+                setTimeout(() => msg.remove(), 300);
+            }, 3000);
+        }
+
+        // Démarrer le système officiel
+        function activateOfficialRules() {
+            // Copier l'état actuel vers le système officiel
+            Object.assign(OFFICIAL_GAME_STATE, {
+                currentPlayer: gameState.currentPlayer,
+                turnNumber: gameState.turnNumber,
+                playerPower: gameState.playerPower,
+                currentLocation: gameState.currentLocation
+            });
+
+            console.log('🎯 Système de règles officielles Disney Villainous activé !');
+            showGameMessage('Règles officielles activées ! Cliquez sur "Nouveau Tour" pour commencer.', 'success');
+
+            // Ajouter un bouton pour démarrer un tour officiel
+            const gameBoard = document.querySelector('.game-board');
+            if (gameBoard && !document.getElementById('officialTurnBtn')) {
+                const button = document.createElement('button');
+                button.id = 'officialTurnBtn';
+                button.textContent = '🎯 Démarrer Tour Officiel';
+                button.style.cssText = `
+                    background: var(--gradient-gold); color: var(--primary-dark); border: none;
+                    padding: 0.8rem 1.5rem; border-radius: 10px; font-weight: 600; cursor: pointer;
+                    position: absolute; top: 10px; right: 10px; z-index: 100;
+                `;
+                button.onclick = startOfficialTurn;
+                gameBoard.appendChild(button);
+            }
+        }
+
+        // Démarrer un tour selon les règles officielles
+        function startOfficialTurn() {
+            OFFICIAL_GAME_STATE.phase = 'move';
+            OFFICIAL_GAME_STATE.actionsRemaining = 0;
+            
+            const modal = createGameModal(
+                `🎯 Tour ${gameState.turnNumber} - Phase: ${TURN_PHASES.MOVE.name}`,
+                `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">${TURN_PHASES.MOVE.icon}</div>
+                    <h4>${TURN_PHASES.MOVE.description}</h4>
+                    <p>Vous êtes actuellement à : <strong>${gameState.currentLocation}</strong></p>
+                    <p>Cliquez sur un lieu adjacent pour vous y déplacer.</p>
+                    <div style="margin-top: 1rem;">
+                        <button onclick="this.closest('div').parentElement.parentElement.parentElement.remove(); highlightAdjacentLocations();"
+                                style="background: var(--primary-gold); color: var(--primary-dark); border: none; 
+                                       padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Voir les lieux disponibles
+                        </button>
+                    </div>
+                </div>
+                `
+            );
+
+            // Surligner les lieux adjacents
+            setTimeout(() => highlightAdjacentLocations(), 500);
+        }
+
+        // Surligner les lieux adjacents
+        function highlightAdjacentLocations() {
+            const locations = document.querySelectorAll('.location-card');
+            const currentLoc = gameState.currentLocation;
+            const locationOrder = ['palace', 'throne', 'cave', 'chamber'];
+            const currentIndex = locationOrder.indexOf(currentLoc);
+
+            locations.forEach((loc, index) => {
+                const locId = loc.dataset.location;
+                const locIndex = locationOrder.indexOf(locId);
+                const isAdjacent = Math.abs(currentIndex - locIndex) === 1 || 
+                                   Math.abs(currentIndex - locIndex) === 3; // wrap-around
+
+                if (isAdjacent && locId !== currentLoc) {
+                    loc.style.border = '3px solid #00FF00';
+                    loc.style.animation = 'pulse-green 1.5s infinite';
+                    loc.style.cursor = 'pointer';
+                    
+                    // Ajouter un gestionnaire temporaire
+                    const tempHandler = function() {
+                        moveToLocationOfficial(locId);
+                        loc.removeEventListener('click', tempHandler);
+                    };
+                    loc.addEventListener('click', tempHandler);
+                } else {
+                    loc.style.border = '';
+                    loc.style.animation = '';
+                }
+            });
+
+            showGameMessage('Cliquez sur un lieu adjacent (surligné en vert)', 'info');
+        }
+
+        // Déplacement officiel
+        function moveToLocationOfficial(newLocationId) {
+            // Nettoyer les surlignages
+            document.querySelectorAll('.location-card').forEach(loc => {
+                loc.style.border = '';
+                loc.style.animation = '';
+            });
+
+            // Effectuer le déplacement
+            selectLocation(newLocationId);
+            gameState.currentLocation = newLocationId;
+
+            // Passer à la phase d'actions
+            OFFICIAL_GAME_STATE.phase = 'actions';
+            startActionsPhase();
+        }
+
+        // Phase d'actions
+        function startActionsPhase() {
+            const currentLocation = document.querySelector(`[data-location="${gameState.currentLocation}"]`);
+            const locationName = currentLocation.querySelector('.location-name').textContent;
+            const actions = currentLocation.querySelectorAll('.action-icon');
+            
+            OFFICIAL_GAME_STATE.actionsRemaining = actions.length;
+
+            const modal = createGameModal(
+                `⚡ Phase Actions - ${locationName}`,
+                `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">⚡</div>
+                    <h4>Effectuez toutes les actions disponibles</h4>
+                    <p>Actions restantes : <span id="actionsCount">${OFFICIAL_GAME_STATE.actionsRemaining}</span></p>
+                    <div style="margin-top: 1rem;">
+                        <p>Cliquez sur les icônes d'action dans le lieu pour les effectuer.</p>
+                        <button onclick="this.closest('div').parentElement.parentElement.parentElement.remove(); highlightActions();"
+                                style="background: var(--primary-gold); color: var(--primary-dark); border: none; 
+                                       padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Commencer les actions
+                        </button>
+                    </div>
+                </div>
+                `
+            );
+
+            setTimeout(() => highlightActions(), 500);
+        }
+
+        // Surligner les actions disponibles
+        function highlightActions() {
+            const currentLocation = document.querySelector(`[data-location="${gameState.currentLocation}"]`);
+            const actions = currentLocation.querySelectorAll('.action-icon');
+            
+            actions.forEach((action, index) => {
+                action.style.border = '2px solid #FFD700';
+                action.style.animation = 'pulse 1s infinite';
+                
+                // Ajouter gestionnaire temporaire
+                const tempHandler = function() {
+                    executeAction(action, tempHandler);
+                };
+                action.addEventListener('click', tempHandler);
+            });
+
+            showGameMessage('Cliquez sur les actions disponibles (surlignées)', 'info');
+        }
+
+        // Exécuter une action
+        function executeAction(actionElement, handler) {
+            const title = actionElement.title || actionElement.textContent;
+            
+            // Retirer le surlignage
+            actionElement.style.border = '';
+            actionElement.style.animation = '';
+            actionElement.removeEventListener('click', handler);
+            
+            // Exécuter l'action
+            if (title.includes('Pouvoir') || actionElement.textContent === '💰') {
+                const powerGain = parseInt(title.match(/\d+/)?.[0] || '1');
+                gameState.playerPower += powerGain;
+                updatePowerDisplay();
+                showGameMessage(`+${powerGain} Pouvoir ! Total: ${gameState.playerPower}`, 'success');
+            } else if (title.includes('Carte') || actionElement.textContent === '🃏') {
+                showGameMessage('Action Jouer une Carte exécutée', 'success');
+            } else if (actionElement.textContent === '⚔️') {
+                showGameMessage('Action Attaque exécutée', 'success');
+            } else if (actionElement.textContent === '🗑️') {
+                showGameMessage('Action Défausse exécutée', 'success');
+            } else if (actionElement.textContent === '🔮') {
+                showGameMessage('Action Fatalité exécutée', 'success');
+            } else {
+                showGameMessage('Action exécutée', 'success');
+            }
+
+            // Décrémenter les actions restantes
+            OFFICIAL_GAME_STATE.actionsRemaining--;
+            const countElement = document.getElementById('actionsCount');
+            if (countElement) {
+                countElement.textContent = OFFICIAL_GAME_STATE.actionsRemaining;
+            }
+
+            // Vérifier si toutes les actions sont terminées
+            if (OFFICIAL_GAME_STATE.actionsRemaining <= 0) {
+                setTimeout(() => {
+                    // Fermer la modal actuelle
+                    const currentModal = document.querySelector('div[style*="position: fixed"]');
+                    if (currentModal) currentModal.remove();
+                    
+                    // Passer à la phase de pioche
+                    startDrawPhase();
+                }, 1000);
+            }
+        }
+
+        // Phase de pioche
+        function startDrawPhase() {
+            OFFICIAL_GAME_STATE.phase = 'draw';
+            const currentHandSize = document.querySelectorAll('.cards-container .game-card').length;
+            const cardsToDraw = Math.max(0, OFFICIAL_GAME_STATE.handLimit - currentHandSize);
+
+            const modal = createGameModal(
+                '🃏 Phase Pioche',
+                `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🃏</div>
+                    <h4>Piochez jusqu'à avoir 4 cartes en main</h4>
+                    <p>Cartes en main : ${currentHandSize}</p>
+                    <p>Cartes à piocher : ${cardsToDraw}</p>
+                    <div style="margin-top: 1rem;">
+                        <button onclick="drawCardsOfficial(${cardsToDraw}); this.closest('div').parentElement.parentElement.parentElement.remove();"
+                                style="background: var(--primary-gold); color: var(--primary-dark); border: none; 
+                                       padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Piocher ${cardsToDraw} carte(s)
+                        </button>
+                    </div>
+                </div>
+                `
+            );
+        }
+
+        // Piocher des cartes
+        function drawCardsOfficial(count) {
+            if (count > 0) {
+                showGameMessage(`Vous piochez ${count} carte(s)`, 'info');
+                // Simuler la pioche en ajoutant des cartes factices
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        if (typeof drawVillainCard === 'function') {
+                            drawVillainCard();
+                        }
+                    }, i * 200);
+                }
+            }
+
+            // Vérifier si défausse nécessaire
+            setTimeout(() => {
+                const finalHandSize = document.querySelectorAll('.cards-container .game-card').length;
+                if (finalHandSize > OFFICIAL_GAME_STATE.maxHandSize) {
+                    startDiscardPhase(finalHandSize - OFFICIAL_GAME_STATE.maxHandSize);
+                } else {
+                    endTurnOfficial();
+                }
+            }, count * 200 + 500);
+        }
+
+        // Phase de défausse
+        function startDiscardPhase(cardsToDiscard) {
+            const modal = createGameModal(
+                '🗑️ Phase Défausse',
+                `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">🗑️</div>
+                    <h4>Vous avez plus de 7 cartes en main</h4>
+                    <p>Vous devez défausser ${cardsToDiscard} carte(s)</p>
+                    <div style="margin-top: 1rem;">
+                        <button onclick="this.closest('div').parentElement.parentElement.parentElement.remove(); highlightCardsForDiscard();"
+                                style="background: var(--primary-gold); color: var(--primary-dark); border: none; 
+                                       padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Choisir les cartes à défausser
+                        </button>
+                    </div>
+                </div>
+                `
+            );
+        }
+
+        // Terminer le tour
+        function endTurnOfficial() {
+            gameState.turnNumber++;
+            
+            const modal = createGameModal(
+                '✅ Fin du Tour',
+                `
+                <div style="text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 1rem;">✅</div>
+                    <h4>Tour ${gameState.turnNumber - 1} terminé !</h4>
+                    <p>Préparation du tour ${gameState.turnNumber}...</p>
+                    <div style="margin-top: 1rem;">
+                        <button onclick="this.closest('div').parentElement.parentElement.parentElement.remove(); setTimeout(() => startOfficialTurn(), 1000);"
+                                style="background: var(--primary-gold); color: var(--primary-dark); border: none; 
+                                       padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600;">
+                            Tour suivant
+                        </button>
+                    </div>
+                </div>
+                `
+            );
+
+            showGameMessage(`Tour ${gameState.turnNumber - 1} terminé ! Prêt pour le tour ${gameState.turnNumber}`, 'success');
+        }
+
+        // Activer le système au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                activateOfficialRules();
+            }, 2000); // Attendre que tout soit chargé
+        });
+
+        // Améliorer la fonction selectLocation existante
+        const originalSelectLocation = window.selectLocation;
+        window.selectLocation = function(location) {
+            if (originalSelectLocation) {
+                originalSelectLocation(location);
+            }
+            
+            // Ajouter les animations de lieu
+            const locationElement = document.querySelector(`[data-location="${location}"]`);
+            if (locationElement && villainBoardAnimations) {
+                const currentVillain = gameState.currentPlayer.toLowerCase().replace(' ', '_');
+                villainBoardAnimations.highlightCurrentLocation(locationElement, currentVillain);
+            }
+        };
+
+        // ===== FONCTIONS D'AFFICHAGE =====
+        
+        function updateDisplay() {
+            updateGameInfo();
+            updatePlayerHand();
+            updateDeckInfo();
+            updateLocationDisplay();
+        }
+
+        function updateGameInfo() {
+            // Mettre à jour les informations de base
+            document.getElementById('current-player').textContent = gameState.currentVillain.name;
+            document.getElementById('power-amount').textContent = gameState.power;
+            document.getElementById('current-phase').textContent = TURN_PHASES[gameState.phase];
+            document.getElementById('actions-remaining').textContent = gameState.actionsRemaining;
+        }
+
+        function updatePlayerHand() {
+            const handContainer = document.getElementById('hand-container') || createHandContainer();
+            handContainer.innerHTML = '';
+            
+            gameState.hand.forEach(card => {
+                const cardElement = createCardElement(card);
+                handContainer.appendChild(cardElement);
+            });
+        }
+
+        function createHandContainer() {
+            const container = document.createElement('div');
+            container.id = 'hand-container';
+            container.className = 'hand-container';
+            container.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                gap: 10px;
+                z-index: 1000;
+                background: rgba(0,0,0,0.8);
+                padding: 15px;
+                border-radius: 15px;
+                border: 2px solid #DAA520;
+                max-width: 90vw;
+                overflow-x: auto;
+            `;
+            document.body.appendChild(container);
+            return container;
+        }
+
+        function createCardElement(card) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'card-in-hand';
+            cardDiv.innerHTML = `
+                <div class="card-name">${card.name}</div>
+                <div class="card-cost">${card.cost || 0}💰</div>
+                <div class="card-effect">${card.effect}</div>
+            `;
+            cardDiv.style.cssText = `
+                min-width: 120px;
+                height: 160px;
+                background: linear-gradient(135deg, #1a1a2e, #16213e);
+                border: 2px solid #DAA520;
+                border-radius: 10px;
+                padding: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                color: white;
+                font-size: 0.8rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            `;
+            
+            cardDiv.addEventListener('click', () => playCard(card.id));
+            cardDiv.addEventListener('mouseenter', () => {
+                cardDiv.style.transform = 'translateY(-10px) scale(1.05)';
+                cardDiv.style.borderColor = '#FFA000';
+            });
+            cardDiv.addEventListener('mouseleave', () => {
+                cardDiv.style.transform = 'none';
+                cardDiv.style.borderColor = '#DAA520';
+            });
+            
+            return cardDiv;
+        }
+
+        function updateDeckInfo() {
+            const villain = gameState.currentVillain;
+            const deckInfo = document.getElementById('deck-info') || createDeckInfo();
+            deckInfo.innerHTML = `
+                <div>🃏 Deck Méchant: ${villain.villainDeck ? villain.villainDeck.length : 0}</div>
+                <div>💀 Deck Fatalité: ${villain.fateDeck ? villain.fateDeck.length : 0}</div>
+                <div>🎯 Main: ${gameState.hand.length}/7</div>
+            `;
+        }
+
+        function createDeckInfo() {
+            const info = document.createElement('div');
+            info.id = 'deck-info';
+            info.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: rgba(0,0,0,0.8);
+                color: white;
+                padding: 15px;
+                border-radius: 10px;
+                border: 2px solid #DAA520;
+                z-index: 1000;
+                font-family: 'Cinzel', serif;
+            `;
+            document.body.appendChild(info);
+            return info;
+        }
+
+        function updateLocationDisplay() {
+            // Mise à jour de l'affichage des lieux avec les marqueurs spéciaux
+            const locations = document.querySelectorAll('.location-card');
+            locations.forEach(locationEl => {
+                const locationId = locationEl.dataset.locationId;
+                
+                // Marqueurs de victoire
+                if (gameState.specialMechanics.cursedLocation === locationId) {
+                    if (!locationEl.querySelector('.curse-marker')) {
+                        const marker = document.createElement('div');
+                        marker.className = 'curse-marker';
+                        marker.innerHTML = '🔮';
+                        locationEl.appendChild(marker);
+                    }
+                }
+                
+                // Lieu contrôlé (Jafar)
+                if (gameState.specialMechanics.hypnotizedLocation && 
+                    gameState.specialMechanics.hypnotizedLocation.locationId === locationId) {
+                    locationEl.style.border = '3px solid #9932CC';
+                }
+            });
+        }
+
+        // Initialiser les decks lors de la sélection du méchant
+        function initializeVillainDecks(villainName) {
+            const villainCards = VILLAIN_CARDS[villainName];
+            if (villainCards) {
+                gameState.currentVillain.villainDeck = shuffleDeck([...villainCards.villain]);
+                gameState.currentVillain.fateDeck = shuffleDeck([...villainCards.fate]);
+                
+                // Distribuer la main de départ (4 cartes)
+                gameState.hand = [];
+                for (let i = 0; i < 4; i++) {
+                    drawCard('villain');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
